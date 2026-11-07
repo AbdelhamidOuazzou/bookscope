@@ -82,7 +82,7 @@ bookscope cluster start-shard 1
 
 | | |
 |---|---|
-| Règle de sélection (par défaut) | lecteurs avec `user_id` de 30000 à 39999 — confirmée par l'enseignante (`prepare --readers` pour en changer) |
+| Règle de sélection (par défaut) | lecteurs avec `user_id` de 30000 à 39999 (`prepare --readers` pour en changer) |
 | Lecteurs | 10 000 |
 | Notes stockées | 1 084 334 (après hold-out) |
 | Livres notés / catalogue | 9 999 / 10 000 |
@@ -138,7 +138,6 @@ Détails des choix (modèle, index, placement, politique F6, comportement en pan
 
 ## Feuille de route
 
-- [x] Faire enregistrer la règle de sélection auprès de l'enseignante
 - [ ] Partie I : mesurer une représentation alternative (ex. historique embarqué dans un
       document lecteur, ou relations « co-liked » précalculées) sur ≥ 2 requêtes
 - [ ] Partie II : configuration alternative (`--placement hashed` ou `--shards 3`) et analyse
