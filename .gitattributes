@@ -1,2 +1,4 @@
 * text=auto eol=lf
 *.pdf binary
+mvnw text eol=lf
+mvnw.cmd text eol=crlf

@@ -1,0 +1,144 @@
+{
+  "uri": "mongodb://localhost:27100",
+  "k": 10,
+  "truncate": 5,
+  "eligible_readers": 1870,
+  "evaluated_readers": 1870,
+  "runs": {
+    "f3_complete": {
+      "readers": 1870,
+      "precision": {
+        "mean": 0.01428,
+        "std_error": 0.00105
+      },
+      "recall": {
+        "mean": 0.0615,
+        "std_error": 0.00451
+      },
+      "hit": {
+        "mean": 0.10963,
+        "std_error": 0.00723
+      },
+      "share_top100": {
+        "mean": 0.09278,
+        "std_error": 0.00373
+      },
+      "median_popularity": {
+        "mean": 301.56283,
+        "std_error": 8.23137
+      },
+      "seconds": {
+        "mean": 0.10794,
+        "std_error": 8.1E-4
+      }
+    },
+    "baseline_complete": {
+      "readers": 1870,
+      "precision": {
+        "mean": 0.00428,
+        "std_error": 5.2E-4
+      },
+      "recall": {
+        "mean": 0.01827,
+        "std_error": 0.00237
+      },
+      "hit": {
+        "mean": 0.03797,
+        "std_error": 0.00442
+      },
+      "share_top100": {
+        "mean": 1.0,
+        "std_error": 0.0
+      },
+      "median_popularity": {
+        "mean": 2767.0885,
+        "std_error": 3.24492
+      },
+      "seconds": {
+        "mean": 0.0,
+        "std_error": 0.0
+      }
+    },
+    "f3_truncated": {
+      "readers": 1870,
+      "precision": {
+        "mean": 0.00524,
+        "std_error": 5.6E-4
+      },
+      "recall": {
+        "mean": 0.02415,
+        "std_error": 0.00275
+      },
+      "hit": {
+        "mean": 0.04813,
+        "std_error": 0.00495
+      },
+      "share_top100": {
+        "mean": 0.1708,
+        "std_error": 0.0056
+      },
+      "median_popularity": {
+        "mean": 454.73075,
+        "std_error": 12.37905
+      },
+      "seconds": {
+        "mean": 0.17881,
+        "std_error": 6.9E-4
+      }
+    },
+    "baseline_truncated": {
+      "readers": 1870,
+      "precision": {
+        "mean": 0.00428,
+        "std_error": 5.2E-4
+      },
+      "recall": {
+        "mean": 0.01827,
+        "std_error": 0.00237
+      },
+      "hit": {
+        "mean": 0.03797,
+        "std_error": 0.00442
+      },
+      "share_top100": {
+        "mean": 1.0,
+        "std_error": 0.0
+      },
+      "median_popularity": {
+        "mean": 2767.0885,
+        "std_error": 3.24492
+      },
+      "seconds": {
+        "mean": 0.0,
+        "std_error": 0.0
+      }
+    },
+    "f3_truncated_readers_only": {
+      "readers": 1870,
+      "precision": {
+        "mean": 0.00508,
+        "std_error": 5.5E-4
+      },
+      "recall": {
+        "mean": 0.02353,
+        "std_error": 0.00272
+      },
+      "hit": {
+        "mean": 0.04706,
+        "std_error": 0.0049
+      },
+      "share_top100": {
+        "mean": 0.18321,
+        "std_error": 0.00542
+      },
+      "median_popularity": {
+        "mean": 466.34519,
+        "std_error": 12.73667
+      },
+      "seconds": {
+        "mean": 0.04885,
+        "std_error": 3.3E-4
+      }
+    }
+  }
+}

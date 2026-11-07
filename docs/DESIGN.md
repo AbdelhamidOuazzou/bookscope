@@ -2,7 +2,7 @@
 
 ## Technologie
 
-**MongoDB** (serveur `mongod`, accès réseau). Les données sont naturellement des documents
+**Java 17** avec le driver officiel MongoDB et **MongoDB** (serveur `mongod`, accès réseau). Les données sont naturellement des documents
 (livre + ses tags) et des faits lecteur–livre ; MongoDB offre aussi un sharding natif
 (`mongos` + shards + serveur de configuration), ce qui permet de garder **le même code** pour les
 deux déploiements : seul l'URI change.
@@ -48,14 +48,14 @@ deux déploiements : seul l'URI change.
 | F6 | upsert par `(user_id, book_id)` ; la dernière note importée gagne ; l'ancienne va dans `rating_changes` | ré-import sans effet ; lignes invalides rejetées avec raison ; stats mises à jour |
 
 **Traçabilité** : chaque résultat contient les identifiants qui le justifient (lecteurs, livres,
-comptes de tags) et `python -m bookscope records --users … --books … --tags` liste les
+comptes de tags) et `java -jar target/bookscope.jar records --users … --books … --tags` liste les
 enregistrements stockés correspondants.
 
 ## Placement (Partie II)
 
 Configuration par défaut (`--placement range`, 2 shards) : l'activité des lecteurs est découpée
 en **plages contiguës de `user_id`** choisies pour que chaque shard ait le même nombre de notes
-(coupure à `user_id = 25952`). Le balancer est arrêté pour garder ce placement fixe. Tout
+(coupure à `user_id = 35004`). Le balancer est arrêté pour garder ce placement fixe. Tout
 l'historique d'un lecteur est donc sur une seule instance.
 
 | Requête | Instances contactées | Travail local | Échanges |
@@ -74,12 +74,28 @@ rien n'est récupérable tant que le shard est arrêté ; un vrai déploiement r
 shard (3 membres) pour basculer sur un secondaire. Les instances partagent ici CPU, mémoire et
 disque : ce n'est pas un cluster de machines indépendantes.
 
-## Premiers résultats (prototype, 31/10/2026)
+## Premiers résultats (lecteurs 30000 à 39999, 07/11/2026)
 
-- Chargement : 24 s en local, 38 s via `mongos` (2 shards) pour 1,19 M de notes.
-- `scripts/compare_deployments.py` : **14/14 requêtes identiques**, dont des lecteurs sur des
-  shards différents (7 / 48077, 2552 / 39052).
-- `scripts/verify_csv.py` : F2 (7 / 3022) et F4 (349 → 7) recalculés depuis les CSV, **identiques**.
-- Shard 1 arrêté : F2 (7 / 48077) et F3 (7) renvoient `unavailable` après ~15 s.
+- Chargement : 27 s en local, 42 s via `mongos` (2 shards) pour 1,08 M de notes.
+- `compare-deployments` : **14/14 requêtes identiques**, dont des lecteurs sur des
+  shards différents (32055 / 36002).
+- `verify-csv` : F2 (32055 / 36002) et F4 (349 → 7) recalculés depuis les CSV,
+  **identiques** sur les deux déploiements.
+- Shard 1 arrêté : F2 (32055 / 36002) et F3 (32055) renvoient `unavailable`.
 - Matériel : Windows 11, 8 cœurs, 16 Go ; MongoDB 9.0.2, cache WiredTiger 0,5 Go par `mongod` ;
-  Python 3.12, pymongo 4.19.
+  Java 17 (Temurin), mongodb-driver-sync 5.1.4.
+
+## E3 : qualité des recommandations (07/11/2026)
+
+1 870 lecteurs éligibles (au moins une note cachée ≥ 4), listes de 10 livres. Valeurs : moyenne ± erreur
+type. Mesures brutes : `results/e3_raw.csv`.
+
+| Méthode | Précision@10 | Rappel@10 | Au moins un bon livre | Part du top 100 |
+|---|---|---|---|---|
+| F3, historique complet | 0,0143 ± 0,0011 | 0,0615 ± 0,0045 | 11,0 % ± 0,7 | 9,3 % |
+| F3, 5 premières notes | 0,0052 ± 0,0006 | 0,0242 ± 0,0028 | 4,8 % ± 0,5 | 17,1 % |
+| F3, 5 premières notes, sans tags | 0,0051 ± 0,0006 | 0,0235 ± 0,0027 | 4,7 % ± 0,5 | 18,3 % |
+| Popularité | 0,0043 ± 0,0005 | 0,0183 ± 0,0024 | 3,8 % ± 0,4 | 100 % |
+
+Les comptes de tags couvrent tout Goodreads et peuvent inclure la période cachée. Les retirer change très
+peu le score sur les historiques tronqués, ce qui limite l'effet de cette fuite possible sur cette mesure.
