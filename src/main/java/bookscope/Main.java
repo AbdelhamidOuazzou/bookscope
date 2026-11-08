@@ -1,6 +1,8 @@
 package bookscope;
 
 import bookscope.tools.Args;
+import bookscope.tools.Bench;
+import bookscope.tools.AltModel;
 import bookscope.tools.Cluster;
 import bookscope.tools.CompareDeployments;
 import bookscope.tools.DownloadData;
@@ -61,6 +63,8 @@ public final class Main {
               verify-csv --f2 USER_A USER_B --f4 BOOK_A BOOK_B [--check URI]
               e3 [--uri URI] [--output DIR] [--k N] [--truncate N] [--limit N]
               representation [--uri URI] [--output DIR] [--samples N] [--repeat N] [--no-build]
+              bench [--uri URI] [--label NAME] [--shares 1,0.75,0.5,0.25,0] [--requests N] [--repeats N] [--warmup N] [--seed N]
+              alt-model [--uri URI] [--requests N] [--repeats N] [--seed N]
             """;
 
     private Main() {
@@ -225,6 +229,8 @@ public final class Main {
             case "representation" -> ExperimentRepresentation.run(args);
             case "time-deployments" -> TimeDeployments.run(args);
             case "serve" -> WebServer.run(args);
+            case "alt-model" -> AltModel.run(args);
+            case "bench" -> Bench.run(args);
             case "explore", "compare", "recommend", "trace", "interests", "update", "records", "info" -> code = service(command, args);
             default -> {
                 System.err.println("unknown command " + command + "\n\n" + USAGE);
