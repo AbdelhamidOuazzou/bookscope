@@ -74,6 +74,32 @@ rien n'est récupérable tant que le shard est arrêté ; un vrai déploiement r
 shard (3 membres) pour basculer sur un secondaire. Les instances partagent ici CPU, mémoire et
 disque : ce n'est pas un cluster de machines indépendantes.
 
+## Déploiement dans Docker (08/11/2026)
+
+Limite constatée : sur une seule machine, les instances partagent processeur, mémoire et disque, et
+les échanges entre `mongos` et les shards ne passent pas par un vrai réseau. Pour s'en rapprocher,
+`docker/docker-compose.yml` place chaque instance (config, shard0, shard1, `mongos`) dans un conteneur
+limité à 1 CPU et 1 Go, et ajoute 2 ms à chaque paquet sortant (`tc netem`), soit environ 4 ms par
+aller-retour. Même image MongoDB 9.0, même placement par plages (coupure à 35004).
+
+- `compare-deployments` entre le cluster local (27200) et Docker (27300) : **14/14 identiques**.
+- Temps médians sur 5 exécutions (ms, catalogue déjà chargé, `results/deployments_timing.csv`) :
+
+| Requête | Local 1 serveur | 2 shards, même machine | 2 shards, Docker |
+|---|---|---|---|
+| F2 même shard 32305/33065 | 14 | 11 | 46 |
+| F2 deux shards 32055/36002 | 10 | 12 | 44 |
+| F3 lecteur 32055 | 283 | 234 | 432 |
+| F4 349 → 7 | 428 | 474 | 600 |
+| F5 vampires/romance | 1 216 | 1 128 | 962 |
+
+  Les requêtes courtes (F2) sont dominées par les allers-retours réseau : environ 4 fois plus lentes
+  dans Docker. Les requêtes longues (F5) dépendent surtout du calcul et ne ralentissent pas.
+- Conteneur `shard1` arrêté : F2 (même sur shard0), F3 renvoient `unavailable` après 16 s
+  (erreur 133, aucun primaire pour `shard1`) ; après redémarrage, la même requête répond en 1,1 s.
+- Ce n'est toujours pas un vrai cluster : les conteneurs partagent le disque de la machine, et une
+  panne de la machine les arrête tous.
+
 ## Premiers résultats (lecteurs 30000 à 39999, 07/11/2026)
 
 - Chargement : 27 s en local, 42 s via `mongos` (2 shards) pour 1,08 M de notes.

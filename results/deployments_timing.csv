@@ -1,0 +1,15 @@
+request,mongodb://localhost:27100,mongodb://localhost:27200,mongodb://localhost:27300
+"F1 explore 7",260.4,371.8,379.9
+"F1 explore 349",101.1,164.2,234.3
+"F1 ambiguous title",71.6,39.4,46.4
+"F2 same shard 32305/33065",14.2,11.0,45.7
+"F2 cross shard 32055/36002",9.8,11.7,44.2
+"F2 too few shared 34590/39865",7.6,4.8,22.2
+"F2 truncated 33065(5)/32305",6.3,7.8,32.2
+"F3 shard0 reader 32055",282.5,234.4,431.5
+"F3 shard1 reader 36002",213.1,204.8,278.1
+"F3 truncated 32055 (5)",625.4,284.2,364.1
+"F4 349 -> 7",427.7,473.5,600.3
+"F4 9139 -> 2491",37.7,74.9,126.6
+"F5 vampires/romance",1215.7,1128.1,962.4
+"F5 fantasy/science-fiction",1233.1,1300.0,1103.6

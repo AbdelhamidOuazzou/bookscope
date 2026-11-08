@@ -8,6 +8,7 @@ import bookscope.tools.ExperimentE3;
 import bookscope.tools.ExperimentRepresentation;
 import bookscope.tools.LoadData;
 import bookscope.tools.PrepareData;
+import bookscope.tools.TimeDeployments;
 import bookscope.tools.VerifyCsv;
 import com.mongodb.MongoException;
 import java.io.FileDescriptor;
@@ -56,6 +57,7 @@ public final class Main {
               cluster start local | start sharded [--shards N] | stop all | stop-shard I | start-shard I | status | reset
               load [--uri URI] [--placement range|hashed] [--prepared DIR]
               compare-deployments [--a URI] [--b URI]
+              time-deployments [--uris URI,URI,...] [--repeat N] [--output DIR]
               verify-csv --f2 USER_A USER_B --f4 BOOK_A BOOK_B [--check URI]
               e3 [--uri URI] [--output DIR] [--k N] [--truncate N] [--limit N]
               representation [--uri URI] [--output DIR] [--samples N] [--repeat N] [--no-build]
@@ -221,6 +223,7 @@ public final class Main {
             case "verify-csv" -> code = VerifyCsv.run(args) ? 0 : 1;
             case "e3" -> ExperimentE3.run(args);
             case "representation" -> ExperimentRepresentation.run(args);
+            case "time-deployments" -> TimeDeployments.run(args);
             case "serve" -> WebServer.run(args);
             case "explore", "compare", "recommend", "trace", "interests", "update", "records", "info" -> code = service(command, args);
             default -> {

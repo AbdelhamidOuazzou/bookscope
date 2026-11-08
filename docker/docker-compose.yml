@@ -1,0 +1,63 @@
+# BookScope, sharded deployment in containers: each instance runs in its own container,
+# with its own CPU and memory limits and a network delay between containers.
+#
+#   docker compose -f docker/docker-compose.yml up -d --build
+#   java -jar target/bookscope.jar load --uri mongodb://localhost:27300 --placement range
+#   docker compose -f docker/docker-compose.yml stop shard1      # failure of one machine
+#
+# DELAY_MS (default 2) is added to every packet leaving a container: about 4 ms per round trip.
+name: bookscope
+
+x-mongo: &mongo
+  build: .
+  image: bookscope-mongo
+  cap_add: [NET_ADMIN]          # needed by tc to add the network delay
+  environment:
+    DELAY_MS: ${DELAY_MS:-2}
+  cpus: 1.0
+  mem_limit: 1g
+  networks: [cluster]
+
+services:
+  cfg:
+    <<: *mongo
+    hostname: cfg
+    command: ["mongod", "--configsvr", "--replSet", "cfg", "--port", "27019", "--bind_ip_all", "--wiredTigerCacheSizeGB", "0.25"]
+    volumes: [cfg-data:/data/configdb]
+
+  shard0:
+    <<: *mongo
+    hostname: shard0
+    command: ["mongod", "--shardsvr", "--replSet", "shard0", "--port", "27018", "--bind_ip_all", "--wiredTigerCacheSizeGB", "0.5"]
+    volumes: [shard0-data:/data/db]
+
+  shard1:
+    <<: *mongo
+    hostname: shard1
+    command: ["mongod", "--shardsvr", "--replSet", "shard1", "--port", "27018", "--bind_ip_all", "--wiredTigerCacheSizeGB", "0.5"]
+    volumes: [shard1-data:/data/db]
+
+  mongos:
+    <<: *mongo
+    hostname: mongos
+    command: ["mongos", "--configdb", "cfg/cfg:27019", "--port", "27017", "--bind_ip_all"]
+    ports: ["27300:27017"]
+    depends_on: [cfg, shard0, shard1]
+
+  init:
+    <<: *mongo
+    entrypoint: ["bash", "/init-cluster.sh"]
+    command: []
+    environment:
+      DELAY_MS: "0"
+    volumes: [./init-cluster.sh:/init-cluster.sh:ro]
+    depends_on: [cfg, shard0, shard1, mongos]
+    restart: "no"
+
+networks:
+  cluster: {}
+
+volumes:
+  cfg-data: {}
+  shard0-data: {}
+  shard1-data: {}

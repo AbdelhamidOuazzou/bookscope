@@ -90,6 +90,19 @@ bookscope --uri mongodb://localhost:27200 compare 32055 36002   # -> status: una
 bookscope cluster start-shard 1
 ```
 
+Déploiement distribué dans Docker (chaque instance dans son conteneur, 1 CPU et 1 Go chacun,
+2 ms de délai réseau ajoutés à chaque paquet sortant ; `mongos` sur le port 27300) :
+
+```bash
+docker compose -f docker/docker-compose.yml up -d --build      # cfg, shard0, shard1, mongos
+bookscope load --uri mongodb://localhost:27300 --placement range
+bookscope compare-deployments --a mongodb://localhost:27200 --b mongodb://localhost:27300
+bookscope time-deployments --uris mongodb://localhost:27100,mongodb://localhost:27200,mongodb://localhost:27300
+docker compose -f docker/docker-compose.yml stop shard1         # panne d'une "machine"
+docker compose -f docker/docker-compose.yml start shard1
+docker compose -f docker/docker-compose.yml down -v             # tout supprimer
+```
+
 ## Données et sélection
 
 | | |
