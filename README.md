@@ -9,16 +9,28 @@ livres (F4), liens entre centres d'intérêt (F5) et import idempotent de notes 
 tourne sur **un serveur MongoDB local** (Partie I) et sur **un cluster MongoDB shardé** de
 plusieurs instances sur la même machine (Partie II).
 
-> **État : prototype en Java.** Les six services, les deux déploiements, la comparaison
-> automatique et la vérification indépendante fonctionnent sur les vraies données.
-> E1 à E4 et la représentation alternative sont mesurées. Le rapport reste à finaliser
-> (voir [Feuille de route](#feuille-de-route)).
+> **État : version rendue.** Les six services, le serveur seul, le cluster de deux shards
+> (plages et hachage), la version Docker, la comparaison automatique et la vérification
+> indépendante fonctionnent sur les vraies données. E1 à E4 et la représentation alternative
+> sont mesurées ; les mesures brutes sont dans `results/`.
+>
+> Auteurs : Amine Kerfai et Abdelhamid Ouazzou.
+
+## Documents
+
+| Fichier | Contenu |
+|---|---|
+| [docs/Rapport_BookScope.pdf](docs/Rapport_BookScope.pdf) | le rapport (source : `docs/rapport_bookscope.tex`) |
+| [docs/BookScope_soutenance.pptx](docs/BookScope_soutenance.pptx) | la présentation de la soutenance |
+| [docs/DESIGN.md](docs/DESIGN.md) | les choix de conception et les premiers résultats |
+| `results/` | les mesures brutes (CSV) et leurs résumés (JSON) |
 
 ## Prérequis
 
 - Java 17+ (Maven est téléchargé automatiquement par `./mvnw`)
 - MongoDB 7+ avec `mongod` **et** `mongos` dans le `PATH` (testé avec MongoDB 9.0.2)
-- ~1 Go de disque pour les données et les bases
+- ~1 Go de disque pour les données et les bases (environ 3 Go pour E1 et E2 avec toutes les notes)
+- Facultatif : Docker Desktop, pour la version du cluster en conteneurs
 
 ## Démarrage rapide
 
@@ -86,8 +98,32 @@ bookscope interests dystopia young-adult --adjust-shared      # nouvelle règle 
 Représentation alternative, un document par lecteur (résultats dans `results/`) :
 
 ```bash
-bookscope representation --uri mongodb://localhost:27100 --output results
+bookscope representation --uri mongodb://localhost:27100 --output results   # representation_*
+bookscope alt-model --uri mongodb://localhost:27100 --requests 200          # alt_model_* (seconde mesure)
 ```
+
+Expériences E1 et E2 (outil `bench`, résultats `results/bench_<label>_*`). Chaque taille est
+préparée dans son propre dossier puis chargée à la place de la sélection courante :
+
+```bash
+# E1 : trois tailles sur le serveur seul, lots de 30 requêtes
+bookscope prepare --readers 30000 39999 --output data/prepared_s
+bookscope prepare --readers 20000 49999 --output data/prepared_m
+bookscope prepare --all-readers --output data/prepared_l
+bookscope load --uri mongodb://localhost:27100 --prepared data/prepared_s
+bookscope bench --uri mongodb://localhost:27100 --label e1_s --shares 1,0 --requests 30
+#   puis la même chose avec data/prepared_m (e1_m) et data/prepared_l (e1_l)
+
+# E2 : jeu complet, trois configurations, lots de 40 requêtes
+bookscope bench --uri mongodb://localhost:27100 --label e2_local --requests 40
+bookscope load --uri mongodb://localhost:27200 --placement range --prepared data/prepared_l
+bookscope bench --uri mongodb://localhost:27200 --label e2_range --requests 40
+bookscope load --uri mongodb://localhost:27200 --placement hashed --prepared data/prepared_l
+bookscope bench --uri mongodb://localhost:27200 --label e2_hashed --requests 40
+```
+
+Après E1 et E2, recharger la sélection de 10 000 lecteurs (`load` sans `--prepared`) avant de
+relancer les services, E3 ou E4, qui s'appuient sur `data/prepared/`.
 
 Perte d'une instance :
 
@@ -157,11 +193,14 @@ src/main/java/bookscope/
   Catalog.java   catalogue en mémoire, pondérations
   Explore.java   F1     Compare.java    F2     Recommend.java  F3
   Trace.java     F4     Interests.java  F5     Update.java     F6 + traçabilité
+  WebServer.java interface web (page dans src/main/resources/web/index.html)
   tools/
     DownloadData  PrepareData  LoadData  Cluster
-    CompareDeployments  VerifyCsv  ExperimentE3
+    CompareDeployments  TimeDeployments  VerifyCsv
+    ExperimentE3  ExperimentE4  ExperimentRepresentation  AltModel  Bench
 src/test/java/bookscope/ServicesTest.java
-docs/DESIGN.md   choix de modélisation, placement, premiers résultats
+docker/          cluster en conteneurs (docker-compose.yml)
+docs/            rapport, présentation, DESIGN.md
 results/         mesures brutes des expériences
 ```
 
@@ -170,18 +209,21 @@ Détails des choix (modèle, index, placement, politique F6, comportement en pan
 
 ## Feuille de route
 
-- [ ] Partie I : mesurer une représentation alternative (ex. historique embarqué dans un
-      document lecteur, ou relations « co-liked » précalculées) sur ≥ 2 requêtes
-- [ ] Partie II : configuration alternative (`--placement hashed` ou `--shards 3`) et analyse
-      des instances contactées pour une requête lecteur, une requête livre et F4
-- [ ] Panne : réponse F2/F3 plus fine (lecteur intact vs lecteur partiellement perdu)
-- [ ] E1 : trois tailles (dont les 6 M de notes : `prepare --all-readers`)
-- [ ] E2 : déposer la prédiction **avant** de mesurer ; charges personnalisée / exploration
-- [x] E3 : précision / rappel@k vs baseline popularité, historiques courts (k=5) et complets (à analyser dans le rapport)
-- [x] E4 (bonus) : `dystopia` / `young-adult` en F5 (livres portant les deux tags exclus des
-      deux côtés mais comptés dans le total de chaque lecteur) ; correction `--adjust-shared`
-      mesurée sur 14 paires, cas non résolu (lift 0,65 → 0,76)
-- [ ] Rapport (≤ 10 pages) et soutenance
+- [x] Les six services F1 à F6, en ligne de commande et dans l'interface web
+- [x] Partie I : représentation alternative (un document par lecteur) mesurée sur 2 requêtes ;
+      la représentation actuelle est gardée
+- [x] Partie II : deux shards par plages, seconde répartition par hachage, version Docker ;
+      résultats identiques (14/14) sur tous les déploiements
+- [x] Panne d'une instance : `unavailable`, sans résultat partiel
+- [x] E1 : trois tailles (1,08 M, 3,27 M et 5,94 M de notes)
+- [x] E2 : prédiction, puis serveur seul, plages et hachage avec cinq mélanges des deux charges
+- [x] E3 : précision et rappel à 10 contre la popularité, historiques complets et tronqués à 5
+- [x] E4 (bonus) : `dystopia` / `young-adult` en F5, correction `--adjust-shared` mesurée sur
+      14 paires, cas non résolu (lift 0,65 → 0,76)
+- [x] Vérification indépendante depuis les CSV (F2 et F4)
+- [x] Rapport et présentation
+- [ ] Piste : enregistrer le nombre de lecteurs au chargement, pour que F2 réponde en cas de
+      panne quand les deux lecteurs sont sur le shard en vie
 
 ## Données
 

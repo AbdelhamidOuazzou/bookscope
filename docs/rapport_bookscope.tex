@@ -273,7 +273,7 @@ B contre C & Pas de différence notable & Aucune requête n'utilise des plages d
 \caption{Prédiction.}
 \end{table}
 
-La charge personnalisée utilise F2 et F3, la charge d'exploration F1, F4 et F5. Un lot compte 30 requêtes identiques pour les trois configurations (graine 42), rejouées cinq fois après échauffement, avec une part de requêtes personnalisées allant de 100\,\% à 0\,\%.
+La charge personnalisée utilise F2 et F3, la charge d'exploration F1, F4 et F5. Un lot compte 40 requêtes identiques pour les trois configurations (graine 42), rejouées cinq fois après échauffement, avec une part de requêtes personnalisées allant de 100\,\% à 0\,\%.
 
 \begin{table}[H]
 \centering
@@ -293,7 +293,7 @@ La charge personnalisée utilise F2 et F3, la charge d'exploration F1, F4 et F5.
 0\,\% & 51,0\,s & 62,1\,s & 74,4\,s & 0,5 à 4,5\,s \\
 \bottomrule
 \end{tabular}
-\caption{Durée médiane d'un lot de 30 requêtes.}
+\caption{Durée médiane d'un lot de 40 requêtes.}
 \end{table}
 
 \begin{table}[H]
@@ -390,7 +390,7 @@ Ce qui reste trompeur est la formulation de la réponse : \og aucun lien au-del�
 \begin{itemize}
 \item Tout tourne sur une seule machine : les processus se partagent processeur et disque, donc la partie II ne dit pas ce que ferait un vrai cluster.
 \item Les shards n'ont pas de réplique : la perte d'un shard rend le service indisponible, même pour un lecteur de l'autre shard.
-\item E1 et E2 reposent sur 30 requêtes rejouées cinq fois : on obtient des écarts-types, pas des intervalles serrés.
+\item E1 et E2 reposent sur des lots de 30 et 40 requêtes rejoués cinq fois : on obtient des écarts-types, pas des intervalles serrés.
 \item E3 : les valeurs sont faibles, et l'écart avec la popularité n'est pas net à 5 notes.
 \item Les seuils (50 voisins, 5 livres communs, 10 notes, tag générique à 50\,\%) ont été fixés à la main.
 \item La liste des tags de statut est incomplète : all-time-favourites, par exemple, est traité comme un tag de contenu.
