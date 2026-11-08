@@ -1,0 +1,416 @@
+{
+  "label": "e2_hashed",
+  "uri": "mongodb://localhost:27200",
+  "requests_per_batch": 40,
+  "repeats": 5,
+  "warmup_requests": 10,
+  "seed": 42,
+  "cache": "warm: catalogue loaded and 10 requests run before timing, servers not restarted between runs",
+  "environment": {
+    "mongodb": "9.0.2",
+    "java": "17.0.12",
+    "os": "Windows 11 10.0",
+    "cpus": 8,
+    "jvm_max_mb": 8132,
+    "storage_mb": {
+      "data": 489.9392547607422,
+      "storage": 185.05859375,
+      "indexes": 663.58203125,
+      "total": 848.640625
+    },
+    "load": {
+      "_id": "load",
+      "selection_rule": "all readers",
+      "counts": {
+        "readers": 53424,
+        "books_in_catalogue": 10000,
+        "books_rated": 10000,
+        "ratings": 5939285,
+        "eval_set": 31776,
+        "update_batch": 5418,
+        "to_read": 912705,
+        "tags": 34250,
+        "book_tag_links": 999898
+      },
+      "layout": {
+        "placement": "hashed",
+        "shards": [
+          "shard0",
+          "shard1"
+        ]
+      },
+      "timings_s": {
+        "books": 2.75,
+        "tags": 1.03,
+        "ratings": 93.66,
+        "to_read": 18.47,
+        "indexes": 44.48,
+        "statistics": 27.66,
+        "total": 190.07
+      },
+      "storage_bytes": {
+        "dataSize": 5.13737844E8,
+        "storageSize": 1.93523712E8,
+        "indexSize": 6.94833152E8,
+        "totalSize": 8.88356864E8,
+        "per_shard": {
+          "shard1/localhost:27212": {
+            "dataSize": 2.45950574E8,
+            "storageSize": 9.1725824E7,
+            "indexSize": 3.47766784E8
+          },
+          "shard0/localhost:27211": {
+            "dataSize": 2.6778727E8,
+            "storageSize": 1.01797888E8,
+            "indexSize": 3.47066368E8
+          }
+        }
+      }
+    }
+  },
+  "instances": [
+    "shard0=localhost:27211",
+    "shard1=localhost:27212"
+  ],
+  "runs": [
+    {
+      "personal_share": 1.0,
+      "batch_seconds": {
+        "n": 5,
+        "median": 8.85,
+        "p25": 8.79,
+        "p75": 9.31,
+        "mean": 9.31,
+        "std": 1.03
+      },
+      "requests_per_second": 4.52,
+      "services_ms": {
+        "F2": {
+          "n": 100,
+          "median": 7.4,
+          "p25": 5.79,
+          "p75": 9.18,
+          "mean": 7.67,
+          "std": 2.39
+        },
+        "F3": {
+          "n": 100,
+          "median": 416.04,
+          "p25": 299.55,
+          "p75": 599.4,
+          "mean": 457.16,
+          "std": 206.93
+        }
+      },
+      "statuses": {
+        "insufficient_overlap": 60,
+        "ok": 140
+      },
+      "work_per_instance": {
+        "shard0": {
+          "opcounters.query": 355,
+          "opcounters.getmore": 390,
+          "opcounters.command": 48,
+          "metrics.document.returned": 2078935,
+          "metrics.queryExecutor.scanned": 7477945,
+          "metrics.queryExecutor.scannedObjects": 64555
+        },
+        "shard1": {
+          "opcounters.query": 345,
+          "opcounters.getmore": 410,
+          "opcounters.command": 52,
+          "metrics.document.returned": 2150780,
+          "metrics.queryExecutor.scanned": 7745335,
+          "metrics.queryExecutor.scannedObjects": 67705
+        }
+      }
+    },
+    {
+      "personal_share": 0.75,
+      "batch_seconds": {
+        "n": 5,
+        "median": 22.19,
+        "p25": 21.99,
+        "p75": 23.42,
+        "mean": 22.61,
+        "std": 0.9
+      },
+      "requests_per_second": 1.8,
+      "services_ms": {
+        "F1": {
+          "n": 25,
+          "median": 75.22,
+          "p25": 56.05,
+          "p75": 131.65,
+          "mean": 103.66,
+          "std": 63.32
+        },
+        "F2": {
+          "n": 85,
+          "median": 6.61,
+          "p25": 5.82,
+          "p75": 8.17,
+          "mean": 7.16,
+          "std": 2.28
+        },
+        "F3": {
+          "n": 60,
+          "median": 493.15,
+          "p25": 324.21,
+          "p75": 603.38,
+          "mean": 482.09,
+          "std": 151.65
+        },
+        "F4": {
+          "n": 20,
+          "median": 172.46,
+          "p25": 157.48,
+          "p75": 249.96,
+          "mean": 200.44,
+          "std": 63.07
+        },
+        "F5": {
+          "n": 10,
+          "median": 7548.05,
+          "p25": 7266.09,
+          "p75": 7777.49,
+          "mean": 7690.0,
+          "std": 619.74
+        }
+      },
+      "statuses": {
+        "insufficient_overlap": 35,
+        "ok": 165
+      },
+      "work_per_instance": {
+        "shard0": {
+          "opcounters.query": 326,
+          "opcounters.getmore": 420,
+          "opcounters.command": 114,
+          "metrics.document.returned": 2440481,
+          "metrics.queryExecutor.scanned": 9667569,
+          "metrics.queryExecutor.scannedObjects": 29849514
+        },
+        "shard1": {
+          "opcounters.query": 345,
+          "opcounters.getmore": 420,
+          "opcounters.command": 114,
+          "metrics.document.returned": 2518324,
+          "metrics.queryExecutor.scanned": 9992555,
+          "metrics.queryExecutor.scannedObjects": 30696745
+        }
+      }
+    },
+    {
+      "personal_share": 0.5,
+      "batch_seconds": {
+        "n": 5,
+        "median": 73.17,
+        "p25": 72.96,
+        "p75": 74.13,
+        "mean": 73.42,
+        "std": 0.95
+      },
+      "requests_per_second": 0.55,
+      "services_ms": {
+        "F1": {
+          "n": 25,
+          "median": 77.16,
+          "p25": 57.3,
+          "p75": 91.02,
+          "mean": 79.13,
+          "std": 30.39
+        },
+        "F2": {
+          "n": 50,
+          "median": 5.91,
+          "p25": 4.76,
+          "p75": 7.13,
+          "mean": 6.09,
+          "std": 1.67
+        },
+        "F3": {
+          "n": 45,
+          "median": 529.25,
+          "p25": 294.39,
+          "p75": 635.32,
+          "mean": 490.88,
+          "std": 232.85
+        },
+        "F4": {
+          "n": 40,
+          "median": 133.45,
+          "p25": 113.41,
+          "p75": 255.15,
+          "mean": 231.96,
+          "std": 189.28
+        },
+        "F5": {
+          "n": 40,
+          "median": 8472.3,
+          "p25": 7929.71,
+          "p75": 8716.18,
+          "mean": 8335.18,
+          "std": 713.72
+        }
+      },
+      "statuses": {
+        "insufficient_overlap": 30,
+        "ok": 170
+      },
+      "work_per_instance": {
+        "shard0": {
+          "opcounters.query": 362,
+          "opcounters.getmore": 559,
+          "opcounters.command": 340,
+          "metrics.document.returned": 4752932,
+          "metrics.queryExecutor.scanned": 30947362,
+          "metrics.queryExecutor.scannedObjects": 119259682
+        },
+        "shard1": {
+          "opcounters.query": 386,
+          "opcounters.getmore": 543,
+          "opcounters.command": 333,
+          "metrics.document.returned": 4856801,
+          "metrics.queryExecutor.scanned": 32122312,
+          "metrics.queryExecutor.scannedObjects": 122646437
+        }
+      }
+    },
+    {
+      "personal_share": 0.25,
+      "batch_seconds": {
+        "n": 5,
+        "median": 98.35,
+        "p25": 97.58,
+        "p75": 98.93,
+        "mean": 98.66,
+        "std": 2.13
+      },
+      "requests_per_second": 0.41,
+      "services_ms": {
+        "F1": {
+          "n": 25,
+          "median": 127.2,
+          "p25": 64.24,
+          "p75": 156.78,
+          "mean": 114.22,
+          "std": 48.87
+        },
+        "F2": {
+          "n": 30,
+          "median": 7.5,
+          "p25": 6.39,
+          "p75": 9.25,
+          "mean": 7.88,
+          "std": 2.03
+        },
+        "F3": {
+          "n": 35,
+          "median": 525.96,
+          "p25": 318.18,
+          "p75": 775.63,
+          "mean": 530.49,
+          "std": 288.67
+        },
+        "F4": {
+          "n": 55,
+          "median": 226.89,
+          "p25": 107.86,
+          "p75": 296.23,
+          "mean": 207.99,
+          "std": 100.04
+        },
+        "F5": {
+          "n": 55,
+          "median": 8507.43,
+          "p25": 7466.99,
+          "p75": 9189.68,
+          "mean": 8366.69,
+          "std": 1094.77
+        }
+      },
+      "statuses": {
+        "insufficient_overlap": 15,
+        "ok": 185
+      },
+      "work_per_instance": {
+        "shard0": {
+          "opcounters.query": 376,
+          "opcounters.getmore": 640,
+          "opcounters.command": 463,
+          "metrics.document.returned": 5817907,
+          "metrics.queryExecutor.scanned": 42364720,
+          "metrics.queryExecutor.scannedObjects": 163963390
+        },
+        "shard1": {
+          "opcounters.query": 422,
+          "opcounters.getmore": 642,
+          "opcounters.command": 458,
+          "metrics.document.returned": 6027244,
+          "metrics.queryExecutor.scanned": 43728629,
+          "metrics.queryExecutor.scannedObjects": 168619529
+        }
+      }
+    },
+    {
+      "personal_share": 0.0,
+      "batch_seconds": {
+        "n": 5,
+        "median": 74.38,
+        "p25": 73.94,
+        "p75": 81.17,
+        "mean": 76.54,
+        "std": 4.46
+      },
+      "requests_per_second": 0.54,
+      "services_ms": {
+        "F1": {
+          "n": 70,
+          "median": 66.96,
+          "p25": 56.2,
+          "p75": 117.25,
+          "mean": 104.99,
+          "std": 101.19
+        },
+        "F4": {
+          "n": 85,
+          "median": 126.78,
+          "p25": 98.94,
+          "p75": 162.85,
+          "mean": 152.57,
+          "std": 95.06
+        },
+        "F5": {
+          "n": 45,
+          "median": 8097.36,
+          "p25": 7551.58,
+          "p75": 8669.94,
+          "mean": 8051.99,
+          "std": 971.63
+        }
+      },
+      "statuses": {
+        "ok": 200
+      },
+      "work_per_instance": {
+        "shard0": {
+          "opcounters.query": 358,
+          "opcounters.getmore": 618,
+          "opcounters.command": 356,
+          "metrics.document.returned": 4623324,
+          "metrics.queryExecutor.scanned": 24974173,
+          "metrics.queryExecutor.scannedObjects": 134133963
+        },
+        "shard1": {
+          "opcounters.query": 406,
+          "opcounters.getmore": 632,
+          "opcounters.command": 356,
+          "metrics.document.returned": 4740418,
+          "metrics.queryExecutor.scanned": 25889192,
+          "metrics.queryExecutor.scannedObjects": 137942087
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "label": "e1_l",
+  "uri": "mongodb://localhost:27100",
+  "requests_per_batch": 30,
+  "repeats": 5,
+  "warmup_requests": 10,
+  "seed": 42,
+  "cache": "warm: catalogue loaded and 10 requests run before timing, servers not restarted between runs",
+  "environment": {
+    "mongodb": "9.0.2",
+    "java": "17.0.12",
+    "os": "Windows 11 10.0",
+    "cpus": 8,
+    "jvm_max_mb": 8132,
+    "storage_mb": {
+      "data": 489.9390411376953,
+      "storage": 175.71484375,
+      "indexes": 318.12890625,
+      "total": 493.84375
+    },
+    "load": {
+      "_id": "load",
+      "selection_rule": "all readers",
+      "counts": {
+        "readers": 53424,
+        "books_in_catalogue": 10000,
+        "books_rated": 10000,
+        "ratings": 5939285,
+        "eval_set": 31776,
+        "update_batch": 5418,
+        "to_read": 912705,
+        "tags": 34250,
+        "book_tag_links": 999898
+      },
+      "layout": {
+        "placement": "single server"
+      },
+      "timings_s": {
+        "books": 2.42,
+        "tags": 0.61,
+        "ratings": 50.87,
+        "to_read": 9.7,
+        "indexes": 63.92,
+        "statistics": 13.62,
+        "total": 141.18
+      },
+      "storage_bytes": {
+        "dataSize": 5.13737844E8,
+        "storageSize": 1.84209408E8,
+        "indexSize": 3.33316096E8,
+        "totalSize": 5.17525504E8
+      }
+    }
+  },
+  "instances": [
+    "local=localhost:27100"
+  ],
+  "runs": [
+    {
+      "personal_share": 1.0,
+      "batch_seconds": {
+        "n": 5,
+        "median": 5.11,
+        "p25": 4.96,
+        "p75": 5.19,
+        "mean": 5.12,
+        "std": 0.19
+      },
+      "requests_per_second": 5.88,
+      "services_ms": {
+        "F2": {
+          "n": 80,
+          "median": 3.22,
+          "p25": 2.57,
+          "p75": 4.01,
+          "mean": 3.38,
+          "std": 1.13
+        },
+        "F3": {
+          "n": 70,
+          "median": 321.75,
+          "p25": 270.93,
+          "p75": 487.32,
+          "mean": 361.12,
+          "std": 136.57
+        }
+      },
+      "statuses": {
+        "insufficient_overlap": 55,
+        "ok": 95
+      },
+      "work_per_instance": {
+        "local": {
+          "opcounters.query": 370,
+          "opcounters.getmore": 365,
+          "opcounters.command": 10,
+          "metrics.document.returned": 3128370,
+          "metrics.queryExecutor.scanned": 11126670,
+          "metrics.queryExecutor.scannedObjects": 94660
+        }
+      }
+    },
+    {
+      "personal_share": 0.0,
+      "batch_seconds": {
+        "n": 5,
+        "median": 48.94,
+        "p25": 48.05,
+        "p75": 48.95,
+        "mean": 47.96,
+        "std": 1.8
+      },
+      "requests_per_second": 0.61,
+      "services_ms": {
+        "F1": {
+          "n": 50,
+          "median": 32.66,
+          "p25": 25.07,
+          "p75": 51.37,
+          "mean": 59.03,
+          "std": 73.12
+        },
+        "F4": {
+          "n": 60,
+          "median": 59.48,
+          "p25": 48.86,
+          "p75": 76.81,
+          "mean": 80.97,
+          "std": 69.91
+        },
+        "F5": {
+          "n": 40,
+          "median": 5910.12,
+          "p25": 5180.49,
+          "p75": 6376.69,
+          "mean": 5799.72,
+          "std": 754.35
+        }
+      },
+      "statuses": {
+        "ok": 150
+      },
+      "work_per_instance": {
+        "local": {
+          "opcounters.query": 311,
+          "opcounters.getmore": 455,
+          "opcounters.command": 56,
+          "metrics.document.returned": 7064885,
+          "metrics.queryExecutor.scanned": 44758425,
+          "metrics.queryExecutor.scannedObjects": 241845360
+        }
+      }
+    }
+  ]
+}
