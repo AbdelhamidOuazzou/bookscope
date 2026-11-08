@@ -1,0 +1,430 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage[a4paper,left=2.2cm,right=2.2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{needspace}
+\usepackage[font=small,labelfont=it,textfont=it,labelsep=period,skip=4pt]{caption}
+\captionsetup{singlelinecheck=false,justification=raggedright}
+\usepackage{enumitem}
+\setlist[itemize]{label=\textbullet,leftmargin=1.4em,itemsep=2pt,topsep=2pt}
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{16pt}{6pt}
+\titlespacing*{\subsection}{0pt}{11pt}{4pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\widowpenalty=10000
+\clubpenalty=10000
+\raggedbottom
+\title{}
+\author{}
+\date{}
+\begin{document}
+\thispagestyle{plain}
+\begin{center}
+{\fontsize{26}{30}\selectfont\bfseries BookScope}\\[6pt]
+{\large Explorer le catalogue Goodbooks-10k par les liens entre lecteurs et livres}\\[6pt]
+Amine Kerfai et Abdelhamid Ouazzou
+\end{center}
+\vspace{4pt}
+\Needspace{14\baselineskip}\section{Présentation}
+BookScope est une application Java qui explore le catalogue Goodbooks-10k à partir des notes des lecteurs. Elle propose les six services du sujet, F1 à F6, en ligne de commande et dans une petite interface web.
+
+Le même code tourne sur deux déploiements : un serveur MongoDB seul (partie I), puis un cluster de deux shards sur la même machine (partie II). Seule l'adresse de connexion change. Une troisième version du cluster, dans des conteneurs Docker, rapproche un peu plus la mesure d'un vrai réseau.
+
+Toutes les mesures viennent d'un Windows 11 à 8 cœurs et 16\,Go de mémoire, avec MongoDB 9.0.2 (cache de 0,5\,Go par instance), Java 17 et le pilote mongodb-driver-sync 5.1.4. Le README décrit les commandes pour tout reproduire.
+
+\Needspace{14\baselineskip}\section{Données}
+\Needspace{12\baselineskip}\subsection{Sélection}
+Nous gardons les lecteurs d'identifiant 30000 à 39999, soit 10\,000 lecteurs sur 53\,424, avec tout leur historique.
+
+Ce choix agit sur les liens que l'on voit. Deux livres reliés surtout par des lecteurs hors de la tranche paraissent moins liés qu'ils ne le sont, et le livre 7803 n'a plus aucune note. Les comptes de tags de book\_tags.csv, eux, portent sur tout Goodreads et non sur nos lecteurs, ce qui compte pour E3.
+
+\Needspace{12\baselineskip}\subsection{Jeux mis de côté}
+Chaque lecteur est rangé dans un groupe, le SHA-1 de \og bookscope:identifiant\fg{} modulo 100. Les groupes 0 à 19 forment le jeu d'évaluation de E3 : les 3 dernières notes de ces lecteurs, soit 6\,012 notes. Les groupes 20 à 24 forment le lot de F6 : leurs 2 dernières notes, soit 1\,058. Les lecteurs diffèrent d'un jeu à l'autre et ces notes ne sont chargées dans aucune base. Comme ratings.csv n'a pas de dates, l'ordre des lignes sert d'ordre dans le temps.
+
+\Needspace{12\baselineskip}\subsection{Chiffres}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.4878\dimexpr\linewidth-4\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.5122\dimexpr\linewidth-4\tabcolsep\relax}}
+\toprule
+\textbf{Élément} & \textbf{Valeur} \\
+\midrule
+Lecteurs & 10\,000 \\
+\addlinespace[1pt]
+Notes stockées & 1\,084\,334 \\
+\addlinespace[1pt]
+Livres notés / catalogue & 9\,999 / 10\,000 \\
+\addlinespace[1pt]
+Entrées to\_read & 184\,504 \\
+\addlinespace[1pt]
+Tags / liens livre-tag & 34\,250 / 999\,898 \\
+\addlinespace[1pt]
+Notes par lecteur & min 19, médiane 108, p95 = 153, max 200 \\
+\addlinespace[1pt]
+Notes par livre & min 1, médiane 46, p95 = 378, max 4\,273 \\
+\bottomrule
+\end{tabular}
+\caption{Contenu de la sélection.}
+\end{table}
+
+Les livres sont très inégaux : 46 notes pour le livre médian, 4\,273 pour le plus noté. Les pondérations du chapitre 4 en tiennent compte. Les anomalies des fichiers sont en annexe A.
+
+\Needspace{14\baselineskip}\section{Modèle de données}
+MongoDB convient bien ici : les données sont des documents simples (un livre avec ses tags, une note) et le même code tourne sur un serveur ou sur un cluster. Le serveur est un processus à part, interrogé par le réseau.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2073\dimexpr\linewidth-6\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.3902\dimexpr\linewidth-6\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.4024\dimexpr\linewidth-6\tabcolsep\relax}}
+\toprule
+\textbf{Collection} & \textbf{Contenu} & \textbf{Index et répartition} \\
+\midrule
+books & métadonnées et tags triés par compte & book\_id ; copiée sur chaque instance \\
+\addlinespace[1pt]
+tags & nom, nombre de livres, tag de statut ou non & tag\_id, nom ; copiée \\
+\addlinespace[1pt]
+ratings & user\_id, book\_id, note, ordre & (user, book) ; (book, note, user) ; (user, note, book) ; (user, ordre) ; répartie par user\_id \\
+\addlinespace[1pt]
+to\_read & user\_id, book\_id, ordre & répartie par user\_id \\
+\addlinespace[1pt]
+user\_stats, book\_stats & nombre de notes et somme & tenues à jour par F6 \\
+\addlinespace[1pt]
+rating\_changes & ancienne note remplacée & journal de F6 \\
+\bottomrule
+\end{tabular}
+\caption{Collections.}
+\end{table}
+
+Une note est identifiée par le couple (lecteur, livre). Les deux index composés répondent aux deux questions les plus fréquentes : qui a aimé ce livre, et qu'a aimé ce lecteur. Les compteurs sont calculés au chargement puis tenus à jour par F6.
+
+Trois règles servent partout. Une note est positive à partir de 4. Dans F2, un livre pèse le logarithme du rapport entre le nombre de lecteurs et son nombre de notes : s'accorder sur un livre très lu compte moins. Un tag est générique quand il décrit un statut (to-read, owned, favorites, read-in-2016) ou quand au moins la moitié des livres le portent ; il ne prouve jamais un lien.
+
+\Needspace{14\baselineskip}\section{Services}
+Chaque service reçoit ses entrées à l'exécution et calcule sa réponse sur les données stockées. Tout résultat porte les identifiants qui le justifient, et la commande records affiche les enregistrements correspondants. Pour le lecteur 32055 et le livre 7, elle donne la note 3 et les tags de The Hobbit avec leurs comptes.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.0732\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2805\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.3415\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.3049\dimexpr\linewidth-8\tabcolsep\relax}}
+\toprule
+ & \textbf{Entrée et sortie} & \textbf{Principe et garde-fous} & \textbf{Exemple réel} \\
+\midrule
+F1 & Un titre ou un identifiant. Fiche du livre et livres liés. & Lecteurs communs (cosinus, lift) et tags spécifiques. Chaque lien dit sur quoi il repose : lectorat commun, tags spécifiques ou tags génériques seulement. Titre ambigu : liste, jamais de choix silencieux. & \og the hobbit\fg{} donne 4 livres (7, 466, 964, 1129). Le livre 349 (`Salem's Lot) : 629 notes, 427 lecteurs l'ont aimé, It en tête des livres liés. \\
+\addlinespace[1pt]
+F2 & Deux lecteurs. Livres communs, accords, désaccords, force du lien. & Corrélation de notes centrées par lecteur, pondérée contre la popularité, réduite si peu de livres communs. Sous 5 livres communs : insufficient\_overlap. & 32055 et 36002 : 84 livres communs, Jaccard 0,31, corrélation -0,04 (lien faible). Désaccord sur Bleak House (1 contre 5). 34590 et 39865 : 3 livres communs, pas de conclusion. \\
+\addlinespace[1pt]
+F3 & Un lecteur, troncature k facultative. Liste classée avec explications. & 50 lecteurs voisins, pénalité sur les livres populaires. Moins de 10 notes : 50\,\% voisins, 50\,\% profil de tags, avec mention de la troncature. Part du top 100 rapportée. & 32055 tronqué à 5 notes : Pride and Prejudice en tête, aimé par 36 des 50 voisins. \\
+\addlinespace[1pt]
+F4 & Deux livres. Verdict et chemins. & Lift des lecteurs communs contre l'indépendance, lecteurs actifs pondérés à la baisse, chemins à deux sauts en pénalisant le 1\,\% de livres les plus notés. Sinon : pas de connexion convaincante, avec raisons. & 349 vers 7 : 137 lecteurs communs pour 103 attendus, lift 1,33, connexion directe. \\
+\addlinespace[1pt]
+F5 & Deux tags. Livres communs et lecteurs attachés. & Un livre appartient à un intérêt si le tag figure dans ses 10 premiers, au moins 20 fois. Classement par lift sur les lecteurs, refait sans le 1\,\% de livres les plus notés et les lecteurs au-dessus du p95. & vampires et romance : New Moon (49), Eclipse (52), Dark Lover (433). \\
+\addlinespace[1pt]
+F6 & Un fichier jsonl ou csv. Compteurs d'import. & Identité (lecteur, livre). Si la note change, la dernière importée gagne et l'ancienne va dans rating\_changes. Lignes invalides rejetées avec motif. & Lot de 1\,058 notes : 1\,058 insertions, puis 0 insertion et 1\,058 lignes inchangées au deuxième import. \\
+\bottomrule
+\end{tabular}
+\caption{Les six services.}
+\end{table}
+
+\Needspace{14\baselineskip}\section{Partie I : représentation alternative}
+Le modèle de départ range une note par document. Nous l'avons confronté à un document par lecteur, qui contient toutes ses notes (10\,000 documents au lieu de 1\,085\,392). Les réponses sont identiques.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.3171\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2317\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2317\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2195\dimexpr\linewidth-8\tabcolsep\relax}}
+\toprule
+\textbf{Médiane de 5 répétitions} & \textbf{Une note par document} & \textbf{Un document par lecteur} & \textbf{Plus rapide} \\
+\midrule
+Historique d'un lecteur & 1,42\,ms & 0,47\,ms & 95 lecteurs sur 100 \\
+\addlinespace[1pt]
+Qui a aimé ce livre & 0,70\,ms & 1,18\,ms & 12 livres sur 100 \\
+\addlinespace[1pt]
+Taille (données, index) & 73\,Mo, 79\,Mo & 31\,Mo, 7\,Mo & - \\
+\bottomrule
+\end{tabular}
+\caption{Comparaison des deux représentations.}
+\end{table}
+
+La version par lecteur lit un historique trois fois plus vite et occupe bien moins de place, mais elle répond moins vite à \og qui a aimé ce livre\fg{}. Nous avons gardé une note par document, pour trois raisons : F1, F4 et F5, les services les plus coûteux, partent des livres ; la lecture d'un historique ne pèse qu'environ 1\,ms dans un F2 de 4\,ms ; et F6 ajoute une note sans réécrire un gros document.
+
+\Needspace{14\baselineskip}\section{Partie II : déploiement distribué}
+\Needspace{12\baselineskip}\subsection{Placement}
+Le cluster comprend un serveur de configuration, deux shards (ports 27211 et 27212, chacun avec son dossier de données) et un routeur mongos (port 27200) qui sert d'interface unique. Les collections ratings et to\_read sont réparties par lecteur ; books et tags sont copiés sur chaque instance. Le placement principal coupe user\_id en deux plages qui contiennent autant de notes (coupure à 35004). L'historique d'un lecteur tient donc sur un seul shard, alors qu'une question sur un livre doit interroger les deux.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2683\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2195\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2683\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2439\dimexpr\linewidth-8\tabcolsep\relax}}
+\toprule
+\textbf{Requête} & \textbf{Instances contactées} & \textbf{Travail local} & \textbf{Échanges} \\
+\midrule
+Un lecteur (F2, historique de F3) & 1, celle du lecteur & tout & aucun \\
+\addlinespace[1pt]
+Un livre (qui a aimé X) & les 2 & filtrage par index & listes de lecteurs vers mongos \\
+\addlinespace[1pt]
+Parcours lecteurs puis livres (F4, F1) & les 2, deux fois & agrégation partielle & sous-totaux fusionnés par mongos \\
+\bottomrule
+\end{tabular}
+\caption{Instances contactées (placement par plages).}
+\end{table}
+
+\Needspace{12\baselineskip}\subsection{Résultats identiques}
+compare-deployments envoie 14 requêtes aux deux déploiements, trie les résultats dans un ordre fixe avec un départage déterministe, puis compare. Les requêtes couvrent des titres ambigus, des lecteurs du même shard et de shards différents, un cas à peu de livres communs, des historiques tronqués, F3, F4 et F5. Les 14 résultats sont identiques entre le serveur seul et le cluster, et entre le cluster et Docker. La comparaison suppose les mêmes notes partout : après l'import du lot F6 sur un seul déploiement, presque toutes les requêtes différaient ; elles sont redevenues identiques une fois le même lot importé sur l'autre.
+
+\Needspace{12\baselineskip}\subsection{Seconde répartition et Docker}
+Nous avons essayé une seconde répartition : les lecteurs sont placés par hachage de user\_id au lieu de plages, et un lecteur reste entier sur un shard. Ses mesures sont en 7.2. La version Docker place chaque instance dans un conteneur limité à 1 processeur et 1\,Go, avec 2\,ms de délai réseau sur chaque paquet sortant.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.3293\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1585\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2683\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2439\dimexpr\linewidth-8\tabcolsep\relax}}
+\toprule
+\textbf{Médiane de 5 (ms)} & \textbf{1 serveur} & \textbf{2 shards, même machine} & \textbf{2 shards, Docker} \\
+\midrule
+F2, même shard & 14 & 11 & 46 \\
+\addlinespace[1pt]
+F2, deux shards & 10 & 12 & 44 \\
+\addlinespace[1pt]
+F3, lecteur 32055 & 283 & 234 & 432 \\
+\addlinespace[1pt]
+F4, 349 vers 7 & 428 & 474 & 600 \\
+\addlinespace[1pt]
+F5, vampires et romance & 1\,216 & 1\,128 & 962 \\
+\bottomrule
+\end{tabular}
+\caption{Temps sur la sélection de 10\,000 lecteurs.}
+\end{table}
+
+Les requêtes courtes sont environ quatre fois plus lentes dans Docker : elles se résument à des allers-retours de 4\,ms. Les requêtes longues, comme F5, ne ralentissent pas.
+
+\Needspace{12\baselineskip}\subsection{Perte d'une instance}
+Le shard 1 arrêté, F2 sur 32055 et 36002 puis F3 sur 32055 répondent status: unavailable, sans aucun résultat partiel : mongos refuse la requête (erreur 133). Dans Docker, la réponse arrive après 16\,s ; une fois le conteneur redémarré, la même requête prend 1,1\,s.
+
+Nous ne récupérons rien tant que le shard est arrêté, car chaque shard n'a qu'un membre. En production, chaque shard serait répliqué sur plusieurs machines et un secondaire prendrait le relais. Notre réponse est plus sévère que nécessaire : F2 échoue même quand les deux lecteurs sont sur le shard en vie (constaté dans Docker, cause non étudiée). Avec les plages, l'historique d'un lecteur est entier ou absent, jamais à moitié perdu. Enfin, ce n'est pas un cluster de machines indépendantes : processeur, mémoire, disque et alimentation sont partagés.
+
+\Needspace{14\baselineskip}\section{Expériences}
+\Needspace{12\baselineskip}\subsection{E1. Taille et performances}
+Trois sous-ensembles de données réelles sont chargés sur le serveur seul : 10\,000 lecteurs, 30\,000 (identifiants 20000 à 49999) et tous. Chaque mesure rejoue 30 requêtes tirées au hasard (graine 42), cinq fois, après 10 requêtes d'échauffement. Le catalogue est déjà en mémoire et les serveurs ne sont pas redémarrés entre deux essais.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.3049\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2317\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2317\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2317\dimexpr\linewidth-8\tabcolsep\relax}}
+\toprule
+ & \textbf{Petit} & \textbf{Moyen} & \textbf{Grand (tout)} \\
+\midrule
+Lecteurs & 10\,000 & 30\,000 & 53\,424 \\
+\addlinespace[1pt]
+Notes & 1\,084\,334 & 3\,273\,049 & 5\,939\,285 \\
+\addlinespace[1pt]
+Entrées to\_read & 184\,504 & 541\,282 & 912\,705 \\
+\addlinespace[1pt]
+Chargement & 21\,s & 77\,s & 141\,s \\
+\addlinespace[1pt]
+Taille (données et index) & 133\,Mo & 281\,Mo & 494\,Mo \\
+\addlinespace[1pt]
+F1, médiane & 23\,ms & 29\,ms & 33\,ms \\
+\addlinespace[1pt]
+F2, médiane & 4,2\,ms & 4,2\,ms & 3,2\,ms \\
+\addlinespace[1pt]
+F3, médiane & 122\,ms & 264\,ms & 322\,ms \\
+\addlinespace[1pt]
+F4, médiane & 34\,ms & 52\,ms & 60\,ms \\
+\addlinespace[1pt]
+F5, médiane & 901\,ms & 2\,989\,ms & 5\,910\,ms \\
+\bottomrule
+\end{tabular}
+\caption{E1.}
+\end{table}
+
+Le chargement et la taille suivent à peu près le nombre de notes. F2 reste stable, puisqu'elle ne lit que deux historiques. F3 est multipliée par 2,6 pour 5,5 fois plus de notes, et F5 par 6,6 : elle parcourt les lecteurs de chaque intérêt, puis recommence sans les cas populaires.
+
+\Needspace{12\baselineskip}\subsection{E2. Local contre distribué}
+Nous comparons, sur le jeu complet, trois configurations : un serveur seul (A), deux shards par plages (B) et deux shards par hachage (C). Avant les mesures, nous avions formulé la prédiction suivante.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2317\dimexpr\linewidth-6\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2805\dimexpr\linewidth-6\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.4878\dimexpr\linewidth-6\tabcolsep\relax}}
+\toprule
+\textbf{Question} & \textbf{Attendu} & \textbf{Raison} \\
+\midrule
+Charge personnalisée (F2, F3) & A le plus rapide & F2 lit deux historiques, ciblés sur un seul shard : le partage ajoute un saut par mongos sans économiser de travail. F3 cherche des voisins par livre, ce qui devient une interrogation des deux shards suivie d'une fusion, sur des processus qui se partagent processeur et disque. \\
+\addlinespace[1pt]
+Charge d'exploration (F1, F4, F5) & B et C proches de A, peut-être un peu plus rapides & Ces requêtes agrègent les notes de nombreux lecteurs : chaque shard traite la moitié des données en parallèle, avec au total deux fois le cache. La fusion par mongos et le disque partagé limitent le gain. \\
+\addlinespace[1pt]
+Mélange des deux & L'avance de A diminue quand l'exploration progresse, et peut s'inverser & Même raison que pour l'exploration. \\
+\addlinespace[1pt]
+B contre C & Pas de différence notable & Aucune requête n'utilise des plages de user\_id ; C répartit peut-être mieux le travail entre les shards. \\
+\bottomrule
+\end{tabular}
+\caption{Prédiction.}
+\end{table}
+
+La charge personnalisée utilise F2 et F3, la charge d'exploration F1, F4 et F5. Un lot compte 30 requêtes identiques pour les trois configurations (graine 42), rejouées cinq fois après échauffement, avec une part de requêtes personnalisées allant de 100\,\% à 0\,\%.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2771\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1807\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1807\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1807\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1807\dimexpr\linewidth-10\tabcolsep\relax}}
+\toprule
+\textbf{Part personnalisée} & \textbf{1 serveur} & \textbf{Plages} & \textbf{Hachage} & \textbf{Écart-type} \\
+\midrule
+100\,\% & 7,3\,s & 8,1\,s & 8,9\,s & 0,5 à 1,0\,s \\
+\addlinespace[1pt]
+75\,\% & 16,1\,s & 21,1\,s & 22,2\,s & 0,5 à 0,9\,s \\
+\addlinespace[1pt]
+50\,\% & 51,8\,s & 62,1\,s & 73,2\,s & 0,9 à 4,0\,s \\
+\addlinespace[1pt]
+25\,\% & 69,6\,s & 87,4\,s & 98,4\,s & 0,4 à 2,1\,s \\
+\addlinespace[1pt]
+0\,\% & 51,0\,s & 62,1\,s & 74,4\,s & 0,5 à 4,5\,s \\
+\bottomrule
+\end{tabular}
+\caption{Durée médiane d'un lot de 30 requêtes.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2771\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1807\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1807\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1807\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1807\dimexpr\linewidth-10\tabcolsep\relax}}
+\toprule
+\textbf{Médiane par service} & \textbf{1 serveur} & \textbf{Plages} & \textbf{Hachage} &  \\
+\midrule
+F2 (personnalisée) & 3,5\,ms & 7,2\,ms & 7,4\,ms &  \\
+\addlinespace[1pt]
+F3 (personnalisée) & 323\,ms & 377\,ms & 416\,ms &  \\
+\addlinespace[1pt]
+F4 (exploration) & 58\,ms & 119\,ms & 127\,ms &  \\
+\addlinespace[1pt]
+F5 (exploration) & 5\,504\,ms & 6\,596\,ms & 8\,097\,ms &  \\
+\bottomrule
+\end{tabular}
+\caption{Services pris séparément.}
+\end{table}
+
+Le serveur seul est le plus rapide dans les deux charges. Les configurations distribuées sont de 10 à 45\,\% plus lentes, le hachage derrière les plages : l'écart est net en exploration (62\,s contre 74\,s) et se perd dans le bruit en charge personnalisée. Une requête sur un lecteur ne touche qu'un shard dans les deux placements, mais elle traverse mongos, ce qui double le temps de F2.
+
+Le travail est pourtant bien partagé : en exploration, chaque shard examine environ 25 millions de clés (24,4 et 26,4 millions par plages, 25,0 et 25,9 par hachage) contre 50,8 millions pour le serveur seul. Le temps ne baisse pas pour autant. Nous pensons que les shards, le routeur et le programme Java se disputent les mêmes 8 cœurs et le même disque, et que mongos doit fusionner les résultats ; nous n'avons pas isolé ces causes. Le stockage passe de 494\,Mo à 761\,Mo (plages) et 849\,Mo (hachage), chaque shard gardant ses propres index. Ces résultats ne disent rien d'un cluster de machines séparées.
+
+Face à la prédiction, le bilan est mitigé. Pour la charge personnalisée, elle est juste : A gagne et F2 passe de 3,5 à 7,2\,ms à cause du saut par mongos. Pour l'exploration, elle est fausse : nous attendions B et C proches de A ou un peu plus rapides, alors que B met 22\,\% de temps en plus et C 46\,\%. Le croisement prévu quand l'exploration progresse n'apparaît pas. L'absence de différence entre B et C se vérifie à peu près en charge personnalisée, pas en exploration. Quant au cache doublé que nous invoquions, nous ne l'avons pas mesuré.
+
+\Needspace{12\baselineskip}\subsection{E3. Qualité des recommandations}
+Le jeu d'évaluation regroupe les 3 dernières notes de lecteurs jamais chargés. 1\,870 lecteurs sont éligibles, c'est-à-dire qu'au moins une de leurs notes cachées vaut 4 ou plus. Chaque liste compte 10 livres ; la référence propose les 10 livres les plus populaires que le lecteur n'a pas lus. Les valeurs sont des moyennes avec erreur type.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2683\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1829\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1829\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1951\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1707\dimexpr\linewidth-10\tabcolsep\relax}}
+\toprule
+\textbf{Méthode} & \textbf{Précision@10} & \textbf{Rappel@10} & \textbf{Au moins un bon livre} & \textbf{Part du top 100} \\
+\midrule
+F3, historique complet & 0,0143 \ensuremath{\pm} 0,0011 & 0,0615 \ensuremath{\pm} 0,0045 & 11,0\,\% & 9,3\,\% \\
+\addlinespace[1pt]
+F3, 5 premières notes & 0,0052 \ensuremath{\pm} 0,0006 & 0,0242 \ensuremath{\pm} 0,0028 & 4,8\,\% & 17,1\,\% \\
+\addlinespace[1pt]
+F3, 5 notes, sans tags & 0,0051 \ensuremath{\pm} 0,0006 & 0,0235 \ensuremath{\pm} 0,0027 & 4,7\,\% & 18,3\,\% \\
+\addlinespace[1pt]
+Popularité & 0,0043 \ensuremath{\pm} 0,0005 & 0,0183 \ensuremath{\pm} 0,0024 & 3,8\,\% & 100\,\% \\
+\bottomrule
+\end{tabular}
+\caption{E3.}
+\end{table}
+
+Avec l'historique complet, la précision de F3 vaut 3,3 fois celle de la popularité, et 11,0\,\% des lecteurs reçoivent au moins un bon livre, contre 3,8\,\%. Avec 5 notes, l'écart se resserre (0,0052 contre 0,0043) et les erreurs se recouvrent presque. Les valeurs absolues restent faibles : sur 10\,000 livres, il y a peu de notes cachées à retrouver.
+
+Les comptes de tags couvrent tout Goodreads et peuvent donc contenir la période cachée. Sans le profil de tags, le score des historiques tronqués passe de 0,0052 à 0,0051 : l'effet est faible sur cette mesure. Nous ne l'avons pas mesuré avec l'historique complet.
+
+\Needspace{12\baselineskip}\subsection{Vérification indépendante}
+Un script lit directement les fichiers CSV, sans base de données, et recalcule un résultat de F2 (32055 et 36002 : 84 livres communs, corrélation pondérée) et un de F4 (349 vers 7 : 427 et 2\,419 lecteurs qui ont aimé, 137 en commun, 103,29 attendus, lift 1,326). Les valeurs coïncident avec celles de BookScope sur les deux déploiements.
+
+\Needspace{12\baselineskip}\subsection{E4. Un cas difficile pour F5}
+Pour dystopia et young-adult, F5 répond qu'il n'y a aucun lien au-delà du hasard : lift de 0,65, et de 0,39 sans les livres populaires. Pourtant 209 livres portent les deux tags, soit 64\,\% des 329 livres dystopia, dont The Hunger Games (11\,065 et 25\,968 comptes de tags). Seuls 25 lecteurs sur 9\,999 sont attachés aux deux intérêts. Le résultat est trompeur : il ne parle que des lecteurs, alors que le lien visible dans le catalogue est fort.
+
+Une cause se trouve dans le calcul. Les livres qui portent les deux tags sont retirés des deux côtés, mais leurs notes positives restent dans le total de chaque lecteur. Les lecteurs de dystopie aiment beaucoup ces livres : leur total contient des notes qui ne peuvent jamais compter comme young-adult, ce qui gonfle la valeur attendue et fait baisser le lift.
+
+Nous avons changé cette seule décision : retirer aussi ces livres du total de chaque lecteur (option -{}-adjust-shared). Les mêmes données et les mêmes 14 paires de tags sont mesurées avec l'ancienne et la nouvelle règle, et les résultats sont identiques sur le serveur seul et sur le cluster.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2683\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1220\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1951\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1829\dimexpr\linewidth-10\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.2317\dimexpr\linewidth-10\tabcolsep\relax}}
+\toprule
+\textbf{Paire} & \textbf{Livres communs} & \textbf{Lecteurs pont} & \textbf{Lift} & \textbf{Verdict} \\
+\midrule
+dystopia, young-adult & 209 & 25 → 38 & 0,65 → 0,76 & aucun lien, inchangé \\
+\addlinespace[1pt]
+mystery, thriller & 1\,098 & 121 → 302 & 0,95 → 1,41 & aucun lien → persiste \\
+\addlinespace[1pt]
+fantasy, science-fiction & 618 & 54 → 166 & 1,20 → 1,72 & aucun lien → persiste \\
+\addlinespace[1pt]
+paranormal, romance & 708 & 59 → 254 & 0,90 → 1,38 & aucun lien → disparaît sans les cas populaires \\
+\addlinespace[1pt]
+vampires, romance & 318 & 208 → 362 & 1,51 → 2,10 & persiste, inchangé \\
+\addlinespace[1pt]
+horror, vampires & 77 & 95 → 101 & 0,69 → 0,71 & aucun lien, inchangé \\
+\bottomrule
+\end{tabular}
+\caption{E4, avant et après le retrait des livres communs du total (extrait de 14 paires).}
+\end{table}
+
+Pour dystopia et young-adult, le problème n'est pas résolu : le lift passe de 0,65 à 0,76 et le verdict reste \og aucun lien\fg{}. Le calcul n'expliquait qu'une partie du résultat. Sur les 14 paires, le lift est multiplié par 1,23 en médiane (de 1,03 à 1,70), et d'autant plus que les deux tags partagent de livres : ×1,03 pour horror et vampires (77 livres communs), ×1,48 pour mystery et thriller (1\,098), ×1,70 pour young-adult et fantasy (1\,228).
+
+La modification a un coût. Trois verdicts changent : fantasy et science-fiction (de 1,195 à 1,716) et mystery et thriller deviennent des liens qui persistent, et paranormal et romance devient un lien qui disparaît sans les cas populaires. Ces changements paraissent plausibles, mais nous n'avons pas de référence pour les confirmer, et le seuil de 1,2 avait été fixé à la main avec l'ancien calcul. Nous avons donc gardé l'ancien calcul par défaut ; la nouvelle règle reste disponible avec l'option.
+
+Ce qui reste trompeur est la formulation de la réponse : \og aucun lien au-delà du hasard\fg{} se lit comme \og intérêts sans rapport\fg{}, alors qu'elle ignore 209 livres communs. Signaler le recouvrement des tags dans le verdict serait la suite naturelle ; nous ne l'avons pas fait.
+
+\Needspace{14\baselineskip}\section{Limites}
+\begin{itemize}
+\item Tout tourne sur une seule machine : les processus se partagent processeur et disque, donc la partie II ne dit pas ce que ferait un vrai cluster.
+\item Les shards n'ont pas de réplique : la perte d'un shard rend le service indisponible, même pour un lecteur de l'autre shard.
+\item E1 et E2 reposent sur 30 requêtes rejouées cinq fois : on obtient des écarts-types, pas des intervalles serrés.
+\item E3 : les valeurs sont faibles, et l'écart avec la popularité n'est pas net à 5 notes.
+\item Les seuils (50 voisins, 5 livres communs, 10 notes, tag générique à 50\,\%) ont été fixés à la main.
+\item E4 : la correction testée n'efface pas le cas difficile, et les seuils de F5 n'ont pas été recalibrés.
+\end{itemize}
+\clearpage
+\Needspace{14\baselineskip}\section*{Annexe : anomalies relevées dans la sélection}
+Chaque anomalie vient de data/prepared/report.json. L'identifiant donné en exemple permet de la retrouver dans le fichier source indiqué.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.2927\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.0915\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.1829\dimexpr\linewidth-8\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.4329\dimexpr\linewidth-8\tabcolsep\relax}}
+\toprule
+\textbf{Anomalie} & \textbf{Nombre} & \textbf{Fichier} & \textbf{Exemple} \\
+\midrule
+Livres sans language\_code & 1\,084 & books.csv & book\_id 45 \\
+\addlinespace[1pt]
+Livres sans isbn & 700 & books.csv & book\_id 106 \\
+\addlinespace[1pt]
+Livres sans original\_title & 585 & books.csv & book\_id 75 \\
+\addlinespace[1pt]
+Livres sans année de publication & 21 & books.csv & book\_id 220 \\
+\addlinespace[1pt]
+Titres partagés par plusieurs livres & 33 & books.csv & \og `Salem's Lot\fg{} : livres 349 et 1292 \\
+\addlinespace[1pt]
+Paires (livre, tag) en double & 8 & book\_tags.csv & ligne 211 : goodreads 3, tag owned (6\,065 et 6\,066) \\
+\addlinespace[1pt]
+Comptes de tags négatifs ou nuls & 6 & book\_tags.csv & ligne 922\,053 : livre 1935, compte -1 \\
+\addlinespace[1pt]
+Tags de statut (to-read, owned, favorites...) & 994 & tags.csv, book\_tags.csv & to-read sur 9\,983 livres \\
+\addlinespace[1pt]
+Livres notés et dans to\_read du même lecteur & 460 & ratings.csv, to\_read.csv & lecteur 30126, livre 2 \\
+\bottomrule
+\end{tabular}
+\caption{Anomalies relevées.}
+\end{table}
+
+\end{document}
