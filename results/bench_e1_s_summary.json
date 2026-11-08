@@ -1,0 +1,155 @@
+{
+  "label": "e1_s",
+  "uri": "mongodb://localhost:27100",
+  "requests_per_batch": 30,
+  "repeats": 5,
+  "warmup_requests": 10,
+  "seed": 42,
+  "cache": "warm: catalogue loaded and 10 requests run before timing, servers not restarted between runs",
+  "environment": {
+    "mongodb": "9.0.2",
+    "java": "17.0.12",
+    "os": "Windows 11 10.0",
+    "cpus": 8,
+    "jvm_max_mb": 8132,
+    "storage_mb": {
+      "data": 113.25169563293457,
+      "storage": 42.54296875,
+      "indexes": 90.89453125,
+      "total": 133.4375
+    },
+    "load": {
+      "_id": "load",
+      "selection_rule": "user_id from 30000 to 39999",
+      "counts": {
+        "readers": 10000,
+        "books_in_catalogue": 10000,
+        "books_rated": 9999,
+        "ratings": 1084334,
+        "eval_set": 6012,
+        "update_batch": 1058,
+        "to_read": 184504,
+        "tags": 34250,
+        "book_tag_links": 999898
+      },
+      "layout": {
+        "placement": "single server"
+      },
+      "timings_s": {
+        "books": 2.46,
+        "tags": 0.46,
+        "ratings": 7.36,
+        "to_read": 1.42,
+        "indexes": 8.12,
+        "statistics": 1.6,
+        "total": 21.44
+      },
+      "storage_bytes": {
+        "dataSize": 1.18676811E8,
+        "storageSize": 4.3687936E7,
+        "indexSize": 6.5028096E7,
+        "totalSize": 1.08716032E8
+      }
+    }
+  },
+  "instances": [
+    "local=localhost:27100"
+  ],
+  "runs": [
+    {
+      "personal_share": 1.0,
+      "batch_seconds": {
+        "n": 5,
+        "median": 1.88,
+        "p25": 1.87,
+        "p75": 1.92,
+        "mean": 1.9,
+        "std": 0.19
+      },
+      "requests_per_second": 15.94,
+      "services_ms": {
+        "F2": {
+          "n": 80,
+          "median": 4.17,
+          "p25": 3.52,
+          "p75": 5.4,
+          "mean": 4.51,
+          "std": 1.58
+        },
+        "F3": {
+          "n": 70,
+          "median": 122.08,
+          "p25": 106.16,
+          "p75": 147.66,
+          "mean": 129.76,
+          "std": 33.73
+        }
+      },
+      "statuses": {
+        "insufficient_overlap": 45,
+        "ok": 105
+      },
+      "work_per_instance": {
+        "local": {
+          "opcounters.query": 370,
+          "opcounters.getmore": 355,
+          "opcounters.command": 8,
+          "metrics.document.returned": 948960,
+          "metrics.queryExecutor.scanned": 2578975,
+          "metrics.queryExecutor.scannedObjects": 94955
+        }
+      }
+    },
+    {
+      "personal_share": 0.0,
+      "batch_seconds": {
+        "n": 5,
+        "median": 7.8,
+        "p25": 7.72,
+        "p75": 7.83,
+        "mean": 8.12,
+        "std": 0.81
+      },
+      "requests_per_second": 3.85,
+      "services_ms": {
+        "F1": {
+          "n": 50,
+          "median": 22.91,
+          "p25": 17.89,
+          "p75": 33.11,
+          "mean": 27.13,
+          "std": 12.07
+        },
+        "F4": {
+          "n": 60,
+          "median": 34.23,
+          "p25": 20.01,
+          "p75": 56.46,
+          "mean": 50.61,
+          "std": 47.29
+        },
+        "F5": {
+          "n": 40,
+          "median": 900.85,
+          "p25": 821.82,
+          "p75": 957.67,
+          "mean": 903.86,
+          "std": 138.07
+        }
+      },
+      "statuses": {
+        "ok": 150
+      },
+      "work_per_instance": {
+        "local": {
+          "opcounters.query": 310,
+          "opcounters.getmore": 375,
+          "opcounters.command": 14,
+          "metrics.document.returned": 1605270,
+          "metrics.queryExecutor.scanned": 9487520,
+          "metrics.queryExecutor.scannedObjects": 44215795
+        }
+      }
+    }
+  ]
+}

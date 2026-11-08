@@ -80,9 +80,12 @@ public final class Cluster {
     private static void launch(List<String> command) throws IOException {
         if (WINDOWS) {
             // Start-Process gives the server its own hidden console, so it outlives this program and the terminal.
-            String arguments = command.stream().skip(1).map(a -> "\"" + a + "\"").collect(Collectors.joining(" "));
-            new ProcessBuilder("powershell", "-NoProfile", "-Command",
-                    "Start-Process -WindowStyle Hidden -FilePath '" + command.get(0) + "' -ArgumentList '" + arguments + "'")
+            // The script is passed encoded: quotes inside -Command are mangled when a path contains a space.
+            String arguments = command.stream().skip(1).map(a -> "'\"" + a.replace("'", "''") + "\"'").collect(Collectors.joining(","));
+            String script = "Start-Process -WindowStyle Hidden -FilePath '" + command.get(0).replace("'", "''")
+                    + "' -ArgumentList " + arguments;
+            String encoded = java.util.Base64.getEncoder().encodeToString(script.getBytes(java.nio.charset.StandardCharsets.UTF_16LE));
+            new ProcessBuilder("powershell", "-NoProfile", "-EncodedCommand", encoded)
                     .redirectOutput(ProcessBuilder.Redirect.DISCARD).redirectError(ProcessBuilder.Redirect.DISCARD).start();
         } else {
             new ProcessBuilder(command).redirectOutput(ProcessBuilder.Redirect.DISCARD)

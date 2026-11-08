@@ -1,0 +1,1001 @@
+label,personal_share,repeat,index,service,kind,input,status,ms
+e2_local,1.00,1,0,F3,personal,53300,ok,322.366
+e2_local,1.00,1,1,F2,personal,12182 10030,insufficient_overlap,4.959
+e2_local,1.00,1,2,F2,personal,17004 7182,ok,3.144
+e2_local,1.00,1,3,F2,personal,4310 21981,insufficient_overlap,3.407
+e2_local,1.00,1,4,F2,personal,6125 50231,insufficient_overlap,3.463
+e2_local,1.00,1,5,F2,personal,49744 42608,insufficient_overlap,3.442
+e2_local,1.00,1,6,F3,personal,27216,ok,287.083
+e2_local,1.00,1,7,F3,personal,20653,ok,354.553
+e2_local,1.00,1,8,F2,personal,28500 9541,ok,6.243
+e2_local,1.00,1,9,F3,personal,30240,ok,514.580
+e2_local,1.00,1,10,F2,personal,13179 41196,ok,4.832
+e2_local,1.00,1,11,F3,personal,45693,ok,489.057
+e2_local,1.00,1,12,F2,personal,23314 35959,insufficient_overlap,4.840
+e2_local,1.00,1,13,F3,personal,13123,ok,181.270
+e2_local,1.00,1,14,F2,personal,41060 11357,insufficient_overlap,5.252
+e2_local,1.00,1,15,F2,personal,5872 14396,insufficient_overlap,3.892
+e2_local,1.00,1,16,F2,personal,16884 18678,insufficient_overlap,2.522
+e2_local,1.00,1,17,F2,personal,44727 18788,ok,4.674
+e2_local,1.00,1,18,F2,personal,29417 30165,insufficient_overlap,3.146
+e2_local,1.00,1,19,F3,personal,44177,ok,290.093
+e2_local,1.00,1,20,F3,personal,39290,ok,285.687
+e2_local,1.00,1,21,F3,personal,29503,ok,727.818
+e2_local,1.00,1,22,F2,personal,29156 23300,ok,7.297
+e2_local,1.00,1,23,F2,personal,40203 33097,insufficient_overlap,6.557
+e2_local,1.00,1,24,F3,personal,23550,ok,468.153
+e2_local,1.00,1,25,F2,personal,37707 29192,insufficient_overlap,7.383
+e2_local,1.00,1,26,F3,personal,13241,ok,568.132
+e2_local,1.00,1,27,F3,personal,22876,ok,425.002
+e2_local,1.00,1,28,F3,personal,46541,ok,227.497
+e2_local,1.00,1,29,F3,personal,13012,ok,393.791
+e2_local,1.00,1,30,F3,personal,77,ok,207.377
+e2_local,1.00,1,31,F3,personal,707,ok,384.512
+e2_local,1.00,1,32,F2,personal,23962 30702,ok,6.433
+e2_local,1.00,1,33,F3,personal,9159,ok,888.458
+e2_local,1.00,1,34,F3,personal,52503,ok,526.760
+e2_local,1.00,1,35,F2,personal,25910 41054,ok,15.572
+e2_local,1.00,1,36,F2,personal,13964 4351,ok,6.587
+e2_local,1.00,1,37,F3,personal,51408,ok,189.552
+e2_local,1.00,1,38,F2,personal,23089 43141,insufficient_overlap,4.216
+e2_local,1.00,1,39,F3,personal,1045,ok,147.552
+e2_local,1.00,2,0,F3,personal,53300,ok,292.314
+e2_local,1.00,2,1,F2,personal,12182 10030,insufficient_overlap,3.937
+e2_local,1.00,2,2,F2,personal,17004 7182,ok,1.942
+e2_local,1.00,2,3,F2,personal,4310 21981,insufficient_overlap,4.512
+e2_local,1.00,2,4,F2,personal,6125 50231,insufficient_overlap,4.318
+e2_local,1.00,2,5,F2,personal,49744 42608,insufficient_overlap,4.733
+e2_local,1.00,2,6,F3,personal,27216,ok,248.627
+e2_local,1.00,2,7,F3,personal,20653,ok,327.199
+e2_local,1.00,2,8,F2,personal,28500 9541,ok,2.905
+e2_local,1.00,2,9,F3,personal,30240,ok,547.323
+e2_local,1.00,2,10,F2,personal,13179 41196,ok,4.089
+e2_local,1.00,2,11,F3,personal,45693,ok,500.778
+e2_local,1.00,2,12,F2,personal,23314 35959,insufficient_overlap,5.822
+e2_local,1.00,2,13,F3,personal,13123,ok,213.002
+e2_local,1.00,2,14,F2,personal,41060 11357,insufficient_overlap,2.985
+e2_local,1.00,2,15,F2,personal,5872 14396,insufficient_overlap,2.343
+e2_local,1.00,2,16,F2,personal,16884 18678,insufficient_overlap,1.978
+e2_local,1.00,2,17,F2,personal,44727 18788,ok,2.823
+e2_local,1.00,2,18,F2,personal,29417 30165,insufficient_overlap,2.845
+e2_local,1.00,2,19,F3,personal,44177,ok,304.523
+e2_local,1.00,2,20,F3,personal,39290,ok,245.805
+e2_local,1.00,2,21,F3,personal,29503,ok,654.145
+e2_local,1.00,2,22,F2,personal,29156 23300,ok,4.394
+e2_local,1.00,2,23,F2,personal,40203 33097,insufficient_overlap,3.016
+e2_local,1.00,2,24,F3,personal,23550,ok,512.872
+e2_local,1.00,2,25,F2,personal,37707 29192,insufficient_overlap,3.762
+e2_local,1.00,2,26,F3,personal,13241,ok,555.350
+e2_local,1.00,2,27,F3,personal,22876,ok,397.739
+e2_local,1.00,2,28,F3,personal,46541,ok,180.997
+e2_local,1.00,2,29,F3,personal,13012,ok,357.070
+e2_local,1.00,2,30,F3,personal,77,ok,155.998
+e2_local,1.00,2,31,F3,personal,707,ok,358.773
+e2_local,1.00,2,32,F2,personal,23962 30702,ok,4.307
+e2_local,1.00,2,33,F3,personal,9159,ok,707.921
+e2_local,1.00,2,34,F3,personal,52503,ok,403.390
+e2_local,1.00,2,35,F2,personal,25910 41054,ok,3.318
+e2_local,1.00,2,36,F2,personal,13964 4351,ok,3.430
+e2_local,1.00,2,37,F3,personal,51408,ok,130.339
+e2_local,1.00,2,38,F2,personal,23089 43141,insufficient_overlap,5.123
+e2_local,1.00,2,39,F3,personal,1045,ok,141.383
+e2_local,1.00,3,0,F3,personal,53300,ok,321.619
+e2_local,1.00,3,1,F2,personal,12182 10030,insufficient_overlap,3.672
+e2_local,1.00,3,2,F2,personal,17004 7182,ok,3.063
+e2_local,1.00,3,3,F2,personal,4310 21981,insufficient_overlap,3.635
+e2_local,1.00,3,4,F2,personal,6125 50231,insufficient_overlap,3.106
+e2_local,1.00,3,5,F2,personal,49744 42608,insufficient_overlap,2.216
+e2_local,1.00,3,6,F3,personal,27216,ok,292.301
+e2_local,1.00,3,7,F3,personal,20653,ok,330.576
+e2_local,1.00,3,8,F2,personal,28500 9541,ok,3.578
+e2_local,1.00,3,9,F3,personal,30240,ok,534.818
+e2_local,1.00,3,10,F2,personal,13179 41196,ok,4.023
+e2_local,1.00,3,11,F3,personal,45693,ok,454.896
+e2_local,1.00,3,12,F2,personal,23314 35959,insufficient_overlap,5.047
+e2_local,1.00,3,13,F3,personal,13123,ok,224.232
+e2_local,1.00,3,14,F2,personal,41060 11357,insufficient_overlap,5.743
+e2_local,1.00,3,15,F2,personal,5872 14396,insufficient_overlap,4.189
+e2_local,1.00,3,16,F2,personal,16884 18678,insufficient_overlap,3.716
+e2_local,1.00,3,17,F2,personal,44727 18788,ok,3.369
+e2_local,1.00,3,18,F2,personal,29417 30165,insufficient_overlap,2.344
+e2_local,1.00,3,19,F3,personal,44177,ok,292.861
+e2_local,1.00,3,20,F3,personal,39290,ok,253.542
+e2_local,1.00,3,21,F3,personal,29503,ok,586.344
+e2_local,1.00,3,22,F2,personal,29156 23300,ok,3.555
+e2_local,1.00,3,23,F2,personal,40203 33097,insufficient_overlap,5.800
+e2_local,1.00,3,24,F3,personal,23550,ok,396.437
+e2_local,1.00,3,25,F2,personal,37707 29192,insufficient_overlap,6.081
+e2_local,1.00,3,26,F3,personal,13241,ok,543.078
+e2_local,1.00,3,27,F3,personal,22876,ok,317.982
+e2_local,1.00,3,28,F3,personal,46541,ok,161.103
+e2_local,1.00,3,29,F3,personal,13012,ok,291.963
+e2_local,1.00,3,30,F3,personal,77,ok,117.594
+e2_local,1.00,3,31,F3,personal,707,ok,371.234
+e2_local,1.00,3,32,F2,personal,23962 30702,ok,3.134
+e2_local,1.00,3,33,F3,personal,9159,ok,646.607
+e2_local,1.00,3,34,F3,personal,52503,ok,391.028
+e2_local,1.00,3,35,F2,personal,25910 41054,ok,3.534
+e2_local,1.00,3,36,F2,personal,13964 4351,ok,3.190
+e2_local,1.00,3,37,F3,personal,51408,ok,124.014
+e2_local,1.00,3,38,F2,personal,23089 43141,insufficient_overlap,3.064
+e2_local,1.00,3,39,F3,personal,1045,ok,127.804
+e2_local,1.00,4,0,F3,personal,53300,ok,249.354
+e2_local,1.00,4,1,F2,personal,12182 10030,insufficient_overlap,6.701
+e2_local,1.00,4,2,F2,personal,17004 7182,ok,3.768
+e2_local,1.00,4,3,F2,personal,4310 21981,insufficient_overlap,2.737
+e2_local,1.00,4,4,F2,personal,6125 50231,insufficient_overlap,2.010
+e2_local,1.00,4,5,F2,personal,49744 42608,insufficient_overlap,2.078
+e2_local,1.00,4,6,F3,personal,27216,ok,245.587
+e2_local,1.00,4,7,F3,personal,20653,ok,300.093
+e2_local,1.00,4,8,F2,personal,28500 9541,ok,3.094
+e2_local,1.00,4,9,F3,personal,30240,ok,480.934
+e2_local,1.00,4,10,F2,personal,13179 41196,ok,2.994
+e2_local,1.00,4,11,F3,personal,45693,ok,434.686
+e2_local,1.00,4,12,F2,personal,23314 35959,insufficient_overlap,4.224
+e2_local,1.00,4,13,F3,personal,13123,ok,195.912
+e2_local,1.00,4,14,F2,personal,41060 11357,insufficient_overlap,2.228
+e2_local,1.00,4,15,F2,personal,5872 14396,insufficient_overlap,2.201
+e2_local,1.00,4,16,F2,personal,16884 18678,insufficient_overlap,4.346
+e2_local,1.00,4,17,F2,personal,44727 18788,ok,1.517
+e2_local,1.00,4,18,F2,personal,29417 30165,insufficient_overlap,3.447
+e2_local,1.00,4,19,F3,personal,44177,ok,292.102
+e2_local,1.00,4,20,F3,personal,39290,ok,223.861
+e2_local,1.00,4,21,F3,personal,29503,ok,605.810
+e2_local,1.00,4,22,F2,personal,29156 23300,ok,4.799
+e2_local,1.00,4,23,F2,personal,40203 33097,insufficient_overlap,2.617
+e2_local,1.00,4,24,F3,personal,23550,ok,409.193
+e2_local,1.00,4,25,F2,personal,37707 29192,insufficient_overlap,3.878
+e2_local,1.00,4,26,F3,personal,13241,ok,651.999
+e2_local,1.00,4,27,F3,personal,22876,ok,417.715
+e2_local,1.00,4,28,F3,personal,46541,ok,216.556
+e2_local,1.00,4,29,F3,personal,13012,ok,322.679
+e2_local,1.00,4,30,F3,personal,77,ok,179.129
+e2_local,1.00,4,31,F3,personal,707,ok,473.649
+e2_local,1.00,4,32,F2,personal,23962 30702,ok,7.508
+e2_local,1.00,4,33,F3,personal,9159,ok,867.282
+e2_local,1.00,4,34,F3,personal,52503,ok,490.182
+e2_local,1.00,4,35,F2,personal,25910 41054,ok,2.592
+e2_local,1.00,4,36,F2,personal,13964 4351,ok,3.367
+e2_local,1.00,4,37,F3,personal,51408,ok,152.788
+e2_local,1.00,4,38,F2,personal,23089 43141,insufficient_overlap,3.473
+e2_local,1.00,4,39,F3,personal,1045,ok,118.473
+e2_local,1.00,5,0,F3,personal,53300,ok,256.105
+e2_local,1.00,5,1,F2,personal,12182 10030,insufficient_overlap,3.948
+e2_local,1.00,5,2,F2,personal,17004 7182,ok,2.288
+e2_local,1.00,5,3,F2,personal,4310 21981,insufficient_overlap,2.020
+e2_local,1.00,5,4,F2,personal,6125 50231,insufficient_overlap,2.005
+e2_local,1.00,5,5,F2,personal,49744 42608,insufficient_overlap,1.402
+e2_local,1.00,5,6,F3,personal,27216,ok,281.047
+e2_local,1.00,5,7,F3,personal,20653,ok,297.782
+e2_local,1.00,5,8,F2,personal,28500 9541,ok,4.752
+e2_local,1.00,5,9,F3,personal,30240,ok,525.467
+e2_local,1.00,5,10,F2,personal,13179 41196,ok,4.094
+e2_local,1.00,5,11,F3,personal,45693,ok,462.810
+e2_local,1.00,5,12,F2,personal,23314 35959,insufficient_overlap,3.989
+e2_local,1.00,5,13,F3,personal,13123,ok,185.036
+e2_local,1.00,5,14,F2,personal,41060 11357,insufficient_overlap,2.117
+e2_local,1.00,5,15,F2,personal,5872 14396,insufficient_overlap,1.711
+e2_local,1.00,5,16,F2,personal,16884 18678,insufficient_overlap,1.319
+e2_local,1.00,5,17,F2,personal,44727 18788,ok,1.453
+e2_local,1.00,5,18,F2,personal,29417 30165,insufficient_overlap,1.858
+e2_local,1.00,5,19,F3,personal,44177,ok,278.617
+e2_local,1.00,5,20,F3,personal,39290,ok,257.393
+e2_local,1.00,5,21,F3,personal,29503,ok,577.962
+e2_local,1.00,5,22,F2,personal,29156 23300,ok,3.199
+e2_local,1.00,5,23,F2,personal,40203 33097,insufficient_overlap,1.554
+e2_local,1.00,5,24,F3,personal,23550,ok,370.966
+e2_local,1.00,5,25,F2,personal,37707 29192,insufficient_overlap,2.627
+e2_local,1.00,5,26,F3,personal,13241,ok,560.366
+e2_local,1.00,5,27,F3,personal,22876,ok,373.218
+e2_local,1.00,5,28,F3,personal,46541,ok,187.907
+e2_local,1.00,5,29,F3,personal,13012,ok,293.945
+e2_local,1.00,5,30,F3,personal,77,ok,151.547
+e2_local,1.00,5,31,F3,personal,707,ok,328.332
+e2_local,1.00,5,32,F2,personal,23962 30702,ok,7.265
+e2_local,1.00,5,33,F3,personal,9159,ok,665.594
+e2_local,1.00,5,34,F3,personal,52503,ok,360.012
+e2_local,1.00,5,35,F2,personal,25910 41054,ok,2.118
+e2_local,1.00,5,36,F2,personal,13964 4351,ok,1.648
+e2_local,1.00,5,37,F3,personal,51408,ok,121.547
+e2_local,1.00,5,38,F2,personal,23089 43141,insufficient_overlap,2.390
+e2_local,1.00,5,39,F3,personal,1045,ok,113.841
+e2_local,0.75,1,0,F3,personal,22639,ok,436.063
+e2_local,0.75,1,1,F3,personal,47015,ok,222.963
+e2_local,0.75,1,2,F2,personal,47332 26449,ok,2.558
+e2_local,0.75,1,3,F3,personal,42840,ok,354.524
+e2_local,0.75,1,4,F2,personal,29764 38677,insufficient_overlap,2.713
+e2_local,0.75,1,5,F1,explore,7602,ok,28.780
+e2_local,0.75,1,6,F2,personal,25935 23907,ok,3.629
+e2_local,0.75,1,7,F3,personal,693,ok,460.817
+e2_local,0.75,1,8,F3,personal,13858,ok,256.148
+e2_local,0.75,1,9,F1,explore,6266,ok,30.090
+e2_local,0.75,1,10,F1,explore,3513,ok,56.069
+e2_local,0.75,1,11,F2,personal,16731 13229,insufficient_overlap,3.069
+e2_local,0.75,1,12,F3,personal,21550,ok,565.538
+e2_local,0.75,1,13,F2,personal,36268 33140,ok,3.250
+e2_local,0.75,1,14,F2,personal,11770 2582,ok,4.656
+e2_local,0.75,1,15,F2,personal,13435 2349,ok,2.870
+e2_local,0.75,1,16,F3,personal,16057,ok,379.944
+e2_local,0.75,1,17,F3,personal,2612,ok,291.485
+e2_local,0.75,1,18,F3,personal,9961,ok,198.093
+e2_local,0.75,1,19,F3,personal,50884,ok,433.194
+e2_local,0.75,1,20,F1,explore,299,ok,126.925
+e2_local,0.75,1,21,F3,personal,43328,ok,530.717
+e2_local,0.75,1,22,F2,personal,17409 38714,ok,4.064
+e2_local,0.75,1,23,F4,explore,7599 336,ok,212.207
+e2_local,0.75,1,24,F2,personal,19900 20395,ok,4.000
+e2_local,0.75,1,25,F2,personal,18533 16431,insufficient_overlap,2.189
+e2_local,0.75,1,26,F5,explore,thriller science-fiction,ok,6511.211
+e2_local,0.75,1,27,F2,personal,13351 18747,ok,3.986
+e2_local,0.75,1,28,F3,personal,5779,ok,266.676
+e2_local,0.75,1,29,F1,explore,7533,ok,29.079
+e2_local,0.75,1,30,F2,personal,9059 35715,ok,4.895
+e2_local,0.75,1,31,F4,explore,4509 5306,ok,79.967
+e2_local,0.75,1,32,F2,personal,39977 20375,insufficient_overlap,3.451
+e2_local,0.75,1,33,F2,personal,8374 48530,insufficient_overlap,2.963
+e2_local,0.75,1,34,F2,personal,49211 38072,ok,3.884
+e2_local,0.75,1,35,F4,explore,1529 5376,ok,74.915
+e2_local,0.75,1,36,F2,personal,11426 44163,insufficient_overlap,3.269
+e2_local,0.75,1,37,F2,personal,20993 45332,insufficient_overlap,1.827
+e2_local,0.75,1,38,F5,explore,horror paranormal,ok,5692.183
+e2_local,0.75,1,39,F4,explore,3948 8216,ok,92.021
+e2_local,0.75,2,0,F3,personal,22639,ok,661.791
+e2_local,0.75,2,1,F3,personal,47015,ok,233.905
+e2_local,0.75,2,2,F2,personal,47332 26449,ok,2.943
+e2_local,0.75,2,3,F3,personal,42840,ok,371.985
+e2_local,0.75,2,4,F2,personal,29764 38677,insufficient_overlap,2.672
+e2_local,0.75,2,5,F1,explore,7602,ok,22.460
+e2_local,0.75,2,6,F2,personal,25935 23907,ok,4.645
+e2_local,0.75,2,7,F3,personal,693,ok,433.557
+e2_local,0.75,2,8,F3,personal,13858,ok,280.095
+e2_local,0.75,2,9,F1,explore,6266,ok,33.943
+e2_local,0.75,2,10,F1,explore,3513,ok,60.828
+e2_local,0.75,2,11,F2,personal,16731 13229,insufficient_overlap,2.837
+e2_local,0.75,2,12,F3,personal,21550,ok,548.628
+e2_local,0.75,2,13,F2,personal,36268 33140,ok,1.989
+e2_local,0.75,2,14,F2,personal,11770 2582,ok,2.475
+e2_local,0.75,2,15,F2,personal,13435 2349,ok,2.616
+e2_local,0.75,2,16,F3,personal,16057,ok,399.964
+e2_local,0.75,2,17,F3,personal,2612,ok,254.539
+e2_local,0.75,2,18,F3,personal,9961,ok,207.383
+e2_local,0.75,2,19,F3,personal,50884,ok,380.307
+e2_local,0.75,2,20,F1,explore,299,ok,110.639
+e2_local,0.75,2,21,F3,personal,43328,ok,478.646
+e2_local,0.75,2,22,F2,personal,17409 38714,ok,2.894
+e2_local,0.75,2,23,F4,explore,7599 336,ok,141.846
+e2_local,0.75,2,24,F2,personal,19900 20395,ok,2.777
+e2_local,0.75,2,25,F2,personal,18533 16431,insufficient_overlap,3.527
+e2_local,0.75,2,26,F5,explore,thriller science-fiction,ok,5432.552
+e2_local,0.75,2,27,F2,personal,13351 18747,ok,3.168
+e2_local,0.75,2,28,F3,personal,5779,ok,264.432
+e2_local,0.75,2,29,F1,explore,7533,ok,38.623
+e2_local,0.75,2,30,F2,personal,9059 35715,ok,7.495
+e2_local,0.75,2,31,F4,explore,4509 5306,ok,70.214
+e2_local,0.75,2,32,F2,personal,39977 20375,insufficient_overlap,3.135
+e2_local,0.75,2,33,F2,personal,8374 48530,insufficient_overlap,1.602
+e2_local,0.75,2,34,F2,personal,49211 38072,ok,1.885
+e2_local,0.75,2,35,F4,explore,1529 5376,ok,84.721
+e2_local,0.75,2,36,F2,personal,11426 44163,insufficient_overlap,3.934
+e2_local,0.75,2,37,F2,personal,20993 45332,insufficient_overlap,3.074
+e2_local,0.75,2,38,F5,explore,horror paranormal,ok,5410.646
+e2_local,0.75,2,39,F4,explore,3948 8216,ok,101.505
+e2_local,0.75,3,0,F3,personal,22639,ok,435.968
+e2_local,0.75,3,1,F3,personal,47015,ok,207.526
+e2_local,0.75,3,2,F2,personal,47332 26449,ok,3.740
+e2_local,0.75,3,3,F3,personal,42840,ok,416.156
+e2_local,0.75,3,4,F2,personal,29764 38677,insufficient_overlap,2.959
+e2_local,0.75,3,5,F1,explore,7602,ok,24.459
+e2_local,0.75,3,6,F2,personal,25935 23907,ok,2.486
+e2_local,0.75,3,7,F3,personal,693,ok,494.566
+e2_local,0.75,3,8,F3,personal,13858,ok,268.427
+e2_local,0.75,3,9,F1,explore,6266,ok,25.908
+e2_local,0.75,3,10,F1,explore,3513,ok,65.203
+e2_local,0.75,3,11,F2,personal,16731 13229,insufficient_overlap,4.326
+e2_local,0.75,3,12,F3,personal,21550,ok,571.550
+e2_local,0.75,3,13,F2,personal,36268 33140,ok,3.242
+e2_local,0.75,3,14,F2,personal,11770 2582,ok,4.299
+e2_local,0.75,3,15,F2,personal,13435 2349,ok,3.833
+e2_local,0.75,3,16,F3,personal,16057,ok,392.092
+e2_local,0.75,3,17,F3,personal,2612,ok,253.773
+e2_local,0.75,3,18,F3,personal,9961,ok,219.942
+e2_local,0.75,3,19,F3,personal,50884,ok,359.777
+e2_local,0.75,3,20,F1,explore,299,ok,113.194
+e2_local,0.75,3,21,F3,personal,43328,ok,554.090
+e2_local,0.75,3,22,F2,personal,17409 38714,ok,2.962
+e2_local,0.75,3,23,F4,explore,7599 336,ok,147.061
+e2_local,0.75,3,24,F2,personal,19900 20395,ok,3.464
+e2_local,0.75,3,25,F2,personal,18533 16431,insufficient_overlap,1.910
+e2_local,0.75,3,26,F5,explore,thriller science-fiction,ok,5869.391
+e2_local,0.75,3,27,F2,personal,13351 18747,ok,4.411
+e2_local,0.75,3,28,F3,personal,5779,ok,258.423
+e2_local,0.75,3,29,F1,explore,7533,ok,28.673
+e2_local,0.75,3,30,F2,personal,9059 35715,ok,4.421
+e2_local,0.75,3,31,F4,explore,4509 5306,ok,69.381
+e2_local,0.75,3,32,F2,personal,39977 20375,insufficient_overlap,2.826
+e2_local,0.75,3,33,F2,personal,8374 48530,insufficient_overlap,3.101
+e2_local,0.75,3,34,F2,personal,49211 38072,ok,3.695
+e2_local,0.75,3,35,F4,explore,1529 5376,ok,117.882
+e2_local,0.75,3,36,F2,personal,11426 44163,insufficient_overlap,2.430
+e2_local,0.75,3,37,F2,personal,20993 45332,insufficient_overlap,2.283
+e2_local,0.75,3,38,F5,explore,horror paranormal,ok,5269.425
+e2_local,0.75,3,39,F4,explore,3948 8216,ok,76.573
+e2_local,0.75,4,0,F3,personal,22639,ok,440.721
+e2_local,0.75,4,1,F3,personal,47015,ok,233.130
+e2_local,0.75,4,2,F2,personal,47332 26449,ok,3.105
+e2_local,0.75,4,3,F3,personal,42840,ok,402.805
+e2_local,0.75,4,4,F2,personal,29764 38677,insufficient_overlap,2.164
+e2_local,0.75,4,5,F1,explore,7602,ok,25.580
+e2_local,0.75,4,6,F2,personal,25935 23907,ok,4.245
+e2_local,0.75,4,7,F3,personal,693,ok,477.686
+e2_local,0.75,4,8,F3,personal,13858,ok,231.117
+e2_local,0.75,4,9,F1,explore,6266,ok,29.542
+e2_local,0.75,4,10,F1,explore,3513,ok,51.543
+e2_local,0.75,4,11,F2,personal,16731 13229,insufficient_overlap,3.173
+e2_local,0.75,4,12,F3,personal,21550,ok,519.410
+e2_local,0.75,4,13,F2,personal,36268 33140,ok,2.376
+e2_local,0.75,4,14,F2,personal,11770 2582,ok,2.851
+e2_local,0.75,4,15,F2,personal,13435 2349,ok,1.983
+e2_local,0.75,4,16,F3,personal,16057,ok,399.836
+e2_local,0.75,4,17,F3,personal,2612,ok,254.655
+e2_local,0.75,4,18,F3,personal,9961,ok,177.506
+e2_local,0.75,4,19,F3,personal,50884,ok,375.976
+e2_local,0.75,4,20,F1,explore,299,ok,122.637
+e2_local,0.75,4,21,F3,personal,43328,ok,521.791
+e2_local,0.75,4,22,F2,personal,17409 38714,ok,5.200
+e2_local,0.75,4,23,F4,explore,7599 336,ok,128.184
+e2_local,0.75,4,24,F2,personal,19900 20395,ok,2.915
+e2_local,0.75,4,25,F2,personal,18533 16431,insufficient_overlap,1.853
+e2_local,0.75,4,26,F5,explore,thriller science-fiction,ok,5745.400
+e2_local,0.75,4,27,F2,personal,13351 18747,ok,3.295
+e2_local,0.75,4,28,F3,personal,5779,ok,277.518
+e2_local,0.75,4,29,F1,explore,7533,ok,26.648
+e2_local,0.75,4,30,F2,personal,9059 35715,ok,3.755
+e2_local,0.75,4,31,F4,explore,4509 5306,ok,67.219
+e2_local,0.75,4,32,F2,personal,39977 20375,insufficient_overlap,3.145
+e2_local,0.75,4,33,F2,personal,8374 48530,insufficient_overlap,2.209
+e2_local,0.75,4,34,F2,personal,49211 38072,ok,1.685
+e2_local,0.75,4,35,F4,explore,1529 5376,ok,84.178
+e2_local,0.75,4,36,F2,personal,11426 44163,insufficient_overlap,2.458
+e2_local,0.75,4,37,F2,personal,20993 45332,insufficient_overlap,1.831
+e2_local,0.75,4,38,F5,explore,horror paranormal,ok,5361.737
+e2_local,0.75,4,39,F4,explore,3948 8216,ok,77.008
+e2_local,0.75,5,0,F3,personal,22639,ok,449.246
+e2_local,0.75,5,1,F3,personal,47015,ok,197.553
+e2_local,0.75,5,2,F2,personal,47332 26449,ok,2.791
+e2_local,0.75,5,3,F3,personal,42840,ok,394.890
+e2_local,0.75,5,4,F2,personal,29764 38677,insufficient_overlap,2.298
+e2_local,0.75,5,5,F1,explore,7602,ok,18.186
+e2_local,0.75,5,6,F2,personal,25935 23907,ok,3.399
+e2_local,0.75,5,7,F3,personal,693,ok,437.256
+e2_local,0.75,5,8,F3,personal,13858,ok,260.254
+e2_local,0.75,5,9,F1,explore,6266,ok,33.982
+e2_local,0.75,5,10,F1,explore,3513,ok,48.142
+e2_local,0.75,5,11,F2,personal,16731 13229,insufficient_overlap,2.310
+e2_local,0.75,5,12,F3,personal,21550,ok,526.626
+e2_local,0.75,5,13,F2,personal,36268 33140,ok,2.215
+e2_local,0.75,5,14,F2,personal,11770 2582,ok,2.374
+e2_local,0.75,5,15,F2,personal,13435 2349,ok,2.654
+e2_local,0.75,5,16,F3,personal,16057,ok,418.235
+e2_local,0.75,5,17,F3,personal,2612,ok,247.811
+e2_local,0.75,5,18,F3,personal,9961,ok,194.502
+e2_local,0.75,5,19,F3,personal,50884,ok,448.674
+e2_local,0.75,5,20,F1,explore,299,ok,82.086
+e2_local,0.75,5,21,F3,personal,43328,ok,481.876
+e2_local,0.75,5,22,F2,personal,17409 38714,ok,2.537
+e2_local,0.75,5,23,F4,explore,7599 336,ok,164.328
+e2_local,0.75,5,24,F2,personal,19900 20395,ok,5.564
+e2_local,0.75,5,25,F2,personal,18533 16431,insufficient_overlap,3.875
+e2_local,0.75,5,26,F5,explore,thriller science-fiction,ok,5636.711
+e2_local,0.75,5,27,F2,personal,13351 18747,ok,2.958
+e2_local,0.75,5,28,F3,personal,5779,ok,250.103
+e2_local,0.75,5,29,F1,explore,7533,ok,29.589
+e2_local,0.75,5,30,F2,personal,9059 35715,ok,2.345
+e2_local,0.75,5,31,F4,explore,4509 5306,ok,66.011
+e2_local,0.75,5,32,F2,personal,39977 20375,insufficient_overlap,2.243
+e2_local,0.75,5,33,F2,personal,8374 48530,insufficient_overlap,1.895
+e2_local,0.75,5,34,F2,personal,49211 38072,ok,1.479
+e2_local,0.75,5,35,F4,explore,1529 5376,ok,75.739
+e2_local,0.75,5,36,F2,personal,11426 44163,insufficient_overlap,2.536
+e2_local,0.75,5,37,F2,personal,20993 45332,insufficient_overlap,1.511
+e2_local,0.75,5,38,F5,explore,horror paranormal,ok,5241.914
+e2_local,0.75,5,39,F4,explore,3948 8216,ok,72.053
+e2_local,0.50,1,0,F3,personal,11618,ok,504.543
+e2_local,0.50,1,1,F5,explore,young-adult science-fiction,ok,6898.019
+e2_local,0.50,1,2,F3,personal,19747,ok,465.053
+e2_local,0.50,1,3,F3,personal,18772,ok,425.553
+e2_local,0.50,1,4,F5,explore,mystery historical-fiction,ok,6822.036
+e2_local,0.50,1,5,F1,explore,2767,ok,60.161
+e2_local,0.50,1,6,F4,explore,682 1105,ok,266.860
+e2_local,0.50,1,7,F2,personal,1419 24430,ok,4.880
+e2_local,0.50,1,8,F2,personal,19808 51865,insufficient_overlap,3.605
+e2_local,0.50,1,9,F1,explore,5695,ok,44.160
+e2_local,0.50,1,10,F4,explore,3119 9995,ok,69.829
+e2_local,0.50,1,11,F2,personal,30007 31624,ok,3.475
+e2_local,0.50,1,12,F5,explore,horror science-fiction,ok,5741.413
+e2_local,0.50,1,13,F2,personal,14118 19097,insufficient_overlap,2.165
+e2_local,0.50,1,14,F4,explore,5129 7796,ok,43.586
+e2_local,0.50,1,15,F1,explore,4405,ok,33.027
+e2_local,0.50,1,16,F3,personal,21027,ok,653.535
+e2_local,0.50,1,17,F3,personal,19732,ok,138.008
+e2_local,0.50,1,18,F3,personal,17058,ok,73.942
+e2_local,0.50,1,19,F4,explore,5638 3113,ok,64.910
+e2_local,0.50,1,20,F5,explore,classics horror,ok,6201.530
+e2_local,0.50,1,21,F4,explore,4447 9234,ok,54.732
+e2_local,0.50,1,22,F1,explore,2530,ok,33.802
+e2_local,0.50,1,23,F3,personal,38555,ok,476.416
+e2_local,0.50,1,24,F4,explore,5753 5954,ok,47.234
+e2_local,0.50,1,25,F3,personal,22834,ok,213.438
+e2_local,0.50,1,26,F2,personal,37301 5429,ok,2.549
+e2_local,0.50,1,27,F5,explore,mystery historical-fiction,ok,6376.657
+e2_local,0.50,1,28,F3,personal,38892,ok,559.801
+e2_local,0.50,1,29,F2,personal,36226 7272,insufficient_overlap,2.166
+e2_local,0.50,1,30,F2,personal,44277 47875,insufficient_overlap,1.491
+e2_local,0.50,1,31,F1,explore,5572,ok,21.325
+e2_local,0.50,1,32,F5,explore,romance paranormal,ok,5924.976
+e2_local,0.50,1,33,F2,personal,25438 50962,ok,4.645
+e2_local,0.50,1,34,F2,personal,9026 6521,insufficient_overlap,2.673
+e2_local,0.50,1,35,F5,explore,classics romance,ok,6957.896
+e2_local,0.50,1,36,F4,explore,8329 2773,ok,76.284
+e2_local,0.50,1,37,F4,explore,34 5743,ok,367.795
+e2_local,0.50,1,38,F5,explore,science-fiction paranormal,ok,5562.248
+e2_local,0.50,1,39,F2,personal,3473 36465,insufficient_overlap,3.862
+e2_local,0.50,2,0,F3,personal,11618,ok,722.067
+e2_local,0.50,2,1,F5,explore,young-adult science-fiction,ok,6059.520
+e2_local,0.50,2,2,F3,personal,19747,ok,400.628
+e2_local,0.50,2,3,F3,personal,18772,ok,420.590
+e2_local,0.50,2,4,F5,explore,mystery historical-fiction,ok,6051.766
+e2_local,0.50,2,5,F1,explore,2767,ok,101.270
+e2_local,0.50,2,6,F4,explore,682 1105,ok,290.301
+e2_local,0.50,2,7,F2,personal,1419 24430,ok,3.814
+e2_local,0.50,2,8,F2,personal,19808 51865,insufficient_overlap,2.165
+e2_local,0.50,2,9,F1,explore,5695,ok,39.659
+e2_local,0.50,2,10,F4,explore,3119 9995,ok,52.245
+e2_local,0.50,2,11,F2,personal,30007 31624,ok,2.857
+e2_local,0.50,2,12,F5,explore,horror science-fiction,ok,5031.282
+e2_local,0.50,2,13,F2,personal,14118 19097,insufficient_overlap,4.697
+e2_local,0.50,2,14,F4,explore,5129 7796,ok,57.402
+e2_local,0.50,2,15,F1,explore,4405,ok,32.360
+e2_local,0.50,2,16,F3,personal,21027,ok,692.748
+e2_local,0.50,2,17,F3,personal,19732,ok,126.932
+e2_local,0.50,2,18,F3,personal,17058,ok,100.054
+e2_local,0.50,2,19,F4,explore,5638 3113,ok,69.214
+e2_local,0.50,2,20,F5,explore,classics horror,ok,5790.582
+e2_local,0.50,2,21,F4,explore,4447 9234,ok,54.134
+e2_local,0.50,2,22,F1,explore,2530,ok,38.337
+e2_local,0.50,2,23,F3,personal,38555,ok,547.360
+e2_local,0.50,2,24,F4,explore,5753 5954,ok,53.316
+e2_local,0.50,2,25,F3,personal,22834,ok,234.773
+e2_local,0.50,2,26,F2,personal,37301 5429,ok,2.400
+e2_local,0.50,2,27,F5,explore,mystery historical-fiction,ok,6114.164
+e2_local,0.50,2,28,F3,personal,38892,ok,582.266
+e2_local,0.50,2,29,F2,personal,36226 7272,insufficient_overlap,5.034
+e2_local,0.50,2,30,F2,personal,44277 47875,insufficient_overlap,2.551
+e2_local,0.50,2,31,F1,explore,5572,ok,35.141
+e2_local,0.50,2,32,F5,explore,romance paranormal,ok,5680.837
+e2_local,0.50,2,33,F2,personal,25438 50962,ok,3.086
+e2_local,0.50,2,34,F2,personal,9026 6521,insufficient_overlap,2.535
+e2_local,0.50,2,35,F5,explore,classics romance,ok,6803.211
+e2_local,0.50,2,36,F4,explore,8329 2773,ok,78.857
+e2_local,0.50,2,37,F4,explore,34 5743,ok,322.303
+e2_local,0.50,2,38,F5,explore,science-fiction paranormal,ok,5147.652
+e2_local,0.50,2,39,F2,personal,3473 36465,insufficient_overlap,2.432
+e2_local,0.50,3,0,F3,personal,11618,ok,532.015
+e2_local,0.50,3,1,F5,explore,young-adult science-fiction,ok,6341.222
+e2_local,0.50,3,2,F3,personal,19747,ok,410.631
+e2_local,0.50,3,3,F3,personal,18772,ok,526.107
+e2_local,0.50,3,4,F5,explore,mystery historical-fiction,ok,5934.432
+e2_local,0.50,3,5,F1,explore,2767,ok,99.818
+e2_local,0.50,3,6,F4,explore,682 1105,ok,295.163
+e2_local,0.50,3,7,F2,personal,1419 24430,ok,3.507
+e2_local,0.50,3,8,F2,personal,19808 51865,insufficient_overlap,1.572
+e2_local,0.50,3,9,F1,explore,5695,ok,36.046
+e2_local,0.50,3,10,F4,explore,3119 9995,ok,75.792
+e2_local,0.50,3,11,F2,personal,30007 31624,ok,3.592
+e2_local,0.50,3,12,F5,explore,horror science-fiction,ok,5070.604
+e2_local,0.50,3,13,F2,personal,14118 19097,insufficient_overlap,5.364
+e2_local,0.50,3,14,F4,explore,5129 7796,ok,43.964
+e2_local,0.50,3,15,F1,explore,4405,ok,43.638
+e2_local,0.50,3,16,F3,personal,21027,ok,719.922
+e2_local,0.50,3,17,F3,personal,19732,ok,125.199
+e2_local,0.50,3,18,F3,personal,17058,ok,87.486
+e2_local,0.50,3,19,F4,explore,5638 3113,ok,70.366
+e2_local,0.50,3,20,F5,explore,classics horror,ok,6276.893
+e2_local,0.50,3,21,F4,explore,4447 9234,ok,46.568
+e2_local,0.50,3,22,F1,explore,2530,ok,48.910
+e2_local,0.50,3,23,F3,personal,38555,ok,500.809
+e2_local,0.50,3,24,F4,explore,5753 5954,ok,50.279
+e2_local,0.50,3,25,F3,personal,22834,ok,247.562
+e2_local,0.50,3,26,F2,personal,37301 5429,ok,3.390
+e2_local,0.50,3,27,F5,explore,mystery historical-fiction,ok,6033.438
+e2_local,0.50,3,28,F3,personal,38892,ok,537.517
+e2_local,0.50,3,29,F2,personal,36226 7272,insufficient_overlap,3.002
+e2_local,0.50,3,30,F2,personal,44277 47875,insufficient_overlap,1.512
+e2_local,0.50,3,31,F1,explore,5572,ok,21.041
+e2_local,0.50,3,32,F5,explore,romance paranormal,ok,5719.001
+e2_local,0.50,3,33,F2,personal,25438 50962,ok,2.612
+e2_local,0.50,3,34,F2,personal,9026 6521,insufficient_overlap,2.005
+e2_local,0.50,3,35,F5,explore,classics romance,ok,6917.426
+e2_local,0.50,3,36,F4,explore,8329 2773,ok,75.447
+e2_local,0.50,3,37,F4,explore,34 5743,ok,285.946
+e2_local,0.50,3,38,F5,explore,science-fiction paranormal,ok,5171.580
+e2_local,0.50,3,39,F2,personal,3473 36465,insufficient_overlap,2.251
+e2_local,0.50,4,0,F3,personal,11618,ok,550.580
+e2_local,0.50,4,1,F5,explore,young-adult science-fiction,ok,5960.391
+e2_local,0.50,4,2,F3,personal,19747,ok,418.581
+e2_local,0.50,4,3,F3,personal,18772,ok,467.533
+e2_local,0.50,4,4,F5,explore,mystery historical-fiction,ok,6192.890
+e2_local,0.50,4,5,F1,explore,2767,ok,63.543
+e2_local,0.50,4,6,F4,explore,682 1105,ok,246.854
+e2_local,0.50,4,7,F2,personal,1419 24430,ok,4.562
+e2_local,0.50,4,8,F2,personal,19808 51865,insufficient_overlap,2.417
+e2_local,0.50,4,9,F1,explore,5695,ok,44.622
+e2_local,0.50,4,10,F4,explore,3119 9995,ok,65.786
+e2_local,0.50,4,11,F2,personal,30007 31624,ok,2.932
+e2_local,0.50,4,12,F5,explore,horror science-fiction,ok,4997.348
+e2_local,0.50,4,13,F2,personal,14118 19097,insufficient_overlap,2.644
+e2_local,0.50,4,14,F4,explore,5129 7796,ok,50.203
+e2_local,0.50,4,15,F1,explore,4405,ok,34.558
+e2_local,0.50,4,16,F3,personal,21027,ok,714.602
+e2_local,0.50,4,17,F3,personal,19732,ok,123.229
+e2_local,0.50,4,18,F3,personal,17058,ok,113.047
+e2_local,0.50,4,19,F4,explore,5638 3113,ok,112.878
+e2_local,0.50,4,20,F5,explore,classics horror,ok,5875.496
+e2_local,0.50,4,21,F4,explore,4447 9234,ok,59.170
+e2_local,0.50,4,22,F1,explore,2530,ok,45.869
+e2_local,0.50,4,23,F3,personal,38555,ok,513.136
+e2_local,0.50,4,24,F4,explore,5753 5954,ok,48.720
+e2_local,0.50,4,25,F3,personal,22834,ok,227.189
+e2_local,0.50,4,26,F2,personal,37301 5429,ok,2.471
+e2_local,0.50,4,27,F5,explore,mystery historical-fiction,ok,5952.063
+e2_local,0.50,4,28,F3,personal,38892,ok,580.516
+e2_local,0.50,4,29,F2,personal,36226 7272,insufficient_overlap,2.693
+e2_local,0.50,4,30,F2,personal,44277 47875,insufficient_overlap,1.961
+e2_local,0.50,4,31,F1,explore,5572,ok,28.494
+e2_local,0.50,4,32,F5,explore,romance paranormal,ok,5414.390
+e2_local,0.50,4,33,F2,personal,25438 50962,ok,3.583
+e2_local,0.50,4,34,F2,personal,9026 6521,insufficient_overlap,5.093
+e2_local,0.50,4,35,F5,explore,classics romance,ok,6830.756
+e2_local,0.50,4,36,F4,explore,8329 2773,ok,84.602
+e2_local,0.50,4,37,F4,explore,34 5743,ok,282.823
+e2_local,0.50,4,38,F5,explore,science-fiction paranormal,ok,5233.532
+e2_local,0.50,4,39,F2,personal,3473 36465,insufficient_overlap,3.438
+e2_local,0.50,5,0,F3,personal,11618,ok,477.089
+e2_local,0.50,5,1,F5,explore,young-adult science-fiction,ok,5932.867
+e2_local,0.50,5,2,F3,personal,19747,ok,495.218
+e2_local,0.50,5,3,F3,personal,18772,ok,435.824
+e2_local,0.50,5,4,F5,explore,mystery historical-fiction,ok,6052.374
+e2_local,0.50,5,5,F1,explore,2767,ok,70.145
+e2_local,0.50,5,6,F4,explore,682 1105,ok,348.273
+e2_local,0.50,5,7,F2,personal,1419 24430,ok,2.997
+e2_local,0.50,5,8,F2,personal,19808 51865,insufficient_overlap,2.291
+e2_local,0.50,5,9,F1,explore,5695,ok,46.484
+e2_local,0.50,5,10,F4,explore,3119 9995,ok,98.982
+e2_local,0.50,5,11,F2,personal,30007 31624,ok,4.292
+e2_local,0.50,5,12,F5,explore,horror science-fiction,ok,5033.338
+e2_local,0.50,5,13,F2,personal,14118 19097,insufficient_overlap,2.698
+e2_local,0.50,5,14,F4,explore,5129 7796,ok,50.061
+e2_local,0.50,5,15,F1,explore,4405,ok,33.144
+e2_local,0.50,5,16,F3,personal,21027,ok,637.003
+e2_local,0.50,5,17,F3,personal,19732,ok,130.791
+e2_local,0.50,5,18,F3,personal,17058,ok,88.078
+e2_local,0.50,5,19,F4,explore,5638 3113,ok,84.315
+e2_local,0.50,5,20,F5,explore,classics horror,ok,5873.510
+e2_local,0.50,5,21,F4,explore,4447 9234,ok,54.773
+e2_local,0.50,5,22,F1,explore,2530,ok,40.381
+e2_local,0.50,5,23,F3,personal,38555,ok,522.853
+e2_local,0.50,5,24,F4,explore,5753 5954,ok,50.788
+e2_local,0.50,5,25,F3,personal,22834,ok,250.660
+e2_local,0.50,5,26,F2,personal,37301 5429,ok,4.805
+e2_local,0.50,5,27,F5,explore,mystery historical-fiction,ok,6243.959
+e2_local,0.50,5,28,F3,personal,38892,ok,534.766
+e2_local,0.50,5,29,F2,personal,36226 7272,insufficient_overlap,2.431
+e2_local,0.50,5,30,F2,personal,44277 47875,insufficient_overlap,2.369
+e2_local,0.50,5,31,F1,explore,5572,ok,22.251
+e2_local,0.50,5,32,F5,explore,romance paranormal,ok,5482.308
+e2_local,0.50,5,33,F2,personal,25438 50962,ok,3.446
+e2_local,0.50,5,34,F2,personal,9026 6521,insufficient_overlap,2.603
+e2_local,0.50,5,35,F5,explore,classics romance,ok,6641.954
+e2_local,0.50,5,36,F4,explore,8329 2773,ok,74.727
+e2_local,0.50,5,37,F4,explore,34 5743,ok,293.674
+e2_local,0.50,5,38,F5,explore,science-fiction paranormal,ok,5435.698
+e2_local,0.50,5,39,F2,personal,3473 36465,insufficient_overlap,3.148
+e2_local,0.25,1,0,F1,explore,1045,ok,70.129
+e2_local,0.25,1,1,F3,personal,17806,ok,393.279
+e2_local,0.25,1,2,F3,personal,49078,ok,595.246
+e2_local,0.25,1,3,F3,personal,37553,ok,329.133
+e2_local,0.25,1,4,F4,explore,6031 5091,ok,44.814
+e2_local,0.25,1,5,F5,explore,science-fiction classics,ok,6214.552
+e2_local,0.25,1,6,F4,explore,8853 3518,ok,73.441
+e2_local,0.25,1,7,F5,explore,classics young-adult,ok,6579.788
+e2_local,0.25,1,8,F2,personal,33125 11990,ok,3.407
+e2_local,0.25,1,9,F4,explore,2299 5067,ok,107.221
+e2_local,0.25,1,10,F5,explore,horror vampires,ok,4474.027
+e2_local,0.25,1,11,F4,explore,1056 2584,ok,158.392
+e2_local,0.25,1,12,F4,explore,4266 338,ok,170.176
+e2_local,0.25,1,13,F1,explore,9162,ok,25.785
+e2_local,0.25,1,14,F4,explore,5902 8764,ok,40.561
+e2_local,0.25,1,15,F4,explore,9587 7582,ok,27.490
+e2_local,0.25,1,16,F3,personal,44433,ok,516.502
+e2_local,0.25,1,17,F2,personal,9559 16812,ok,3.116
+e2_local,0.25,1,18,F3,personal,12932,ok,194.512
+e2_local,0.25,1,19,F5,explore,classics paranormal,ok,5963.316
+e2_local,0.25,1,20,F5,explore,mystery classics,ok,6600.505
+e2_local,0.25,1,21,F1,explore,8241,ok,37.681
+e2_local,0.25,1,22,F3,personal,53136,ok,40.712
+e2_local,0.25,1,23,F3,personal,46367,ok,750.977
+e2_local,0.25,1,24,F5,explore,paranormal horror,ok,4933.797
+e2_local,0.25,1,25,F1,explore,3519,ok,60.120
+e2_local,0.25,1,26,F5,explore,dystopia mystery,ok,5334.531
+e2_local,0.25,1,27,F1,explore,1881,ok,96.031
+e2_local,0.25,1,28,F2,personal,12963 12920,ok,5.186
+e2_local,0.25,1,29,F4,explore,1161 4757,ok,174.068
+e2_local,0.25,1,30,F2,personal,43720 22091,insufficient_overlap,3.260
+e2_local,0.25,1,31,F5,explore,mystery science-fiction,ok,5588.941
+e2_local,0.25,1,32,F4,explore,3576 570,ok,182.364
+e2_local,0.25,1,33,F2,personal,39558 27444,insufficient_overlap,4.646
+e2_local,0.25,1,34,F2,personal,2372 18013,insufficient_overlap,4.176
+e2_local,0.25,1,35,F5,explore,historical-fiction dystopia,ok,5474.104
+e2_local,0.25,1,36,F4,explore,1488 4252,ok,110.866
+e2_local,0.25,1,37,F5,explore,fantasy young-adult,ok,6678.693
+e2_local,0.25,1,38,F5,explore,classics fantasy,ok,7457.026
+e2_local,0.25,1,39,F4,explore,8291 3800,ok,43.574
+e2_local,0.25,2,0,F1,explore,1045,ok,89.657
+e2_local,0.25,2,1,F3,personal,17806,ok,404.354
+e2_local,0.25,2,2,F3,personal,49078,ok,593.535
+e2_local,0.25,2,3,F3,personal,37553,ok,309.639
+e2_local,0.25,2,4,F4,explore,6031 5091,ok,45.695
+e2_local,0.25,2,5,F5,explore,science-fiction classics,ok,6386.279
+e2_local,0.25,2,6,F4,explore,8853 3518,ok,89.242
+e2_local,0.25,2,7,F5,explore,classics young-adult,ok,6611.829
+e2_local,0.25,2,8,F2,personal,33125 11990,ok,3.307
+e2_local,0.25,2,9,F4,explore,2299 5067,ok,107.369
+e2_local,0.25,2,10,F5,explore,horror vampires,ok,4607.284
+e2_local,0.25,2,11,F4,explore,1056 2584,ok,145.675
+e2_local,0.25,2,12,F4,explore,4266 338,ok,155.239
+e2_local,0.25,2,13,F1,explore,9162,ok,24.728
+e2_local,0.25,2,14,F4,explore,5902 8764,ok,42.945
+e2_local,0.25,2,15,F4,explore,9587 7582,ok,27.005
+e2_local,0.25,2,16,F3,personal,44433,ok,525.046
+e2_local,0.25,2,17,F2,personal,9559 16812,ok,2.818
+e2_local,0.25,2,18,F3,personal,12932,ok,211.554
+e2_local,0.25,2,19,F5,explore,classics paranormal,ok,6194.972
+e2_local,0.25,2,20,F5,explore,mystery classics,ok,6518.186
+e2_local,0.25,2,21,F1,explore,8241,ok,41.729
+e2_local,0.25,2,22,F3,personal,53136,ok,38.997
+e2_local,0.25,2,23,F3,personal,46367,ok,645.543
+e2_local,0.25,2,24,F5,explore,paranormal horror,ok,4630.051
+e2_local,0.25,2,25,F1,explore,3519,ok,67.630
+e2_local,0.25,2,26,F5,explore,dystopia mystery,ok,5483.583
+e2_local,0.25,2,27,F1,explore,1881,ok,103.503
+e2_local,0.25,2,28,F2,personal,12963 12920,ok,6.045
+e2_local,0.25,2,29,F4,explore,1161 4757,ok,150.546
+e2_local,0.25,2,30,F2,personal,43720 22091,insufficient_overlap,5.757
+e2_local,0.25,2,31,F5,explore,mystery science-fiction,ok,5576.269
+e2_local,0.25,2,32,F4,explore,3576 570,ok,182.824
+e2_local,0.25,2,33,F2,personal,39558 27444,insufficient_overlap,3.090
+e2_local,0.25,2,34,F2,personal,2372 18013,insufficient_overlap,2.927
+e2_local,0.25,2,35,F5,explore,historical-fiction dystopia,ok,5361.781
+e2_local,0.25,2,36,F4,explore,1488 4252,ok,112.227
+e2_local,0.25,2,37,F5,explore,fantasy young-adult,ok,6798.559
+e2_local,0.25,2,38,F5,explore,classics fantasy,ok,7687.218
+e2_local,0.25,2,39,F4,explore,8291 3800,ok,50.336
+e2_local,0.25,3,0,F1,explore,1045,ok,72.094
+e2_local,0.25,3,1,F3,personal,17806,ok,419.598
+e2_local,0.25,3,2,F3,personal,49078,ok,585.346
+e2_local,0.25,3,3,F3,personal,37553,ok,301.902
+e2_local,0.25,3,4,F4,explore,6031 5091,ok,52.601
+e2_local,0.25,3,5,F5,explore,science-fiction classics,ok,5903.374
+e2_local,0.25,3,6,F4,explore,8853 3518,ok,96.489
+e2_local,0.25,3,7,F5,explore,classics young-adult,ok,6899.237
+e2_local,0.25,3,8,F2,personal,33125 11990,ok,3.822
+e2_local,0.25,3,9,F4,explore,2299 5067,ok,125.389
+e2_local,0.25,3,10,F5,explore,horror vampires,ok,4639.002
+e2_local,0.25,3,11,F4,explore,1056 2584,ok,153.233
+e2_local,0.25,3,12,F4,explore,4266 338,ok,169.339
+e2_local,0.25,3,13,F1,explore,9162,ok,28.308
+e2_local,0.25,3,14,F4,explore,5902 8764,ok,40.028
+e2_local,0.25,3,15,F4,explore,9587 7582,ok,28.161
+e2_local,0.25,3,16,F3,personal,44433,ok,681.165
+e2_local,0.25,3,17,F2,personal,9559 16812,ok,5.019
+e2_local,0.25,3,18,F3,personal,12932,ok,225.686
+e2_local,0.25,3,19,F5,explore,classics paranormal,ok,6251.180
+e2_local,0.25,3,20,F5,explore,mystery classics,ok,6439.785
+e2_local,0.25,3,21,F1,explore,8241,ok,35.857
+e2_local,0.25,3,22,F3,personal,53136,ok,97.854
+e2_local,0.25,3,23,F3,personal,46367,ok,664.077
+e2_local,0.25,3,24,F5,explore,paranormal horror,ok,4988.715
+e2_local,0.25,3,25,F1,explore,3519,ok,63.229
+e2_local,0.25,3,26,F5,explore,dystopia mystery,ok,5214.661
+e2_local,0.25,3,27,F1,explore,1881,ok,69.764
+e2_local,0.25,3,28,F2,personal,12963 12920,ok,4.021
+e2_local,0.25,3,29,F4,explore,1161 4757,ok,156.359
+e2_local,0.25,3,30,F2,personal,43720 22091,insufficient_overlap,3.034
+e2_local,0.25,3,31,F5,explore,mystery science-fiction,ok,5778.372
+e2_local,0.25,3,32,F4,explore,3576 570,ok,209.190
+e2_local,0.25,3,33,F2,personal,39558 27444,insufficient_overlap,2.607
+e2_local,0.25,3,34,F2,personal,2372 18013,insufficient_overlap,1.387
+e2_local,0.25,3,35,F5,explore,historical-fiction dystopia,ok,5278.498
+e2_local,0.25,3,36,F4,explore,1488 4252,ok,114.054
+e2_local,0.25,3,37,F5,explore,fantasy young-adult,ok,6619.427
+e2_local,0.25,3,38,F5,explore,classics fantasy,ok,7633.268
+e2_local,0.25,3,39,F4,explore,8291 3800,ok,42.700
+e2_local,0.25,4,0,F1,explore,1045,ok,72.065
+e2_local,0.25,4,1,F3,personal,17806,ok,412.377
+e2_local,0.25,4,2,F3,personal,49078,ok,606.063
+e2_local,0.25,4,3,F3,personal,37553,ok,272.480
+e2_local,0.25,4,4,F4,explore,6031 5091,ok,59.786
+e2_local,0.25,4,5,F5,explore,science-fiction classics,ok,6114.456
+e2_local,0.25,4,6,F4,explore,8853 3518,ok,60.214
+e2_local,0.25,4,7,F5,explore,classics young-adult,ok,6578.152
+e2_local,0.25,4,8,F2,personal,33125 11990,ok,4.800
+e2_local,0.25,4,9,F4,explore,2299 5067,ok,112.771
+e2_local,0.25,4,10,F5,explore,horror vampires,ok,4500.040
+e2_local,0.25,4,11,F4,explore,1056 2584,ok,138.461
+e2_local,0.25,4,12,F4,explore,4266 338,ok,170.200
+e2_local,0.25,4,13,F1,explore,9162,ok,23.854
+e2_local,0.25,4,14,F4,explore,5902 8764,ok,42.728
+e2_local,0.25,4,15,F4,explore,9587 7582,ok,28.274
+e2_local,0.25,4,16,F3,personal,44433,ok,542.195
+e2_local,0.25,4,17,F2,personal,9559 16812,ok,3.962
+e2_local,0.25,4,18,F3,personal,12932,ok,189.187
+e2_local,0.25,4,19,F5,explore,classics paranormal,ok,5994.491
+e2_local,0.25,4,20,F5,explore,mystery classics,ok,6550.537
+e2_local,0.25,4,21,F1,explore,8241,ok,39.514
+e2_local,0.25,4,22,F3,personal,53136,ok,50.421
+e2_local,0.25,4,23,F3,personal,46367,ok,663.146
+e2_local,0.25,4,24,F5,explore,paranormal horror,ok,4869.149
+e2_local,0.25,4,25,F1,explore,3519,ok,64.683
+e2_local,0.25,4,26,F5,explore,dystopia mystery,ok,5220.537
+e2_local,0.25,4,27,F1,explore,1881,ok,97.796
+e2_local,0.25,4,28,F2,personal,12963 12920,ok,6.171
+e2_local,0.25,4,29,F4,explore,1161 4757,ok,148.417
+e2_local,0.25,4,30,F2,personal,43720 22091,insufficient_overlap,3.125
+e2_local,0.25,4,31,F5,explore,mystery science-fiction,ok,5616.540
+e2_local,0.25,4,32,F4,explore,3576 570,ok,193.479
+e2_local,0.25,4,33,F2,personal,39558 27444,insufficient_overlap,3.082
+e2_local,0.25,4,34,F2,personal,2372 18013,insufficient_overlap,2.220
+e2_local,0.25,4,35,F5,explore,historical-fiction dystopia,ok,5289.337
+e2_local,0.25,4,36,F4,explore,1488 4252,ok,154.574
+e2_local,0.25,4,37,F5,explore,fantasy young-adult,ok,6895.709
+e2_local,0.25,4,38,F5,explore,classics fantasy,ok,7437.632
+e2_local,0.25,4,39,F4,explore,8291 3800,ok,60.281
+e2_local,0.25,5,0,F1,explore,1045,ok,132.706
+e2_local,0.25,5,1,F3,personal,17806,ok,473.085
+e2_local,0.25,5,2,F3,personal,49078,ok,628.747
+e2_local,0.25,5,3,F3,personal,37553,ok,320.036
+e2_local,0.25,5,4,F4,explore,6031 5091,ok,60.591
+e2_local,0.25,5,5,F5,explore,science-fiction classics,ok,6293.670
+e2_local,0.25,5,6,F4,explore,8853 3518,ok,74.028
+e2_local,0.25,5,7,F5,explore,classics young-adult,ok,6696.250
+e2_local,0.25,5,8,F2,personal,33125 11990,ok,4.597
+e2_local,0.25,5,9,F4,explore,2299 5067,ok,118.209
+e2_local,0.25,5,10,F5,explore,horror vampires,ok,4481.597
+e2_local,0.25,5,11,F4,explore,1056 2584,ok,142.706
+e2_local,0.25,5,12,F4,explore,4266 338,ok,172.438
+e2_local,0.25,5,13,F1,explore,9162,ok,26.196
+e2_local,0.25,5,14,F4,explore,5902 8764,ok,38.811
+e2_local,0.25,5,15,F4,explore,9587 7582,ok,29.647
+e2_local,0.25,5,16,F3,personal,44433,ok,578.060
+e2_local,0.25,5,17,F2,personal,9559 16812,ok,3.335
+e2_local,0.25,5,18,F3,personal,12932,ok,206.529
+e2_local,0.25,5,19,F5,explore,classics paranormal,ok,5946.739
+e2_local,0.25,5,20,F5,explore,mystery classics,ok,6543.696
+e2_local,0.25,5,21,F1,explore,8241,ok,34.691
+e2_local,0.25,5,22,F3,personal,53136,ok,49.801
+e2_local,0.25,5,23,F3,personal,46367,ok,673.407
+e2_local,0.25,5,24,F5,explore,paranormal horror,ok,4666.046
+e2_local,0.25,5,25,F1,explore,3519,ok,52.840
+e2_local,0.25,5,26,F5,explore,dystopia mystery,ok,5303.701
+e2_local,0.25,5,27,F1,explore,1881,ok,67.955
+e2_local,0.25,5,28,F2,personal,12963 12920,ok,2.556
+e2_local,0.25,5,29,F4,explore,1161 4757,ok,178.444
+e2_local,0.25,5,30,F2,personal,43720 22091,insufficient_overlap,3.009
+e2_local,0.25,5,31,F5,explore,mystery science-fiction,ok,5649.763
+e2_local,0.25,5,32,F4,explore,3576 570,ok,246.951
+e2_local,0.25,5,33,F2,personal,39558 27444,insufficient_overlap,3.465
+e2_local,0.25,5,34,F2,personal,2372 18013,insufficient_overlap,2.374
+e2_local,0.25,5,35,F5,explore,historical-fiction dystopia,ok,5362.531
+e2_local,0.25,5,36,F4,explore,1488 4252,ok,118.144
+e2_local,0.25,5,37,F5,explore,fantasy young-adult,ok,6906.852
+e2_local,0.25,5,38,F5,explore,classics fantasy,ok,7077.852
+e2_local,0.25,5,39,F4,explore,8291 3800,ok,41.646
+e2_local,0.00,1,0,F4,explore,4190 5857,ok,51.228
+e2_local,0.00,1,1,F4,explore,3115 7882,ok,62.890
+e2_local,0.00,1,2,F4,explore,5063 231,ok,285.258
+e2_local,0.00,1,3,F4,explore,5148 4032,ok,45.585
+e2_local,0.00,1,4,F4,explore,5352 3370,ok,52.204
+e2_local,0.00,1,5,F4,explore,4384 3626,ok,46.611
+e2_local,0.00,1,6,F1,explore,8350,ok,28.472
+e2_local,0.00,1,7,F5,explore,historical-fiction dystopia,ok,5507.299
+e2_local,0.00,1,8,F1,explore,4535,ok,52.610
+e2_local,0.00,1,9,F4,explore,5494 1748,ok,73.989
+e2_local,0.00,1,10,F1,explore,2920,ok,51.780
+e2_local,0.00,1,11,F4,explore,8458 7744,ok,36.244
+e2_local,0.00,1,12,F4,explore,2731 6496,ok,77.813
+e2_local,0.00,1,13,F5,explore,horror vampires,ok,4693.331
+e2_local,0.00,1,14,F5,explore,paranormal horror,ok,4883.444
+e2_local,0.00,1,15,F1,explore,4853,ok,27.092
+e2_local,0.00,1,16,F1,explore,9599,ok,29.559
+e2_local,0.00,1,17,F1,explore,364,ok,290.825
+e2_local,0.00,1,18,F1,explore,7526,ok,28.948
+e2_local,0.00,1,19,F1,explore,4137,ok,33.295
+e2_local,0.00,1,20,F4,explore,2654 4266,ok,95.731
+e2_local,0.00,1,21,F5,explore,classics dystopia,ok,6051.565
+e2_local,0.00,1,22,F5,explore,young-adult horror,ok,5863.288
+e2_local,0.00,1,23,F1,explore,4341,ok,37.820
+e2_local,0.00,1,24,F4,explore,5325 3356,ok,51.121
+e2_local,0.00,1,25,F5,explore,vampires paranormal,ok,4286.385
+e2_local,0.00,1,26,F5,explore,horror romance,ok,5964.539
+e2_local,0.00,1,27,F4,explore,7489 2582,ok,103.034
+e2_local,0.00,1,28,F5,explore,classics thriller,ok,6436.068
+e2_local,0.00,1,29,F1,explore,3683,ok,52.831
+e2_local,0.00,1,30,F4,explore,5093 9824,ok,80.818
+e2_local,0.00,1,31,F4,explore,7480 9621,ok,52.137
+e2_local,0.00,1,32,F1,explore,8518,ok,40.566
+e2_local,0.00,1,33,F4,explore,5388 5333,ok,57.555
+e2_local,0.00,1,34,F1,explore,1283,ok,88.341
+e2_local,0.00,1,35,F1,explore,9106,ok,32.850
+e2_local,0.00,1,36,F4,explore,4923 9278,ok,39.950
+e2_local,0.00,1,37,F5,explore,dystopia historical-fiction,ok,5430.327
+e2_local,0.00,1,38,F4,explore,8318 7182,ok,43.883
+e2_local,0.00,1,39,F1,explore,3140,ok,46.288
+e2_local,0.00,2,0,F4,explore,4190 5857,ok,63.650
+e2_local,0.00,2,1,F4,explore,3115 7882,ok,59.899
+e2_local,0.00,2,2,F4,explore,5063 231,ok,294.382
+e2_local,0.00,2,3,F4,explore,5148 4032,ok,58.091
+e2_local,0.00,2,4,F4,explore,5352 3370,ok,55.519
+e2_local,0.00,2,5,F4,explore,4384 3626,ok,54.416
+e2_local,0.00,2,6,F1,explore,8350,ok,24.443
+e2_local,0.00,2,7,F5,explore,historical-fiction dystopia,ok,5465.888
+e2_local,0.00,2,8,F1,explore,4535,ok,53.540
+e2_local,0.00,2,9,F4,explore,5494 1748,ok,81.083
+e2_local,0.00,2,10,F1,explore,2920,ok,53.527
+e2_local,0.00,2,11,F4,explore,8458 7744,ok,39.773
+e2_local,0.00,2,12,F4,explore,2731 6496,ok,119.608
+e2_local,0.00,2,13,F5,explore,horror vampires,ok,4808.478
+e2_local,0.00,2,14,F5,explore,paranormal horror,ok,5205.075
+e2_local,0.00,2,15,F1,explore,4853,ok,45.818
+e2_local,0.00,2,16,F1,explore,9599,ok,45.851
+e2_local,0.00,2,17,F1,explore,364,ok,263.722
+e2_local,0.00,2,18,F1,explore,7526,ok,27.393
+e2_local,0.00,2,19,F1,explore,4137,ok,45.514
+e2_local,0.00,2,20,F4,explore,2654 4266,ok,105.174
+e2_local,0.00,2,21,F5,explore,classics dystopia,ok,6129.557
+e2_local,0.00,2,22,F5,explore,young-adult horror,ok,5876.914
+e2_local,0.00,2,23,F1,explore,4341,ok,28.240
+e2_local,0.00,2,24,F4,explore,5325 3356,ok,59.337
+e2_local,0.00,2,25,F5,explore,vampires paranormal,ok,4314.351
+e2_local,0.00,2,26,F5,explore,horror romance,ok,6124.661
+e2_local,0.00,2,27,F4,explore,7489 2582,ok,88.969
+e2_local,0.00,2,28,F5,explore,classics thriller,ok,5995.523
+e2_local,0.00,2,29,F1,explore,3683,ok,46.264
+e2_local,0.00,2,30,F4,explore,5093 9824,ok,58.763
+e2_local,0.00,2,31,F4,explore,7480 9621,ok,39.553
+e2_local,0.00,2,32,F1,explore,8518,ok,36.564
+e2_local,0.00,2,33,F4,explore,5388 5333,ok,73.988
+e2_local,0.00,2,34,F1,explore,1283,ok,102.049
+e2_local,0.00,2,35,F1,explore,9106,ok,27.290
+e2_local,0.00,2,36,F4,explore,4923 9278,ok,48.854
+e2_local,0.00,2,37,F5,explore,dystopia historical-fiction,ok,5450.895
+e2_local,0.00,2,38,F4,explore,8318 7182,ok,32.454
+e2_local,0.00,2,39,F1,explore,3140,ok,45.959
+e2_local,0.00,3,0,F4,explore,4190 5857,ok,78.963
+e2_local,0.00,3,1,F4,explore,3115 7882,ok,68.118
+e2_local,0.00,3,2,F4,explore,5063 231,ok,281.171
+e2_local,0.00,3,3,F4,explore,5148 4032,ok,51.627
+e2_local,0.00,3,4,F4,explore,5352 3370,ok,56.610
+e2_local,0.00,3,5,F4,explore,4384 3626,ok,60.191
+e2_local,0.00,3,6,F1,explore,8350,ok,20.099
+e2_local,0.00,3,7,F5,explore,historical-fiction dystopia,ok,5504.114
+e2_local,0.00,3,8,F1,explore,4535,ok,67.042
+e2_local,0.00,3,9,F4,explore,5494 1748,ok,77.949
+e2_local,0.00,3,10,F1,explore,2920,ok,65.999
+e2_local,0.00,3,11,F4,explore,8458 7744,ok,39.831
+e2_local,0.00,3,12,F4,explore,2731 6496,ok,81.791
+e2_local,0.00,3,13,F5,explore,horror vampires,ok,4559.340
+e2_local,0.00,3,14,F5,explore,paranormal horror,ok,4505.261
+e2_local,0.00,3,15,F1,explore,4853,ok,34.202
+e2_local,0.00,3,16,F1,explore,9599,ok,36.469
+e2_local,0.00,3,17,F1,explore,364,ok,233.751
+e2_local,0.00,3,18,F1,explore,7526,ok,22.618
+e2_local,0.00,3,19,F1,explore,4137,ok,29.181
+e2_local,0.00,3,20,F4,explore,2654 4266,ok,78.228
+e2_local,0.00,3,21,F5,explore,classics dystopia,ok,5973.537
+e2_local,0.00,3,22,F5,explore,young-adult horror,ok,6181.407
+e2_local,0.00,3,23,F1,explore,4341,ok,29.609
+e2_local,0.00,3,24,F4,explore,5325 3356,ok,51.002
+e2_local,0.00,3,25,F5,explore,vampires paranormal,ok,4716.861
+e2_local,0.00,3,26,F5,explore,horror romance,ok,6104.664
+e2_local,0.00,3,27,F4,explore,7489 2582,ok,93.665
+e2_local,0.00,3,28,F5,explore,classics thriller,ok,6018.024
+e2_local,0.00,3,29,F1,explore,3683,ok,48.665
+e2_local,0.00,3,30,F4,explore,5093 9824,ok,49.642
+e2_local,0.00,3,31,F4,explore,7480 9621,ok,38.834
+e2_local,0.00,3,32,F1,explore,8518,ok,33.301
+e2_local,0.00,3,33,F4,explore,5388 5333,ok,54.280
+e2_local,0.00,3,34,F1,explore,1283,ok,86.439
+e2_local,0.00,3,35,F1,explore,9106,ok,24.054
+e2_local,0.00,3,36,F4,explore,4923 9278,ok,43.361
+e2_local,0.00,3,37,F5,explore,dystopia historical-fiction,ok,5379.378
+e2_local,0.00,3,38,F4,explore,8318 7182,ok,31.086
+e2_local,0.00,3,39,F1,explore,3140,ok,36.650
+e2_local,0.00,4,0,F4,explore,4190 5857,ok,64.657
+e2_local,0.00,4,1,F4,explore,3115 7882,ok,52.320
+e2_local,0.00,4,2,F4,explore,5063 231,ok,262.899
+e2_local,0.00,4,3,F4,explore,5148 4032,ok,55.938
+e2_local,0.00,4,4,F4,explore,5352 3370,ok,60.153
+e2_local,0.00,4,5,F4,explore,4384 3626,ok,53.508
+e2_local,0.00,4,6,F1,explore,8350,ok,23.618
+e2_local,0.00,4,7,F5,explore,historical-fiction dystopia,ok,5298.974
+e2_local,0.00,4,8,F1,explore,4535,ok,52.240
+e2_local,0.00,4,9,F4,explore,5494 1748,ok,70.520
+e2_local,0.00,4,10,F1,explore,2920,ok,53.601
+e2_local,0.00,4,11,F4,explore,8458 7744,ok,36.708
+e2_local,0.00,4,12,F4,explore,2731 6496,ok,87.083
+e2_local,0.00,4,13,F5,explore,horror vampires,ok,4840.857
+e2_local,0.00,4,14,F5,explore,paranormal horror,ok,4927.809
+e2_local,0.00,4,15,F1,explore,4853,ok,29.478
+e2_local,0.00,4,16,F1,explore,9599,ok,31.270
+e2_local,0.00,4,17,F1,explore,364,ok,272.685
+e2_local,0.00,4,18,F1,explore,7526,ok,25.317
+e2_local,0.00,4,19,F1,explore,4137,ok,29.828
+e2_local,0.00,4,20,F4,explore,2654 4266,ok,86.263
+e2_local,0.00,4,21,F5,explore,classics dystopia,ok,5778.171
+e2_local,0.00,4,22,F5,explore,young-adult horror,ok,6055.256
+e2_local,0.00,4,23,F1,explore,4341,ok,41.201
+e2_local,0.00,4,24,F4,explore,5325 3356,ok,51.809
+e2_local,0.00,4,25,F5,explore,vampires paranormal,ok,4159.068
+e2_local,0.00,4,26,F5,explore,horror romance,ok,5702.798
+e2_local,0.00,4,27,F4,explore,7489 2582,ok,92.039
+e2_local,0.00,4,28,F5,explore,classics thriller,ok,6051.480
+e2_local,0.00,4,29,F1,explore,3683,ok,39.793
+e2_local,0.00,4,30,F4,explore,5093 9824,ok,42.806
+e2_local,0.00,4,31,F4,explore,7480 9621,ok,58.423
+e2_local,0.00,4,32,F1,explore,8518,ok,30.689
+e2_local,0.00,4,33,F4,explore,5388 5333,ok,45.670
+e2_local,0.00,4,34,F1,explore,1283,ok,76.725
+e2_local,0.00,4,35,F1,explore,9106,ok,28.255
+e2_local,0.00,4,36,F4,explore,4923 9278,ok,44.381
+e2_local,0.00,4,37,F5,explore,dystopia historical-fiction,ok,5529.567
+e2_local,0.00,4,38,F4,explore,8318 7182,ok,32.240
+e2_local,0.00,4,39,F1,explore,3140,ok,39.987
+e2_local,0.00,5,0,F4,explore,4190 5857,ok,55.101
+e2_local,0.00,5,1,F4,explore,3115 7882,ok,66.015
+e2_local,0.00,5,2,F4,explore,5063 231,ok,273.492
+e2_local,0.00,5,3,F4,explore,5148 4032,ok,61.579
+e2_local,0.00,5,4,F4,explore,5352 3370,ok,52.051
+e2_local,0.00,5,5,F4,explore,4384 3626,ok,58.750
+e2_local,0.00,5,6,F1,explore,8350,ok,20.745
+e2_local,0.00,5,7,F5,explore,historical-fiction dystopia,ok,5483.780
+e2_local,0.00,5,8,F1,explore,4535,ok,80.841
+e2_local,0.00,5,9,F4,explore,5494 1748,ok,81.653
+e2_local,0.00,5,10,F1,explore,2920,ok,72.491
+e2_local,0.00,5,11,F4,explore,8458 7744,ok,25.902
+e2_local,0.00,5,12,F4,explore,2731 6496,ok,77.446
+e2_local,0.00,5,13,F5,explore,horror vampires,ok,5123.053
+e2_local,0.00,5,14,F5,explore,paranormal horror,ok,4764.278
+e2_local,0.00,5,15,F1,explore,4853,ok,26.430
+e2_local,0.00,5,16,F1,explore,9599,ok,28.009
+e2_local,0.00,5,17,F1,explore,364,ok,274.306
+e2_local,0.00,5,18,F1,explore,7526,ok,25.219
+e2_local,0.00,5,19,F1,explore,4137,ok,33.160
+e2_local,0.00,5,20,F4,explore,2654 4266,ok,79.678
+e2_local,0.00,5,21,F5,explore,classics dystopia,ok,5745.763
+e2_local,0.00,5,22,F5,explore,young-adult horror,ok,6054.414
+e2_local,0.00,5,23,F1,explore,4341,ok,28.872
+e2_local,0.00,5,24,F4,explore,5325 3356,ok,41.823
+e2_local,0.00,5,25,F5,explore,vampires paranormal,ok,4447.225
+e2_local,0.00,5,26,F5,explore,horror romance,ok,5891.117
+e2_local,0.00,5,27,F4,explore,7489 2582,ok,88.716
+e2_local,0.00,5,28,F5,explore,classics thriller,ok,6320.484
+e2_local,0.00,5,29,F1,explore,3683,ok,45.821
+e2_local,0.00,5,30,F4,explore,5093 9824,ok,44.724
+e2_local,0.00,5,31,F4,explore,7480 9621,ok,50.307
+e2_local,0.00,5,32,F1,explore,8518,ok,29.787
+e2_local,0.00,5,33,F4,explore,5388 5333,ok,63.179
+e2_local,0.00,5,34,F1,explore,1283,ok,90.476
+e2_local,0.00,5,35,F1,explore,9106,ok,22.482
+e2_local,0.00,5,36,F4,explore,4923 9278,ok,40.294
+e2_local,0.00,5,37,F5,explore,dystopia historical-fiction,ok,5164.403
+e2_local,0.00,5,38,F4,explore,8318 7182,ok,33.242
+e2_local,0.00,5,39,F1,explore,3140,ok,39.181

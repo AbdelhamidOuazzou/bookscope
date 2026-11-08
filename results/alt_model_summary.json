@@ -1,0 +1,53 @@
+{
+  "uri": "mongodb://localhost:27100",
+  "database": "bookscope",
+  "requests": 200,
+  "repeats": 5,
+  "seed": 42,
+  "build": {
+    "build_seconds": 4.61,
+    "index_seconds": 2.33
+  },
+  "size_per_rating": {
+    "documents": 1085392,
+    "data_mb": 73,
+    "storage_mb": 25,
+    "indexes_mb": 79
+  },
+  "size_per_reader": {
+    "documents": 10000,
+    "data_mb": 31,
+    "storage_mb": 14,
+    "indexes_mb": 7
+  },
+  "identical_results": true,
+  "mismatches": 0,
+  "reader_history": {
+    "per_rating": {
+      "n": 1000,
+      "median_ms": 1.74,
+      "p25_ms": 1.27,
+      "p75_ms": 2.377
+    },
+    "per_reader": {
+      "n": 1000,
+      "median_ms": 0.684,
+      "p25_ms": 0.5,
+      "p75_ms": 0.892
+    }
+  },
+  "book_likers": {
+    "per_rating": {
+      "n": 1000,
+      "median_ms": 0.995,
+      "p25_ms": 0.68,
+      "p75_ms": 1.487
+    },
+    "per_reader": {
+      "n": 1000,
+      "median_ms": 1.329,
+      "p25_ms": 0.895,
+      "p75_ms": 2.181
+    }
+  }
+}
