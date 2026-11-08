@@ -7,6 +7,7 @@ import bookscope.tools.Cluster;
 import bookscope.tools.CompareDeployments;
 import bookscope.tools.DownloadData;
 import bookscope.tools.ExperimentE3;
+import bookscope.tools.ExperimentE4;
 import bookscope.tools.ExperimentRepresentation;
 import bookscope.tools.LoadData;
 import bookscope.tools.PrepareData;
@@ -47,7 +48,7 @@ public final class Main {
               compare USER_A USER_B [--truncate-a N] [--truncate-b N] [-k N]  F2: compare two readers
               recommend USER [--truncate N] [-k N]                           F3: recommend books to a reader
               trace BOOK_A BOOK_B [-k N]                                     F4: connection between two books
-              interests TAG_A TAG_B [-k N] [--min-count N]                   F5: links between two tags
+              interests TAG_A TAG_B [-k N] [--min-count N] [--adjust-shared]                   F5: links between two tags
               update FILE                                                    F6: import a batch of ratings (jsonl or csv)
               records [--users 1,2] [--books 3,4] [--tags]                   list the stored records behind a result
               info                                                           deployment, selection and load information
@@ -62,6 +63,7 @@ public final class Main {
               time-deployments [--uris URI,URI,...] [--repeat N] [--output DIR]
               verify-csv --f2 USER_A USER_B --f4 BOOK_A BOOK_B [--check URI]
               e3 [--uri URI] [--output DIR] [--k N] [--truncate N] [--limit N]
+              e4 [--uri URI] [--output DIR]
               representation [--uri URI] [--output DIR] [--samples N] [--repeat N] [--no-build]
               bench [--uri URI] [--label NAME] [--shares 1,0.75,0.5,0.25,0] [--requests N] [--repeats N] [--warmup N] [--seed N]
               alt-model [--uri URI] [--requests N] [--repeats N] [--seed N]
@@ -83,7 +85,8 @@ public final class Main {
             case "trace":
                 return Trace.trace(store, Integer.parseInt(p.get(1)), Integer.parseInt(p.get(2)), args.getInt("-k", 5));
             case "interests":
-                return Interests.interests(store, p.get(1), p.get(2), args.getInt("-k", 5), args.getInt("--min-count", Interests.MIN_TAG_COUNT));
+                return Interests.interests(store, p.get(1), p.get(2), args.getInt("-k", 5), args.getInt("--min-count", Interests.MIN_TAG_COUNT),
+                        args.has("--adjust-shared"));
             case "update":
                 return Update.update(store, p.get(1));
             case "records":
@@ -226,6 +229,7 @@ public final class Main {
             case "compare-deployments" -> code = CompareDeployments.run(args) ? 0 : 1;
             case "verify-csv" -> code = VerifyCsv.run(args) ? 0 : 1;
             case "e3" -> ExperimentE3.run(args);
+            case "e4" -> ExperimentE4.run(args);
             case "representation" -> ExperimentRepresentation.run(args);
             case "time-deployments" -> TimeDeployments.run(args);
             case "serve" -> WebServer.run(args);

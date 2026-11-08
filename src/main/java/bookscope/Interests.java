@@ -50,7 +50,8 @@ public final class Interests {
      * expectation avoids a compositional bias (a horror fan has fewer likes left for romance).
      */
     private static Analysis analyse(Map<Integer, List<Integer>> groups, Map<Integer, Integer> likedTotal, Set<Integer> side1,
-                                    Set<Integer> side2, Set<Integer> excludedBooks, Set<Integer> excludedReaders) {
+                                    Set<Integer> side2, Set<Integer> excludedBooks, Set<Integer> excludedReaders,
+                                    Set<Integer> sharedOutOfTotals) {
         Map<Integer, int[]> counts = new HashMap<>();
         long sum1 = 0;
         long sum2 = 0;
@@ -62,16 +63,19 @@ public final class Interests {
             }
             int n1 = 0;
             int n2 = 0;
+            int shared = 0;
             for (int b : groups.getOrDefault(u, List.of())) {
                 if (!excludedBooks.contains(b)) {
                     n1 += side1.contains(b) ? 1 : 0;
                     n2 += side2.contains(b) ? 1 : 0;
                 }
+                shared += sharedOutOfTotals.contains(b) ? 1 : 0;
             }
-            counts.put(u, new int[] {n1, n2, entry.getValue()});
+            int liked = entry.getValue() - shared;
+            counts.put(u, new int[] {n1, n2, liked});
             sum1 += n1;
             sum2 += n2;
-            total += entry.getValue();
+            total += liked;
         }
         long totalOr1 = total != 0 ? total : 1;
         double base1 = (double) sum1 / totalOr1;
@@ -174,6 +178,15 @@ public final class Interests {
     }
 
     public static Document interests(Store store, String tagA, String tagB, int k, int minCount) {
+        return interests(store, tagA, tagB, k, minCount, false);
+    }
+
+    /**
+     * @param adjustShared books carrying both tags are never counted on either side. When false (the
+     *     original behaviour) their likes still count in each reader's total, which lowers the lift of
+     *     two interests that share many books. When true they are removed from the totals too.
+     */
+    public static Document interests(Store store, String tagA, String tagB, int k, int minCount, boolean adjustShared) {
         Catalog cat = store.catalog();
         Document[] early = new Document[1];
         Catalog.Tag ta = resolveTag(cat, tagA, early);
@@ -231,7 +244,8 @@ public final class Interests {
             likedTotal.put(toInt(d.get("_id")), toInt(d.get("n")));
         }
 
-        Analysis full = analyse(groups, likedTotal, side1, side2, Set.of(), Set.of());
+        Set<Integer> sharedOut = adjustShared ? both : Set.of();
+        Analysis full = analyse(groups, likedTotal, side1, side2, Set.of(), Set.of(), sharedOut);
         Set<Integer> hubs = cat.hubs(HUB_SHARE);
         List<Integer> activity = new ArrayList<>();
         for (Document d : store.db.getCollection("user_stats").find().projection(new Document("n", 1))) {
@@ -244,7 +258,7 @@ public final class Interests {
                 .projection(new Document("_id", 1))) {
             veryActive.add(toInt(d.get("_id")));
         }
-        Analysis discounted = analyse(groups, likedTotal, side1, side2, hubs, veryActive);
+        Analysis discounted = analyse(groups, likedTotal, side1, side2, hubs, veryActive, sharedOut);
 
         List<Integer> bridgingBooks = new ArrayList<>(both);
         bridgingBooks.sort((x, y) -> {
@@ -282,7 +296,7 @@ public final class Interests {
                 .append("parameters", new Document("min_tag_count", minCount)
                         .append("tag_rank", "tag among the " + TOP_RANK + " most used content tags")
                         .append("attachment", ">= " + MIN_PER_SIDE + " liked books and >= " + ATTACHMENT + "x the average share")
-                        .append("min_lift", MIN_LIFT).append("like_threshold", LIKE)
+                        .append("min_lift", MIN_LIFT).append("like_threshold", LIKE).append("shared_books_out_of_totals", adjustShared)
                         .append("hubs", "top 1% most rated books")
                         .append("very_active", "readers above the 95% activity quantile"));
     }

@@ -11,7 +11,7 @@ plusieurs instances sur la même machine (Partie II).
 
 > **État : prototype en Java.** Les six services, les deux déploiements, la comparaison
 > automatique et la vérification indépendante fonctionnent sur les vraies données.
-> E3 est mesurée. E1, E2, E4, la représentation alternative et le rapport restent à faire
+> E1 à E4 et la représentation alternative sont mesurées. Le rapport reste à finaliser
 > (voir [Feuille de route](#feuille-de-route)).
 
 ## Prérequis
@@ -74,6 +74,13 @@ Expérience E3 (résultats dans `results/`) :
 
 ```bash
 bookscope e3 --uri mongodb://localhost:27100 --output results
+```
+
+Expérience E4 (F5, cas difficile, résultats dans `results/`) :
+
+```bash
+bookscope e4 --uri mongodb://localhost:27100 --output results
+bookscope interests dystopia young-adult --adjust-shared      # nouvelle règle (par défaut : ancienne)
 ```
 
 Représentation alternative, un document par lecteur (résultats dans `results/`) :
@@ -171,8 +178,9 @@ Détails des choix (modèle, index, placement, politique F6, comportement en pan
 - [ ] E1 : trois tailles (dont les 6 M de notes : `prepare --all-readers`)
 - [ ] E2 : déposer la prédiction **avant** de mesurer ; charges personnalisée / exploration
 - [x] E3 : précision / rappel@k vs baseline popularité, historiques courts (k=5) et complets (à analyser dans le rapport)
-- [ ] E4 (bonus) : cas difficile — piste : `dystopia` / `young-adult` en F5, où les livres
-      portant les deux tags sont exclus des deux côtés
+- [x] E4 (bonus) : `dystopia` / `young-adult` en F5 (livres portant les deux tags exclus des
+      deux côtés mais comptés dans le total de chaque lecteur) ; correction `--adjust-shared`
+      mesurée sur 14 paires, cas non résolu (lift 0,65 → 0,76)
 - [ ] Rapport (≤ 10 pages) et soutenance
 
 ## Données
