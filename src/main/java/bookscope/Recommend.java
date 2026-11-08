@@ -16,14 +16,33 @@ import java.util.Map;
 import java.util.Set;
 import org.bson.Document;
 
-/** F3 - recommend books a reader has not rated. */
+/**
+ * F3 - recommend books a reader has not rated.
+ *
+ * <p>Recommander des livres (F3), en résumé (filtrage collaboratif « par lecteurs ») :
+ * <ol>
+ *   <li>lire l'historique du lecteur et garder les livres qu'il a aimés (note >= 4) ;</li>
+ *   <li>trouver ses 50 voisins : les lecteurs qui ont aimé les mêmes livres, surtout des livres rares ;</li>
+ *   <li>lire tout ce que ces 50 voisins ont aimé, et ne garder que les livres que le lecteur n'a pas notés ;</li>
+ *   <li>donner un score à chaque livre (voisins qui le soutiennent, moins une pénalité de popularité) ;</li>
+ *   <li>pour un historique court (moins de 10 notes), mélanger avec la ressemblance par tags ;</li>
+ *   <li>trier, garder les k meilleurs et expliquer chacun avec ses preuves.</li>
+ * </ol>
+ * Requêtes MongoDB : l'historique (étape 1), une agrégation et l'activité des voisins (étape 2),
+ * un find sur les notes des voisins (étape 3). Le reste est du calcul en Java.
+ */
 public final class Recommend {
+    /** Nombre de voisins gardés à la fin. */
     public static final int NEIGHBOURS = 50;
+    /** On présélectionne 1 000 candidats avant de corriger par leur activité (étape 2). */
     public static final int CANDIDATE_NEIGHBOURS = 1000;
+    /** Un livre doit être aimé par au moins 2 voisins : un seul voisin, c'est trop peu de preuve. */
     public static final int MIN_SUPPORT = 2;
+    /** Exposant de la pénalité de popularité : score / (nombre de « j'aime » du livre)^0,35. */
     public static final double POPULARITY_PENALTY = 0.35;
     /** Below this many ratings, reader evidence is blended with tag evidence. */
     public static final int SHORT_HISTORY = 10;
+    /** Pour un historique court : 50 % voisins + 50 % tags. */
     public static final double TAG_SHARE = 0.5;
 
     private record Neighbour(int userId, double similarity, List<Integer> books) {
@@ -38,6 +57,11 @@ public final class Recommend {
     /** Readers who liked the same books, weighted by book rarity and normalised by activity. */
     private static List<Neighbour> findNeighbours(Store store, int userId, List<Integer> liked) {
         Catalog cat = store.catalog();
+        // Agrégation sur ratings, en 2 étapes :
+        //   $match : les notes >= 4 posées sur un des livres aimés par notre lecteur (sauf les siennes) ;
+        //   $group : regroupées par lecteur -> {_id: lecteur, books: [livres aimés en commun]}.
+        // Le filtre porte sur book_id et non sur user_id : en distribué, mongos doit donc interroger
+        // TOUS les shards. Chaque shard fait son $group, puis mongos fusionne les résultats.
         List<Document> pipeline = List.of(
                 new Document("$match", new Document("book_id", new Document("$in", liked))
                         .append("rating", new Document("$gte", LIKE)).append("user_id", new Document("$ne", userId))),
@@ -48,19 +72,24 @@ public final class Recommend {
         for (Document d : store.db.getCollection("ratings").aggregate(pipeline).allowDiskUse(true)) {
             List<Integer> books = new ArrayList<>(d.getList("books", Integer.class));
             books.sort(null);
+            // Score brut du candidat = somme des poids des livres partagés.
+            // Partager un livre rare (poids élevé) compte plus que partager un best-seller.
             double sum = 0;
             for (int b : books) {
                 sum += cat.bookWeight(b);
             }
             raw.add(new Raw(sum, toInt(d.get("_id")), books));
         }
+        // Tri du plus grand score au plus petit ; à égalité, le plus petit user_id d'abord (résultat stable).
         raw.sort((x, y) -> {
             int c = cmp(y.score(), x.score());
             return c != 0 ? c : Integer.compare(x.userId(), y.userId());
         });
         raw = raw.subList(0, Math.min(CANDIDATE_NEIGHBOURS, raw.size()));
+        // Requête : le nombre de notes de ces 1 000 candidats, lu dans user_stats ({_id: lecteur, n: nombre}).
         Map<Integer, Integer> activity = store.activity(raw.stream().map(Raw::userId).toList());
         // Very active readers share many books with everyone: divide by sqrt(their activity).
+        // Exemple : un lecteur avec 400 notes voit son score divisé par 20, un lecteur avec 100 notes par 10.
         List<Raw> scored = new ArrayList<>();
         for (Raw r : raw) {
             scored.add(new Raw(r.score() / Math.sqrt(activity.getOrDefault(r.userId(), 1)), r.userId(), r.books()));
@@ -82,11 +111,15 @@ public final class Recommend {
 
     public static Document recommend(Store store, int userId, int k, Integer truncate, double penalty, double tagShare) {
         Catalog cat = store.catalog();
+        // --- Étape 1 : l'historique du lecteur ---
+        // find({user_id: X}) trié dans le temps ; en distribué, seul le shard du lecteur est interrogé.
+        // truncate = 5 : on ne garde que ses 5 premières notes (cas « historique court » du jury).
         List<Store.Rating> history = store.history(userId, truncate);
         if (history.isEmpty()) {
             return new Document("service", "F3").append("status", "not_found")
                     .append("message", "reader " + userId + " has no stored ratings");
         }
+        // rated = tous les livres déjà notés (on ne les recommandera pas) ; liked = ceux notés >= 4.
         Set<Integer> rated = new HashSet<>();
         List<Integer> liked = new ArrayList<>();
         int top = 0;
@@ -97,6 +130,7 @@ public final class Recommend {
                 liked.add(r.bookId());
             }
         }
+        // Cas rare : aucune note >= 4. On prend alors ses livres les mieux notés (par exemple ses 3).
         String basisNote = null;
         if (liked.isEmpty()) {
             for (Store.Rating r : history) {
@@ -108,13 +142,18 @@ public final class Recommend {
         }
         liked.sort(null);
 
+        // --- Étape 2 : les 50 voisins (voir findNeighbours plus haut) ---
         List<Neighbour> neighbours = findNeighbours(store, userId, liked);
+        // sims : voisin -> son score de ressemblance ; sharedBooks : voisin -> livres aimés en commun.
         Map<Integer, Double> sims = new LinkedHashMap<>();
         Map<Integer, List<Integer>> sharedBooks = new HashMap<>();
         for (Neighbour n : neighbours) {
             sims.put(n.userId(), n.similarity());
             sharedBooks.put(n.userId(), n.books());
         }
+        // --- Étape 3 : ce que les voisins ont aimé ---
+        // find({user_id: {$in: [les 50 voisins]}, rating: {$gte: 4}}) : plusieurs milliers de notes.
+        // On écarte les livres que notre lecteur a déjà notés ; support : livre -> voisins qui l'ont aimé.
         Map<Integer, List<Support>> support = new HashMap<>();
         if (!neighbours.isEmpty()) {
             for (Document r : store.db.getCollection("ratings")
@@ -127,6 +166,10 @@ public final class Recommend {
             }
         }
 
+        // --- Étape 4 : le score de chaque livre (pur calcul Java) ---
+        // score = (somme des ressemblances des voisins qui l'aiment) / (nombre de « j'aime » du livre)^0,35
+        // La division freine les best-sellers, sinon ils seraient proposés à tout le monde.
+        // Un livre soutenu par un seul voisin est ignoré (MIN_SUPPORT = 2).
         Map<Integer, Double> readerScores = new HashMap<>();
         support.forEach((b, rs) -> {
             if (rs.size() >= MIN_SUPPORT) {
@@ -138,6 +181,9 @@ public final class Recommend {
             }
         });
 
+        // --- Étape 5 : le profil de tags du lecteur (aucune requête : les tags sont en mémoire) ---
+        // On additionne les vecteurs de tags des livres aimés, puis on les ramène à une longueur 1.
+        // tagScores : pour chaque livre non lu, sa ressemblance (cosinus) avec ce profil.
         boolean isShort = history.size() < SHORT_HISTORY;
         Map<Integer, Double> profile = new LinkedHashMap<>();
         for (int b : liked) {
@@ -155,6 +201,9 @@ public final class Recommend {
         String mode;
         if (isShort) {
             // Few ratings: few, weakly supported neighbours. Blend in the reader's tag profile.
+            // Les deux scores n'ont pas la même échelle : on divise chacun par son maximum (0 à 1),
+            // puis score final = 0,5 x score voisins + 0,5 x score tags.
+            // Exemple : voisins 0,8 et tags 0,2 -> (0,8 + 0,2) / 2 = 0,5.
             Map<Integer, Double> rn = normalise(readerScores);
             Map<Integer, Double> tn = normalise(tagScores);
             Set<Integer> union = new HashSet<>(rn.keySet());
@@ -166,9 +215,13 @@ public final class Recommend {
             mode = "short history (< " + SHORT_HISTORY + " ratings): " + Math.round((1 - tagShare) * 100)
                     + "% similar readers + " + Math.round(tagShare * 100) + "% tag profile";
         } else {
+            // Historique de 10 notes ou plus : seuls les voisins comptent.
             finalScores = readerScores;
             mode = "similar readers (user-based collaborative filtering)";
         }
+        // --- Étape 6 : trier, garder les k premiers, puis construire l'explication de chacun ---
+        // Scores arrondis à 6 décimales avant le tri, et à égalité le plus petit book_id d'abord :
+        // le même résultat sort donc en local et en distribué.
         List<Integer> ranked = new ArrayList<>(finalScores.keySet());
         ranked.sort((x, y) -> {
             int c = cmp(rnd(finalScores.get(y)), rnd(finalScores.get(x)));
@@ -199,6 +252,9 @@ public final class Recommend {
                     break;
                 }
             }
+            // Les preuves (« evidence ») : les 3 voisins les plus proches qui ont aimé ce livre, avec
+            // 3 livres qu'ils ont aimés en commun avec le lecteur. Avec la commande records, on peut
+            // retrouver ces notes dans la base (« remonter aux enregistrements sources »).
             List<Document> supporters = new ArrayList<>();
             for (Support s : rs.subList(0, Math.min(3, rs.size()))) {
                 List<Integer> shared = sharedBooks.get(s.userId());
@@ -245,6 +301,7 @@ public final class Recommend {
         return out;
     }
 
+    /** Divise tous les scores par le plus grand : le meilleur vaut 1, les autres sont entre 0 et 1. */
     private static Map<Integer, Double> normalise(Map<Integer, Double> scores) {
         double top = 0;
         for (double s : scores.values()) {
@@ -261,6 +318,7 @@ public final class Recommend {
     }
 
     /** Most rated books the reader has not rated (baseline for E3). */
+    // La « baseline » de E3 : proposer simplement les livres les plus notés. F3 doit faire mieux qu'elle.
     public static List<Integer> popularityBaseline(Catalog cat, Set<Integer> known, int k) {
         return cat.byPopularity().stream().filter(b -> !known.contains(b)).limit(k).toList();
     }
