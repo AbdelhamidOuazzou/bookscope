@@ -169,3 +169,7 @@ results/             mesures brutes
 
 Goodbooks-10k de Zygmunt Zając : https://github.com/zygmuntz/goodbooks-10k.
 Les CSV et les bases ne sont pas dans le dépôt : `download` et `load` les recréent.
+
+## Dépôt
+
+Le code et son historique sont aussi sur GitHub : https://github.com/AbdelhamidOuazzou/bookscope
