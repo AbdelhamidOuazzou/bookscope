@@ -56,6 +56,12 @@ bookscope records --users 32055 --books 7 --tags       # enregistrements sources
 bookscope --uri mongodb://localhost:27200 info         # déploiement, placement, chargement
 ```
 
+Interface web (mêmes services, avec le choix du déploiement et la commande équivalente affichée) :
+
+```bash
+bookscope serve --port 8080                            # puis ouvrir http://localhost:8080
+```
+
 Vérifications :
 
 ```bash
@@ -68,6 +74,12 @@ Expérience E3 (résultats dans `results/`) :
 
 ```bash
 bookscope e3 --uri mongodb://localhost:27100 --output results
+```
+
+Représentation alternative, un document par lecteur (résultats dans `results/`) :
+
+```bash
+bookscope representation --uri mongodb://localhost:27100 --output results
 ```
 
 Perte d'une instance :

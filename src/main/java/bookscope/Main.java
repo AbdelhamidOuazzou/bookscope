@@ -5,6 +5,7 @@ import bookscope.tools.Cluster;
 import bookscope.tools.CompareDeployments;
 import bookscope.tools.DownloadData;
 import bookscope.tools.ExperimentE3;
+import bookscope.tools.ExperimentRepresentation;
 import bookscope.tools.LoadData;
 import bookscope.tools.PrepareData;
 import bookscope.tools.VerifyCsv;
@@ -47,6 +48,7 @@ public final class Main {
               update FILE                                                    F6: import a batch of ratings (jsonl or csv)
               records [--users 1,2] [--books 3,4] [--tags]                   list the stored records behind a result
               info                                                           deployment, selection and load information
+              serve [--port 8080]                                            web interface on http://localhost:8080
 
             Tools:
               download [--output DIR] [--force]
@@ -56,6 +58,7 @@ public final class Main {
               compare-deployments [--a URI] [--b URI]
               verify-csv --f2 USER_A USER_B --f4 BOOK_A BOOK_B [--check URI]
               e3 [--uri URI] [--output DIR] [--k N] [--truncate N] [--limit N]
+              representation [--uri URI] [--output DIR] [--samples N] [--repeat N] [--no-build]
             """;
 
     private Main() {
@@ -94,27 +97,35 @@ public final class Main {
         }
     }
 
-    private static int service(String command, Args args) {
-        boolean json = args.has("--json");
+    /** Runs one service and turns every failure into a result with a status (used by the CLI and the web interface). */
+    static Document execute(Store store, String command, Args args) {
         long start = System.nanoTime();
         Document result;
-        try (Store store = new Store(args.get("--uri", Store.DEFAULT_URI))) {
-            try {
-                result = runService(store, command, args);
-            } catch (BookScopeException exc) {
-                result = new Document("service", command).append("status", "error").append("message", exc.getMessage());
-            } catch (MongoException exc) {
-                // A missing shard makes mongos fail the whole request: no partial answer is returned.
-                String text = String.valueOf(exc.getMessage());
-                result = new Document("service", command).append("status", "unavailable")
-                        .append("message", "a data-serving instance needed for this request is unreachable; "
-                                + "no result is returned because it would be incomplete")
-                        .append("error", exc.getClass().getSimpleName() + ": " + text.substring(0, Math.min(300, text.length())));
-            } catch (Exception exc) {
-                result = new Document("service", command).append("status", "error").append("message", String.valueOf(exc.getMessage()));
-            }
+        try {
+            result = runService(store, command, args);
+        } catch (BookScopeException exc) {
+            result = new Document("service", command).append("status", "error").append("message", exc.getMessage());
+        } catch (MongoException exc) {
+            // A missing shard makes mongos fail the whole request: no partial answer is returned.
+            String text = String.valueOf(exc.getMessage());
+            result = new Document("service", command).append("status", "unavailable")
+                    .append("message", "a data-serving instance needed for this request is unreachable; "
+                            + "no result is returned because it would be incomplete")
+                    .append("error", exc.getClass().getSimpleName() + ": " + text.substring(0, Math.min(300, text.length())));
+            store.refresh();
+        } catch (Exception exc) {
+            result = new Document("service", command).append("status", "error").append("message", String.valueOf(exc.getMessage()));
         }
         result.append("elapsed_s", Util.rnd((System.nanoTime() - start) / 1e9, 3));
+        return result;
+    }
+
+    private static int service(String command, Args args) {
+        boolean json = args.has("--json");
+        Document result;
+        try (Store store = new Store(args.get("--uri", Store.DEFAULT_URI))) {
+            result = execute(store, command, args);
+        }
         if (json) {
             System.out.println(result.toJson(JsonWriterSettings.builder().outputMode(JsonMode.RELAXED).indent(true).build()));
         } else {
@@ -209,6 +220,8 @@ public final class Main {
             case "compare-deployments" -> code = CompareDeployments.run(args) ? 0 : 1;
             case "verify-csv" -> code = VerifyCsv.run(args) ? 0 : 1;
             case "e3" -> ExperimentE3.run(args);
+            case "representation" -> ExperimentRepresentation.run(args);
+            case "serve" -> WebServer.run(args);
             case "explore", "compare", "recommend", "trace", "interests", "update", "records", "info" -> code = service(command, args);
             default -> {
                 System.err.println("unknown command " + command + "\n\n" + USAGE);

@@ -1,0 +1,49 @@
+{
+  "uri": "mongodb://localhost:27100",
+  "samples": 100,
+  "repeat": 5,
+  "results_identical": true,
+  "mismatches": 0,
+  "storage": [
+    {
+      "collection": "ratings",
+      "documents": 1085392,
+      "avg_document_bytes": 71,
+      "data_mb": 73,
+      "storage_mb": 25,
+      "index_mb": 79
+    },
+    {
+      "collection": "readers_alt",
+      "documents": 10000,
+      "avg_document_bytes": 3283,
+      "data_mb": 31,
+      "storage_mb": 10,
+      "index_mb": 7
+    }
+  ],
+  "requests": {
+    "history": {
+      "items": 100,
+      "results_median": 108.0,
+      "current_ms_median": 1.42,
+      "alternative_ms_median": 0.47,
+      "current_docs_examined_median": 108.0,
+      "alternative_docs_examined_median": 1.0,
+      "current_keys_examined_median": 108.0,
+      "alternative_keys_examined_median": 1.0,
+      "alternative_faster_items": 95
+    },
+    "likers": {
+      "items": 100,
+      "results_median": 34.0,
+      "current_ms_median": 0.699,
+      "alternative_ms_median": 1.183,
+      "current_docs_examined_median": 0.0,
+      "alternative_docs_examined_median": 34.0,
+      "current_keys_examined_median": 34.0,
+      "alternative_keys_examined_median": 34.0,
+      "alternative_faster_items": 12
+    }
+  }
+}

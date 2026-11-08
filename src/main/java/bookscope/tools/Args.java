@@ -8,7 +8,7 @@ import java.util.Set;
 
 /** Command-line arguments: positional values and --options. */
 public final class Args {
-    private static final Set<String> NO_VALUE = Set.of("--json", "--tags", "--force", "--all-readers");
+    private static final Set<String> NO_VALUE = Set.of("--json", "--tags", "--force", "--all-readers", "--no-build");
     private static final Set<String> TWO_VALUES = Set.of("--readers", "--f2", "--f4");
 
     public final List<String> positional = new ArrayList<>();

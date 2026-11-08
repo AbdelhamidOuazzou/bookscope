@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BookScope</title>
+<style>
+:root {
+  --bg: #f6f5f1; --panel: #ffffff; --text: #1d1d1b; --muted: #6b6a64; --line: #e3e1da;
+  --accent: #2f5d8a; --accent-soft: #e6eef6; --ok: #2e7d4f; --ok-soft: #e4f3ea;
+  --warn: #9a6a00; --warn-soft: #fbf1d9; --bad: #b3261e; --bad-soft: #fbe7e5; --code: #f1efe9;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #171716; --panel: #212120; --text: #ecebe6; --muted: #a09f98; --line: #34332f;
+    --accent: #8db8e3; --accent-soft: #1f2d3b; --ok: #7fcf9e; --ok-soft: #1c3226;
+    --warn: #e8c46c; --warn-soft: #3a3020; --bad: #f2a49d; --bad-soft: #3d2220; --code: #2a2a28;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between;
+  padding: 14px 24px; border-bottom: 1px solid var(--line); background: var(--panel); }
+h1 { font-size: 20px; margin: 0; letter-spacing: -0.01em; }
+h1 small { font-weight: 400; color: var(--muted); font-size: 14px; margin-left: 8px; }
+.deploy { display: flex; gap: 8px; align-items: center; font-size: 14px; color: var(--muted); }
+main { display: grid; grid-template-columns: 260px 1fr; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 24px; }
+nav button { display: block; width: 100%; text-align: left; border: 0; background: none; color: var(--text);
+  padding: 9px 12px; border-radius: 8px; font: inherit; cursor: pointer; }
+nav button:hover { background: var(--accent-soft); }
+nav button.active { background: var(--accent); color: var(--panel); }
+nav .group { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 14px 12px 4px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+.panel h2 { margin: 0 0 4px; font-size: 18px; }
+.panel p.desc { margin: 0 0 16px; color: var(--muted); }
+form { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+input, select, textarea { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 7px 10px; }
+input[type=number] { width: 120px; }
+textarea { width: 100%; min-height: 150px; font-family: ui-monospace, Consolas, monospace; font-size: 13px; }
+.full { flex-basis: 100%; }
+button.run { background: var(--accent); color: var(--panel); border: 0; border-radius: 8px; padding: 8px 18px; font: inherit; font-weight: 600; cursor: pointer; }
+button.ghost { background: none; color: var(--accent); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; font: inherit; cursor: pointer; }
+button:disabled { opacity: .5; cursor: wait; }
+.cli { margin-top: 14px; font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; background: var(--code);
+  padding: 8px 10px; border-radius: 8px; overflow-x: auto; white-space: pre; color: var(--muted); }
+#result { margin-top: 20px; }
+.status { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+.pill { padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.time { color: var(--muted); font-size: 13px; }
+dl.kv { display: grid; grid-template-columns: minmax(140px, max-content) 1fr; gap: 6px 16px; margin: 0; }
+dl.kv > dt { color: var(--muted); font-size: 13px; padding-top: 1px; }
+dl.kv > dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.section { margin-top: 18px; }
+.section > h3 { font-size: 14px; margin: 0 0 8px; text-transform: none; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--code); font-weight: 600; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; }
+.card { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+.card .rank { font-weight: 700; color: var(--accent); }
+details.raw { margin-top: 18px; }
+details.raw pre { background: var(--code); padding: 10px; border-radius: 8px; overflow: auto; max-height: 400px; font-size: 12px; }
+.hint { font-size: 13px; color: var(--muted); margin-top: 10px; }
+@media (max-width: 760px) {
+  main { grid-template-columns: 1fr; padding: 16px; }
+  header { padding: 12px 16px; }
+  nav { display: flex; flex-wrap: wrap; gap: 4px; }
+  nav button { width: auto; }
+  nav .group { flex-basis: 100%; }
+  dl.kv { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>BookScope <small>Goodbooks-10k · lecteurs 30000 à 39999</small></h1>
+  <div class="deploy">
+    <label style="flex-direction:row;align-items:center;gap:8px">Déploiement
+      <select id="uri">
+        <option value="mongodb://localhost:27100">Local (mongod 27100)</option>
+        <option value="mongodb://localhost:27200">Distribué (mongos 27200)</option>
+      </select>
+    </label>
+  </div>
+</header>
+<main>
+  <nav id="nav"></nav>
+  <section>
+    <div class="panel" id="panel"></div>
+    <div id="result"></div>
+  </section>
+</main>
+<script>
+const SERVICES = [
+  { group: 'Lecteurs' },
+  { id: 'compare', name: 'Comparer deux lecteurs (F2)', desc: 'Corrélation pondérée des notes sur les livres communs, avec les accords et désaccords.',
+    fields: [['a', 'Lecteur A', 32055], ['b', 'Lecteur B', 36002], ['-k', 'Nombre d’exemples', 5], ['--truncate-a', 'Tronquer A (optionnel)', ''], ['--truncate-b', 'Tronquer B (optionnel)', '']],
+    argv: v => ['compare', v.a, v.b] },
+  { id: 'recommend', name: 'Recommander des livres (F3)', desc: 'Livres aimés par les lecteurs les plus proches, avec la justification de chaque proposition.',
+    fields: [['user', 'Lecteur', 32055], ['-k', 'Nombre de livres', 5], ['--truncate', 'Garder seulement les N premières notes (optionnel)', '']],
+    argv: v => ['recommend', v.user] },
+  { id: 'update', name: 'Importer des notes (F6)', desc: 'Un lot de notes (jsonl ou csv user_id,book_id,rating). Réimporter le même lot ne change rien.' },
+  { group: 'Livres' },
+  { id: 'explore', name: 'Explorer un livre (F1)', desc: 'Un livre, ses statistiques et les livres qui lui sont liés.',
+    fields: [['--id', 'Identifiant du livre', 7], ['--title', 'ou titre', ''], ['-k', 'Nombre de liens', 5]],
+    argv: v => ['explore'] },
+  { id: 'trace', name: 'Tracer un lien entre deux livres (F4)', desc: 'Comment deux livres sont reliés par leurs lecteurs et leurs tags.',
+    fields: [['a', 'Livre A', 349], ['b', 'Livre B', 7], ['-k', 'Nombre de chemins', 5]],
+    argv: v => ['trace', v.a, v.b] },
+  { id: 'interests', name: 'Relier deux centres d’intérêt (F5)', desc: 'Les livres et tags qui font le pont entre deux tags.',
+    fields: [['a', 'Tag A', 'fantasy', 'text'], ['b', 'Tag B', 'history', 'text'], ['-k', 'Nombre de résultats', 5]],
+    argv: v => ['interests', v.a, v.b] },
+  { group: 'Outils' },
+  { id: 'records', name: 'Enregistrements stockés', desc: 'Les documents MongoDB derrière un résultat.',
+    fields: [['--users', 'Lecteurs (ex. 32055,36002)', '32055', 'text'], ['--books', 'Livres (ex. 7,349)', '', 'text']],
+    argv: v => ['records'] },
+  { id: 'info', name: 'Informations du déploiement', desc: 'Type de déploiement, sélection et chargement.', fields: [], argv: v => ['info'] },
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+let current = null;
+
+function buildNav() {
+  const nav = $('#nav');
+  for (const s of SERVICES) {
+    if (s.group) { nav.insertAdjacentHTML('beforeend', `<div class="group">${s.group}</div>`); continue; }
+    const b = document.createElement('button');
+    b.textContent = s.name; b.dataset.id = s.id;
+    b.onclick = () => select(s.id);
+    nav.appendChild(b);
+  }
+}
+
+function select(id) {
+  current = SERVICES.find(s => s.id === id);
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.id === id));
+  try { localStorage.setItem('bookscope-tab', id); } catch (e) {}
+  $('#result').innerHTML = '';
+  const p = $('#panel');
+  if (id === 'update') { renderUpdateForm(p); return; }
+  const inputs = current.fields.map(([k, label, def, type]) =>
+    `<label>${esc(label)}<input name="${k}" type="${type || (typeof def === 'number' || def === '' ? 'number' : 'text')}" value="${esc(def)}"></label>`).join('');
+  p.innerHTML = `<h2>${esc(current.name)}</h2><p class="desc">${esc(current.desc)}</p>
+    <form id="f">${inputs}<button class="run">Lancer</button></form><div class="cli" id="cli"></div>`;
+  $('#f').oninput = showCli;
+  $('#f').onsubmit = e => { e.preventDefault(); runService(); };
+  showCli();
+}
+
+function argvFor() {
+  const form = new FormData($('#f'));
+  const v = Object.fromEntries(form.entries());
+  const argv = current.argv(v);
+  for (const [k] of current.fields) {
+    if (k.startsWith('-') && String(v[k]).trim() !== '') argv.push(k, String(v[k]).trim());
+  }
+  return argv;
+}
+
+function cliText(argv) {
+  return 'java -jar target/bookscope.jar --uri ' + $('#uri').value + ' ' + argv.map(a => /\s/.test(a) ? `"${a}"` : a).join(' ');
+}
+function showCli() { $('#cli').textContent = 'Même commande dans le terminal :\n' + cliText(argvFor()); }
+
+async function runService() {
+  const argv = argvFor();
+  const params = new URLSearchParams({ uri: $('#uri').value });
+  argv.forEach(a => params.append('argv', a));
+  await call(fetch('/api/run?' + params));
+}
+
+async function call(promise) {
+  const btn = document.querySelector('button.run');
+  btn.disabled = true;
+  $('#result').innerHTML = '<div class="panel"><span class="time">Requête en cours…</span></div>';
+  try {
+    const res = await promise;
+    show(await res.json());
+  } catch (e) {
+    $('#result').innerHTML = `<div class="panel"><span class="pill bad">erreur</span> ${esc(e.message)}. Le serveur est-il lancé ?</div>`;
+  } finally { btn.disabled = false; }
+}
+
+function renderUpdateForm(p) {
+  p.innerHTML = `<h2>Importer des notes (F6)</h2><p class="desc">${esc(current.desc)}</p>
+    <form id="f"><label class="full">Lot de notes<textarea id="batch" placeholder='{"user_id": 30165, "book_id": 4086, "rating": 1}'></textarea></label>
+    <button type="button" class="ghost" id="sample">Charger 10 lignes du lot d’exemple</button>
+    <button class="run">Importer</button></form>
+    <p class="hint">Astuce : importe un lot une première fois, puis une deuxième fois. La deuxième fois, toutes les lignes sont « unchanged ».
+    Change une note pour voir l’ancienne valeur partir dans <code>rating_changes</code>.</p>
+    <div class="cli">Même commande dans le terminal :\njava -jar target/bookscope.jar --uri ${esc($('#uri').value)} update FICHIER.jsonl</div>`;
+  $('#sample').onclick = async () => { $('#batch').value = await (await fetch('/api/sample-batch')).text(); };
+  $('#f').onsubmit = e => {
+    e.preventDefault();
+    call(fetch('/api/update?' + new URLSearchParams({ uri: $('#uri').value }), { method: 'POST', body: $('#batch').value }));
+  };
+}
+
+// ---- generic rendering of a result document ----
+const isObj = v => v && typeof v === 'object' && !Array.isArray(v);
+const isScalar = v => v === null || typeof v !== 'object';
+const empty = v => v === null || v === undefined || v === '' || (Array.isArray(v) && !v.length) || (isObj(v) && !Object.keys(v).length);
+const label = k => k.replace(/_/g, ' ');
+
+function fmt(v) {
+  if (typeof v === 'number') return Number.isInteger(v) ? String(v) : String(+v.toFixed(4));
+  if (typeof v === 'boolean') return v ? 'oui' : 'non';
+  return esc(v);
+}
+
+function value(v) {
+  if (isScalar(v)) return fmt(v);
+  if (Array.isArray(v) && v.every(isScalar)) return v.map(fmt).join(', ');
+  if (Array.isArray(v) && v.every(x => isObj(x) && Object.values(x).every(y => isScalar(y) || (Array.isArray(y) && y.every(isScalar))))) return table(v);
+  if (Array.isArray(v)) return v.map(item => `<div class="card">${isObj(item) ? kv(item) : value(item)}</div>`).join('');
+  return kv(v);
+}
+
+function table(rows) {
+  const cols = [...new Set(rows.flatMap(r => Object.keys(r)))];
+  return `<div class="tablewrap"><table><thead><tr>${cols.map(c => `<th>${esc(label(c))}</th>`).join('')}</tr></thead><tbody>${
+    rows.map(r => `<tr>${cols.map(c => `<td class="${typeof r[c] === 'number' ? 'num' : ''}">${empty(r[c]) ? '' : value(r[c])}</td>`).join('')}</tr>`).join('')
+  }</tbody></table></div>`;
+}
+
+function kv(obj) {
+  return `<dl class="kv">${Object.entries(obj).filter(([, v]) => !empty(v)).map(([k, v]) =>
+    `<dt>${esc(label(k))}</dt><dd>${k === 'rank' ? `<span class="rank">#${fmt(v)}</span>` : value(v)}</dd>`).join('')}</dl>`;
+}
+
+function show(r) {
+  const cls = r.status === 'ok' ? 'ok' : r.status === 'ok_with_rejections' || r.status === 'insufficient_overlap' ? 'warn' : 'bad';
+  const top = {}, sections = [];
+  for (const [k, v] of Object.entries(r)) {
+    if (['service', 'status', 'elapsed_s'].includes(k) || empty(v)) continue;
+    (isScalar(v) || (Array.isArray(v) && v.every(isScalar)) ? (top[k] = v) : sections.push([k, v]));
+  }
+  $('#result').innerHTML = `<div class="panel">
+    <div class="status"><span class="pill ${cls}">${esc(r.status)}</span><span class="time">${fmt(r.elapsed_s)} s</span></div>
+    ${Object.keys(top).length ? kv(top) : ''}
+    ${sections.map(([k, v]) => `<div class="section"><h3>${esc(label(k))}</h3>${value(v)}</div>`).join('')}
+    <details class="raw"><summary>Réponse JSON brute</summary><pre>${esc(JSON.stringify(r, null, 2))}</pre></details>
+  </div>`;
+}
+
+buildNav();
+$('#uri').onchange = () => { if (current && current.id !== 'update') showCli(); else if (current) select(current.id); };
+let start = 'compare';
+try { start = localStorage.getItem('bookscope-tab') || start; } catch (e) {}
+select(SERVICES.some(s => s.id === start) ? start : 'compare');
+</script>
+</body>
+</html>
